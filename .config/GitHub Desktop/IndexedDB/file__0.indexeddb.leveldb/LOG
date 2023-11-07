@@ -1,3 +1,3 @@
-2023/11/06-18:24:00.012 c7ca3 Reusing MANIFEST /home/pc/.config/GitHub Desktop/IndexedDB/file__0.indexeddb.leveldb/MANIFEST-000001
-2023/11/06-18:24:00.012 c7ca3 Recovering log #3
-2023/11/06-18:24:00.028 c7ca3 Reusing old log /home/pc/.config/GitHub Desktop/IndexedDB/file__0.indexeddb.leveldb/000003.log 
+2023/11/07-01:03:26.894 1092 Reusing MANIFEST /home/pc/.config/GitHub Desktop/IndexedDB/file__0.indexeddb.leveldb/MANIFEST-000001
+2023/11/07-01:03:26.894 1092 Recovering log #4
+2023/11/07-01:03:26.895 1092 Reusing old log /home/pc/.config/GitHub Desktop/IndexedDB/file__0.indexeddb.leveldb/000004.log 
