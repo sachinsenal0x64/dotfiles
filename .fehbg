@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill --image-bg 'black' '/home/pc/wallpaper/haunted-house-for-the-halloween-1920-x-1080-v0-ropdte52oktb1.png' 

@@ -1,0 +1,30 @@
+[Default Applications]
+text/html=brave-browser.desktop
+x-scheme-handler/http=brave-browser.desktop
+x-scheme-handler/https=brave-browser.desktop
+x-scheme-handler/about=brave-browser.desktop
+x-scheme-handler/unknown=brave-browser.desktop
+application/x-shellscript=org.xfce.mousepad.desktop
+image/gif=nvim.desktop
+image/png=imv-dir.desktop
+application/epub+zip=org.pwmt.zathura.desktop
+video/mp4=mpv.desktop
+application/x-bzip2-compressed-tar=peazip.desktop
+
+[Added Associations]
+text/plain=org.xfce.mousepad.desktop;
+application/x-shellscript=org.xfce.mousepad.desktop;
+audio/x-mpegurl=vlc.desktop;org.xfce.mousepad.desktop;mpv.desktop;
+text/x-csrc=org.xfce.mousepad.desktop;
+image/png=feh.desktop;org.ksnip.ksnip.desktop;imv-dir.desktop;imv.desktop;org.gnome.Shotwell-Viewer.desktop;nsxiv.desktop;pqiv.desktop;org.gnome.gThumb.desktop;okularApplication_kimgio.desktop;fotoxx.desktop;oculante.desktop;
+image/gif=imv.desktop;mpv.desktop;feh.desktop;nsxiv.desktop;okularApplication_kimgio.desktop;nvim.desktop;
+application/epub+zip=okularApplication_epub.desktop;org.pwmt.zathura-pdf-mupdf.desktop;org.pwmt.zathura.desktop;
+application/pdf=org.pwmt.zathura.desktop;firefox.desktop;org.pwmt.zathura-pdf-mupdf.desktop;okularApplication_pdf.desktop;
+video/mp4=mpv.desktop;vlc.desktop;
+application/x-compressed-tar=peazip.desktop;
+application/postscript=org.xfce.mousepad.desktop;
+image/webp=feh.desktop;okularApplication_kimgio.desktop;
+text/html=org.xfce.mousepad.desktop;firefox.desktop;org.qutebrowser.qutebrowser.desktop;
+application/x-bzip2-compressed-tar=peazip.desktop;
+application/xml=org.xfce.mousepad.desktop;
+application/json=org.xfce.mousepad.desktop;
