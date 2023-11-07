@@ -1,0 +1,23 @@
+[options]
+bestHwEncoders = '''
+{
+  "h264": null,
+  "h265": null
+}'''
+bestHwDecoders = '''
+{
+  "h264": {
+    "name": "h264",
+    "format": "H264",
+    "vendor": "OTHER",
+    "score": 91,
+    "hwdevice": "AV_HWDEVICE_TYPE_VAAPI"
+  },
+  "h265": {
+    "name": "hevc",
+    "format": "H265",
+    "vendor": "OTHER",
+    "score": 91,
+    "hwdevice": "AV_HWDEVICE_TYPE_VAAPI"
+  }
+}'''

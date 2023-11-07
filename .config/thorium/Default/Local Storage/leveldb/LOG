@@ -1,0 +1,5 @@
+2023/11/05-22:18:04.366 3 Creating DB /home/pc/.config/thorium/Default/Local Storage/leveldb since it was missing.
+2023/11/05-22:18:04.388 3 Reusing MANIFEST /home/pc/.config/thorium/Default/Local Storage/leveldb/MANIFEST-000001
+2023/11/05-22:23:59.131 5 Level-0 table #5: started
+2023/11/05-22:23:59.139 5 Level-0 table #5: 61153 bytes OK
+2023/11/05-22:23:59.145 5 Delete type=0 #3

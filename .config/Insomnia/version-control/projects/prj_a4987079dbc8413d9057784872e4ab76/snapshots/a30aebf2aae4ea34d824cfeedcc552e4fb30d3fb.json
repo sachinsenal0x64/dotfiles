@@ -1,0 +1,25 @@
+{
+  "author": "acct_5d2a22105a71438fb4881b867f61b4a2",
+  "authorAccount": {
+    "email": "therubyservices@gmail.com",
+    "firstName": "t",
+    "lastName": "ry"
+  },
+  "created": "2023-11-02T01:35:10.68Z",
+  "description": "",
+  "id": "a30aebf2aae4ea34d824cfeedcc552e4fb30d3fb",
+  "name": "Initial Snapshot",
+  "parent": "0000000000000000000000000000000000000000",
+  "state": [
+    {
+      "blob": "a01463789cfb024b415fed65a68863c26ee7b596",
+      "key": "env_31e77041cd854730f2750fa33b8ad6e5f09313e1",
+      "name": "Base Environment"
+    },
+    {
+      "blob": "5f60e4c836a15a70ac2bc535dd303175ce4df938",
+      "key": "wrk_dec03b02b4434f0091b50f7a80a696a5",
+      "name": "Api"
+    }
+  ]
+}

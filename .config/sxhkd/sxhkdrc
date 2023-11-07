@@ -1,0 +1,10 @@
+control + Print
+ sh /home/pc/dotfiles/scripts/screenshot  
+
+alt + z
+  flameshot gui
+
+
+super + period
+  emote
+
