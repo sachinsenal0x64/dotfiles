@@ -16,6 +16,9 @@ PS1='[\u@\h \W]\$ '
 # ALIASES
 # -----------------------------------------------------
 
+alias spt='ncspot'
+alias con='wg-quick up /etc/wireguard/wgcf-profile.conf'
+alias dis='wg-quick down /etc/wireguard/wgcf-profile.conf'
 alias rec='ffmpeg -vaapi_device /dev/dri/renderD128 -f x11grab -framerate 60 -video_size 1920x1080 -i :0.0 -f alsa -i default  -vf 'format=nv12,hwupload' -c:v h264_vaapi ~/Downloads/output.mp4 -hide_banner -loglevel error'
 alias cinema='lobster -i'
 alias uxclip="sh $HOME/dotfiles/scripts/uclip"
