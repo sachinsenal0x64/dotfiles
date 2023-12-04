@@ -1,0 +1,23 @@
+remote_id = '525547126'
+kb_layout_type = ''
+size = [
+    0,
+    0,
+    0,
+    0,
+]
+fav = []
+
+[options]
+remote-menubar-drag-right = '1.0'
+theme = 'dark'
+enable-check-update = 'N'
+remote-menubar-drag-left = '0.0'
+
+[ui_flutter]
+wm_RemoteDesktop = '{"width":1920.0,"height":1080.0,"offsetWidth":0.0,"offsetHeight":28.0,"isMaximized":false,"isFullscreen":false}'
+wm_Unknown = '{"width":1920.0,"height":1080.0,"offsetWidth":0.0,"offsetHeight":28.0,"isMaximized":false,"isFullscreen":false}'
+wm_FileTransfer = '{"width":1920.0,"height":1080.0,"offsetWidth":0.0,"offsetHeight":28.0,"isMaximized":false,"isFullscreen":false}'
+wm_PortForward = '{"width":1920.0,"height":1080.0,"offsetWidth":0.0,"offsetHeight":28.0,"isMaximized":false,"isFullscreen":false}'
+wm_Main = '{"width":1884.0,"height":990.0,"offsetWidth":15.0,"offsetHeight":69.0,"isMaximized":false,"isFullscreen":false}'
+peer-sorting = 'Remote ID'

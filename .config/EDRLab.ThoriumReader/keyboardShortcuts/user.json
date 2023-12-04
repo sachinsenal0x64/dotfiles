@@ -1,0 +1,254 @@
+{
+    "AudioNext": {
+        "alt": false,
+        "control": true,
+        "key": "Digit3",
+        "shift": false
+    },
+    "AudioNextAlt": {
+        "alt": true,
+        "control": true,
+        "key": "Digit3",
+        "shift": true
+    },
+    "AudioPlayPause": {
+        "alt": false,
+        "control": true,
+        "key": "Digit2",
+        "shift": false
+    },
+    "AudioPrevious": {
+        "alt": false,
+        "control": true,
+        "key": "Digit1",
+        "shift": false
+    },
+    "AudioPreviousAlt": {
+        "alt": true,
+        "control": true,
+        "key": "Digit1",
+        "shift": true
+    },
+    "AudioStop": {
+        "alt": false,
+        "control": true,
+        "key": "Digit4",
+        "shift": false
+    },
+    "CloseReader": {
+        "alt": false,
+        "control": true,
+        "key": "KeyW",
+        "shift": false
+    },
+    "FXLZoomIn": {
+        "alt": false,
+        "control": true,
+        "key": "Digit9",
+        "shift": false
+    },
+    "FXLZoomOut": {
+        "alt": false,
+        "control": true,
+        "key": "Digit8",
+        "shift": false
+    },
+    "FXLZoomReset": {
+        "alt": false,
+        "control": true,
+        "key": "Digit0",
+        "shift": false
+    },
+    "FocusMain": {
+        "alt": false,
+        "control": true,
+        "key": "F10",
+        "shift": false
+    },
+    "FocusReaderGotoPage": {
+        "alt": false,
+        "control": true,
+        "key": "KeyP",
+        "shift": true
+    },
+    "FocusReaderNavigation": {
+        "alt": false,
+        "control": true,
+        "key": "KeyN",
+        "shift": false
+    },
+    "FocusReaderNavigationTOC": {
+        "alt": false,
+        "control": true,
+        "key": "KeyN",
+        "shift": true
+    },
+    "FocusReaderSettings": {
+        "alt": false,
+        "control": true,
+        "key": "KeyS",
+        "shift": false
+    },
+    "FocusSearch": {
+        "alt": false,
+        "control": true,
+        "key": "KeyF",
+        "shift": false
+    },
+    "FocusToolbar": {
+        "alt": false,
+        "control": true,
+        "key": "KeyT",
+        "shift": false
+    },
+    "NavigateNextChapter": {
+        "alt": true,
+        "control": true,
+        "key": "ArrowRight",
+        "shift": true
+    },
+    "NavigateNextChapterAlt": {
+        "alt": false,
+        "control": true,
+        "key": "PageDown",
+        "shift": false
+    },
+    "NavigateNextHistory": {
+        "alt": false,
+        "control": true,
+        "key": "Backspace",
+        "shift": true
+    },
+    "NavigateNextOPDSPage": {
+        "alt": false,
+        "control": true,
+        "key": "ArrowRight",
+        "shift": true
+    },
+    "NavigateNextOPDSPageAlt": {
+        "alt": false,
+        "control": true,
+        "key": "Period",
+        "shift": true
+    },
+    "NavigateNextPage": {
+        "alt": false,
+        "control": false,
+        "key": "ArrowRight",
+        "shift": false
+    },
+    "NavigateNextPageAlt": {
+        "alt": false,
+        "control": true,
+        "key": "Period",
+        "shift": false
+    },
+    "NavigatePreviousChapter": {
+        "alt": true,
+        "control": true,
+        "key": "ArrowLeft",
+        "shift": true
+    },
+    "NavigatePreviousChapterAlt": {
+        "alt": false,
+        "control": true,
+        "key": "PageUp",
+        "shift": false
+    },
+    "NavigatePreviousHistory": {
+        "alt": false,
+        "control": true,
+        "key": "Backspace",
+        "shift": false
+    },
+    "NavigatePreviousOPDSPage": {
+        "alt": false,
+        "control": true,
+        "key": "ArrowLeft",
+        "shift": true
+    },
+    "NavigatePreviousOPDSPageAlt": {
+        "alt": false,
+        "control": true,
+        "key": "Comma",
+        "shift": true
+    },
+    "NavigatePreviousPage": {
+        "alt": false,
+        "control": false,
+        "key": "ArrowLeft",
+        "shift": false
+    },
+    "NavigatePreviousPageAlt": {
+        "alt": false,
+        "control": true,
+        "key": "Comma",
+        "shift": false
+    },
+    "NavigateToBegin": {
+        "alt": false,
+        "control": true,
+        "key": "Home",
+        "shift": false
+    },
+    "NavigateToEnd": {
+        "alt": false,
+        "control": true,
+        "key": "End",
+        "shift": false
+    },
+    "OpenReaderInfo": {
+        "alt": false,
+        "control": true,
+        "key": "KeyI",
+        "shift": false
+    },
+    "OpenReaderInfoWhereAmI": {
+        "alt": false,
+        "control": true,
+        "key": "KeyI",
+        "shift": true
+    },
+    "SearchNext": {
+        "alt": false,
+        "control": false,
+        "key": "F3",
+        "shift": false
+    },
+    "SearchNextAlt": {
+        "alt": false,
+        "control": true,
+        "key": "KeyG",
+        "shift": false
+    },
+    "SearchPrevious": {
+        "alt": false,
+        "control": false,
+        "key": "F3",
+        "shift": true
+    },
+    "SearchPreviousAlt": {
+        "alt": false,
+        "control": true,
+        "key": "KeyG",
+        "shift": true
+    },
+    "SpeakReaderInfoWhereAmI": {
+        "alt": false,
+        "control": true,
+        "key": "KeyK",
+        "shift": true
+    },
+    "ToggleBookmark": {
+        "alt": false,
+        "control": true,
+        "key": "KeyB",
+        "shift": false
+    },
+    "ToggleReaderFullscreen": {
+        "alt": false,
+        "control": true,
+        "key": "F11",
+        "shift": false
+    }
+}

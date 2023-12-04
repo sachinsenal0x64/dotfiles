@@ -1,0 +1,30 @@
+2023/11/12-10:07:44.277 8c9a1 Reusing MANIFEST /home/pc/.config/thorium/Default/Local Extension Settings/cjpalhdlnbpafiamejdnhcphjbkeiagm/MANIFEST-000001
+2023/11/12-10:07:44.278 8c9a1 Recovering log #14
+2023/11/12-10:07:44.290 8c9a1 Reusing old log /home/pc/.config/thorium/Default/Local Extension Settings/cjpalhdlnbpafiamejdnhcphjbkeiagm/000014.log 
+2023/11/12-10:08:00.883 8c9a1 Level-0 table #22: started
+2023/11/12-10:08:00.930 8c9a1 Level-0 table #22: 2311967 bytes OK
+2023/11/12-10:08:00.935 8c9a1 Delete type=0 #14
+2023/11/12-10:08:07.650 8c9a1 Level-0 table #24: started
+2023/11/12-10:08:07.692 8c9a1 Level-0 table #24: 1957567 bytes OK
+2023/11/12-10:08:07.698 8c9a1 Delete type=0 #21
+2023/11/12-10:08:14.223 8c9a4 Level-0 table #26: started
+2023/11/12-10:08:14.360 8c9a4 Level-0 table #26: 1472299 bytes OK
+2023/11/12-10:08:14.443 8c9a4 Delete type=0 #23
+2023/11/12-10:10:22.617 8c9a1 Level-0 table #28: started
+2023/11/12-10:10:22.668 8c9a1 Level-0 table #28: 3377366 bytes OK
+2023/11/12-10:10:22.673 8c9a1 Delete type=0 #25
+2023/11/12-10:10:22.673 8c9a1 Compacting 4@0 + 4@1 files
+2023/11/12-10:10:22.732 8c9a1 Generated table #29@0: 13 keys, 2581975 bytes
+2023/11/12-10:10:22.787 8c9a1 Generated table #30@0: 10 keys, 2641658 bytes
+2023/11/12-10:10:22.844 8c9a1 Generated table #31@0: 9 keys, 2656996 bytes
+2023/11/12-10:10:22.849 8c9a1 Generated table #32@0: 5 keys, 129646 bytes
+2023/11/12-10:10:22.849 8c9a1 Compacted 4@0 + 4@1 files => 8010275 bytes
+2023/11/12-10:10:22.853 8c9a1 compacted to: files[ 0 4 1 0 0 0 0 ]
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #16
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #17
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #18
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #19
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #22
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #24
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #26
+2023/11/12-10:10:22.853 8c9a1 Delete type=2 #28

@@ -1,0 +1,53 @@
+password = []
+size = [
+    0,
+    0,
+    0,
+    0,
+]
+size_ft = [
+    0,
+    0,
+    0,
+    0,
+]
+size_pf = [
+    0,
+    0,
+    0,
+    0,
+]
+view_style = 'adaptive'
+scroll_style = 'scrollauto'
+image_quality = 'balanced'
+custom_image_quality = [50]
+show_remote_cursor = false
+lock_after_session_end = false
+privacy_mode = false
+allow_swap_key = false
+port_forwards = []
+direct_failures = 0
+disable_audio = false
+disable_clipboard = false
+enable_file_transfer = false
+show_quality_monitor = false
+keyboard_mode = 'map'
+view_only = false
+
+[options]
+touch-mode = ''
+custom-fps = '30'
+zoom-cursor = ''
+codec-preference = 'auto'
+
+[ui_flutter]
+wm_RemoteDesktop = '{"width":1920.0,"height":1080.0,"offsetWidth":0.0,"offsetHeight":28.0,"isMaximized":false,"isFullscreen":false}'
+
+[info]
+username = 'busin'
+hostname = 'sela'
+platform = 'Windows'
+
+[transfer]
+write_jobs = []
+read_jobs = []

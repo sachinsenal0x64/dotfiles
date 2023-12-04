@@ -1,0 +1,357 @@
+[
+	{
+		"value": "Preparing request to https://api.tidal.com/v1/tracks/38519997/playbackinfopostpaywall?countryCode=en_US&audioquality=LOSSLESS&assetpresentation=FULL",
+		"name": "Text",
+		"timestamp": 1700287928244
+	},
+	{
+		"value": "Current time is 2023-11-18T06:12:08.244Z",
+		"name": "Text",
+		"timestamp": 1700287928244
+	},
+	{
+		"value": "Enable automatic URL encoding",
+		"name": "Text",
+		"timestamp": 1700287928244
+	},
+	{
+		"value": "Using default HTTP version",
+		"name": "Text",
+		"timestamp": 1700287928244
+	},
+	{
+		"value": "Enable timeout of 30000ms",
+		"name": "Text",
+		"timestamp": 1700287928244
+	},
+	{
+		"value": "Enable SSL validation",
+		"name": "Text",
+		"timestamp": 1700287928244
+	},
+	{
+		"name": "Text",
+		"value": "Too old connection (652 seconds), disconnect it\n",
+		"timestamp": 1700287928245
+	},
+	{
+		"name": "Text",
+		"value": "Connection 1 seems to be dead!\n",
+		"timestamp": 1700287928245
+	},
+	{
+		"name": "Text",
+		"value": "Closing connection 1\n",
+		"timestamp": 1700287928245
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928245
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928245
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (OUT), TLS alert, close notify (256):\n",
+		"timestamp": 1700287928245
+	},
+	{
+		"name": "Text",
+		"value": "  Trying 13.33.88.79:443...\n",
+		"timestamp": 1700287928465
+	},
+	{
+		"name": "Text",
+		"value": "Connected to api.tidal.com (13.33.88.79) port 443 (#2)\n",
+		"timestamp": 1700287928467
+	},
+	{
+		"name": "Text",
+		"value": "ALPN, offering h2\n",
+		"timestamp": 1700287928468
+	},
+	{
+		"name": "Text",
+		"value": "ALPN, offering http/1.1\n",
+		"timestamp": 1700287928468
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.0 (OUT), TLS header, Certificate Status (22):\n",
+		"timestamp": 1700287928500
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (OUT), TLS handshake, Client hello (1):\n",
+		"timestamp": 1700287928500
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Certificate Status (22):\n",
+		"timestamp": 1700287928916
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (IN), TLS handshake, Server hello (2):\n",
+		"timestamp": 1700287928916
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Finished (20):\n",
+		"timestamp": 1700287928916
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928916
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):\n",
+		"timestamp": 1700287928916
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928916
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (IN), TLS handshake, Certificate (11):\n",
+		"timestamp": 1700287928917
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928918
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (IN), TLS handshake, CERT verify (15):\n",
+		"timestamp": 1700287928918
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (IN), TLS handshake, Finished (20):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Finished (20):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (OUT), TLS handshake, Finished (20):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "ALPN, server accepted to use h2\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "Server certificate:\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": " subject: CN=tidal.com\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": " start date: Jul 10 00:00:00 2023 GMT\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": " expire date: Aug  7 23:59:59 2024 GMT\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": " subjectAltName: host \"api.tidal.com\" matched cert's \"*.tidal.com\"\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": " issuer: C=US; O=Amazon; CN=Amazon RSA 2048 M01\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": " SSL certificate verify ok.\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "Using HTTP2, server supports multiplexing\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "Connection state changed (HTTP/2 confirmed)\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "Using Stream ID: 1 (easy handle 0xfe0036c4000)\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "HeaderOut",
+		"value": "GET /v1/tracks/38519997/playbackinfopostpaywall?countryCode=en_US&audioquality=LOSSLESS&assetpresentation=FULL HTTP/2\r\nHost: api.tidal.com\r\nbearer: eyJraWQiOiJ2OU1GbFhqWSIsImFsZyI6IkVTMjU2In0.eyJ0eXBlIjoibzJfYWNjZXNzIiwidWlkIjoxOTEwMDgxNjcsInNjb3BlIjoid19zdWIgcl91c3Igd191c3IiLCJnVmVyIjowLCJzVmVyIjowLCJjaWQiOjMyMzUsImV4cCI6MTcwMDg5MjAzNiwic2lkIjoiN2ViNTg0YTItMTk5Mi00MjJhLWIzZTktZDQ0MmM5NGY0NmZiIiwiaXNzIjoiaHR0cHM6Ly9hdXRoLnRpZGFsLmNvbS92MSJ9.GAQqQxuuxMOcHQ4kipKoRbBKDRDzpGuAI4VInePFdPrPsSnzN-5M3HRiZZt0EnixBfNuwoExJ0p-2G_DagKgBw\r\naccept: */*\r\n\r\n",
+		"timestamp": 1700287928919
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928996
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):\n",
+		"timestamp": 1700287928996
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928997
+	},
+	{
+		"name": "Text",
+		"value": "Connection state changed (MAX_CONCURRENT_STREAMS == 128)!\n",
+		"timestamp": 1700287928997
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (OUT), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287928997
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "HTTP/2 401 \r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "content-type: application/json\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "content-length: 65\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "date: Sat, 18 Nov 2023 06:12:08 GMT\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "cache-control: no-cache\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "server: noyb\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "x-cache: Error from cloudfront\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "via: 1.1 cccd1c02ebcc6a46e3ee52075ec059e8.cloudfront.net (CloudFront)\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "x-amz-cf-pop: SIN2-P2\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "x-amz-cf-id: ut_TCFrbCThYtkcMGCU_9l76qv8i2WJNisha8I0oqJc23PaiiuAYgw==\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "HeaderIn",
+		"value": "\r\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "Text",
+		"value": "Received 65 B chunk",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "Text",
+		"value": "TLSv1.2 (IN), TLS header, Supplemental data (23):\n",
+		"timestamp": 1700287929237
+	},
+	{
+		"name": "Text",
+		"value": "Connection #2 to host api.tidal.com left intact\n",
+		"timestamp": 1700287929237
+	}
+]

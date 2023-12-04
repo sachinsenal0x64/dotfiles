@@ -1,0 +1,23 @@
+{
+  "@context": "https://readium.org/webpub-manifest/context.jsonld",
+  "metadata": {
+    "title": "EDRLAB.ThoriumReader-2.3.0en"
+  },
+  "readingOrder": [
+    {
+      "type": "application/xhtml+xml",
+      "title": "en",
+      "href": "en.xhtml"
+    }
+  ],
+  "resources": [
+    {
+      "type": "image/png",
+      "href": "images/lcp-user.png"
+    },
+    {
+      "type": "image/jpeg",
+      "href": "images/piggy-bank.jpeg"
+    }
+  ]
+}

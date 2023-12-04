@@ -1,0 +1,79 @@
+{
+    "enabled": true,
+    "fetchNews": true,
+    "theme": {
+        "mode": 1,
+        "brightness": 100,
+        "contrast": 100,
+        "grayscale": 0,
+        "sepia": 0,
+        "useFont": false,
+        "fontFamily": "Open Sans",
+        "textStroke": 0,
+        "engine": "dynamicTheme",
+        "stylesheet": "",
+        "darkSchemeBackgroundColor": "#181a1b",
+        "darkSchemeTextColor": "#e8e6e3",
+        "lightSchemeBackgroundColor": "#dcdad7",
+        "lightSchemeTextColor": "#181a1b",
+        "scrollbarColor": "auto",
+        "selectionColor": "auto",
+        "styleSystemControls": false,
+        "lightColorScheme": "Default",
+        "darkColorScheme": "Default",
+        "immediateModify": false
+    },
+    "presets": [],
+    "customThemes": [],
+    "siteList": [
+        "www.reddit.com",
+        "twitter.com",
+        "sachinsenal.tech",
+        "docs.google.com",
+        "www.waterboard.lk",
+        "web.whatsapp.com",
+        "discord.com",
+        "github.com",
+        "www.canva.com",
+        "studio.youtube.com",
+        "freedium.cfd",
+        "www.linkedin.com",
+        "www.ibm.com",
+        "sqlmodel.tiangolo.com",
+        "billing.oxide.host",
+        "sing-box.sagernet.org",
+        "89.33.85.50:8798",
+        "idcs-d5c760a88f384cae9941075ee3182b75.identity.oraclecloud.com",
+        "ser.401658.xyz:8796",
+        "upptime.js.org"
+    ],
+    "siteListEnabled": [],
+    "applyToListedOnly": false,
+    "changeBrowserTheme": false,
+    "syncSettings": true,
+    "syncSitesFixes": true,
+    "automation": {
+        "enabled": false,
+        "mode": "system",
+        "behavior": "OnOff"
+    },
+    "time": {
+        "activation": "18:00",
+        "deactivation": "9:00"
+    },
+    "location": {
+        "latitude": null,
+        "longitude": null
+    },
+    "previewNewDesign": true,
+    "enableForPDF": true,
+    "enableForProtectedPages": true,
+    "enableContextMenus": false,
+    "detectDarkTheme": true,
+    "displayedNews": [
+        "news-2023"
+    ],
+    "readNews": [
+        "news-2023"
+    ]
+}

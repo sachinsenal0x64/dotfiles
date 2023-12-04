@@ -1,0 +1,40 @@
+[Desktop Entry]
+FullScreen=false
+
+[General]
+LockSidebar=true
+ShowSidebar=true
+
+[MainWindow]
+1920x1080 screen: Height=490
+1920x1080 screen: Width=619
+1920x1080 screen: XPosition=1280
+1920x1080 screen: YPosition=569
+DVI-D-1=DVI-D-1
+State=AAAA/wAAAAD9AAAAAQAAAAAAAABdAAABcfwCAAAAAfsAAAAcAG8AawB1AGwAYQByAF8AcwBpAGQAZQBiAGEAcgAAAAB5AAABcQAAAQcBAAACAAACawAAAXEAAAAEAAAABAAAAAgAAAAI/AAAAAMAAAABAAAAAQAAACwAcQB1AGkAYwBrAEEAbgBuAG8AdABhAHQAaQBvAG4AVABvAG8AbABCAGEAcgIAAAAA/////wAAAAAAAAAAAAAAAgAAAAEAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAAgAAAAEAAAAiAGEAbgBuAG8AdABhAHQAaQBvAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+
+[Recent Files]
+File1[$e]=$HOME/wallpaper/7ag928zsklsb1.jpg
+File10[$e]=/mnt/home/GITHUB/HIFI-TUI/mpv
+File2[$e]=$HOME/wallpaper/apex_octane.jpg
+File3[$e]=$HOME/Pictures/screenshots/screenshot_16102023_170749.png
+File4[$e]=$HOME/Downloads/README.md
+File5[$e]=$HOME/wallpaper/zvnrd0c8u2bb1.jpg
+File6[$e]=$HOME/wallpaper/haunted-house-for-the-halloween-1920-x-1080-v0-ropdte52oktb1.png
+File7[$e]=$HOME/Pictures/screenshots/giphy.gif
+File8[$e]=$HOME/Downloads/Sachin-Senal-Resume-V3.pdf
+File9[$e]=$HOME/Downloads/sample2.djvu
+Name1[$e]=7ag928zsklsb1.jpg
+Name10[$e]=mpv
+Name2[$e]=apex_octane.jpg
+Name3[$e]=screenshot_16102023_170749.png
+Name4[$e]=README.md
+Name5[$e]=zvnrd0c8u2bb1.jpg
+Name6[$e]=haunted-house-for-the-halloween-1920-x-1080-v0-ropdte52oktb1.png
+Name7[$e]=giphy.gif
+Name8[$e]=Sachin-Senal-Resume-V3.pdf
+Name9[$e]=sample2.djvu
+
+[UiSettings]
+ColorScheme=Catppuccin Mocha Sky
