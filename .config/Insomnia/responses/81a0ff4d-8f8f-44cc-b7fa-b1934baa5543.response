@@ -1,1 +1,0 @@
-{"_id":"75e7b031-f673-42c0-8f87-5da2179fd505","requestId":"ws-req_6fc79648fc9345049fa098165da66f5c","message":"getaddrinfo ENOTFOUND localhosy","type":"error","error":{"errno":-3008,"code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"localhosy"},"timestamp":1700205772298}

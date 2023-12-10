@@ -1,8 +1,0 @@
-rendezvous_server = 'rs-ny.rustdesk.com:21116'
-nat_type = 2
-serial = 0
-
-[options]
-allow-linux-headless = 'Y'
-local-ip-addr = '192.168.8.106'
-stop-service = 'Y'
