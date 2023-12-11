@@ -12,7 +12,7 @@ lvim.leader = "space"
 lvim.colorscheme = "pywal"
 
 
--- Keybindigs
+-- Keybinds
 
 
 lvim.builtin.which_key.mappings = {
