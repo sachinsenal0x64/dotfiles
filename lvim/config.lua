@@ -2,13 +2,18 @@
 -- Video Tutorials: https://www.youtube.com/watch?v=sFA9kX-Ud_c&list=PLhoH5vyxr6QqGu0i7tt_XoVK9v-KvZ3m6
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
+<<<<<<< HEAD
 
 
 -- Misc
+=======
+--
+>>>>>>> f8a86981c7e988705be4d74a4fe22c7a6425e26c
 
 vim.opt.mouse = ""
 lvim.transparent_window = true
 lvim.leader = "space"
+<<<<<<< HEAD
 lvim.colorscheme = "pywal"
 
 -- Keybindigs
@@ -37,3 +42,6 @@ lvim.plugins = {
 
 
 }
+=======
+
+>>>>>>> f8a86981c7e988705be4d74a4fe22c7a6425e26c
