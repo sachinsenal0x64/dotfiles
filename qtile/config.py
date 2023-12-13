@@ -105,7 +105,7 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
 
 
-    Key([mod],"r",lazy.spawn('kitty -e sh -c "gyr --replace; sleep 1 && pkill -f kitty"')),  
+    Key([mod],"r",lazy.spawn('kitty -e sh -c "gyr --replace; sleep 1 && pkill -n kitty"')),  
 
 
     # Size
