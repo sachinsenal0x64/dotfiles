@@ -11,8 +11,7 @@ lvim.transparent_window = true
 lvim.leader = "space"
 lvim.colorscheme = "pywal"
 
-
--- Keybindings
+-- Keybindigs
 
 
 lvim.builtin.which_key.mappings = {
@@ -24,6 +23,7 @@ lvim.builtin.which_key.mappings = {
   ["S"] = { "<cmd>Lazy clear<cr>", "Status" },
   ["u"] = { "<cmd>Lazy update<cr>", "Update" },
  }
+
 
 -- Plugins
 
@@ -37,4 +37,3 @@ lvim.plugins = {
 
 
 }
-
