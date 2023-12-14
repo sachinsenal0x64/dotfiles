@@ -161,7 +161,8 @@ keymap = [
 
 keymap = [
 	{ on = [ "<C-q>" ],       exec = "close",          desc = "Cancel input" },
-	{ on = [ "<Enter>" ],     exec = "close --submit", desc = "Submit the input" },
+  { on = [ "<Backspace>" ], exec = "backspace" },
+  { on = [ "<Enter>" ],     exec = "close --submit", desc = "Submit the input" },
 	{ on = [ "<Esc>" ],       exec = "escape",         desc = "Go back the normal mode, or cancel input" },
 
 	# Mode

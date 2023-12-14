@@ -15,11 +15,11 @@ cache_dir  = "~/.cache"
 
 [opener]
 folder = [
-	{ exec = 'open -R "$@"', display_name = "Reveal in Finder" },
+	{ exec = 'open -R "$@"', desc = "Reveal in Finder" },
 	{ exec = '$EDITOR "$@"' },
 ]
 archive = [
-	{ exec = 'unar "$1"', display_name = "Extract here" },
+	{ exec = 'unar "$1"', desc = "Extract here" },
 ]
 text = [
 	{ exec = '$EDITOR "$@"', block= true },
@@ -27,8 +27,9 @@ text = [
 
 image = [
 	{ exec = 'imv-dir  "$@"',block = true},
-	{ exec = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, display_name = "Show EXIF" },
+  { exec = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF" },
 ]
+
 
 pdf = [
 
@@ -37,18 +38,18 @@ pdf = [
 ]
 
 video = [
-	{ exec = 'mpv "$@"' },
-	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, display_name = "Show media info" },
+	{ exec = 'mpv "$@"',block= true },
+	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
 ]
 audio = [
 	{ exec = 'mpv --no-video "$@"',block=true },
-	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, display_name = "Show media info" },
+	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
 ]
 
 
 fallback = [
-	{ exec = 'xdg-open "$@"', display_name = "Open" },
-	{ exec = 'xdg-open -R "$@"', display_name = "Reveal in Finder" },
+	{ exec = 'xdg-open "$@"', desc = "Open" },
+	{ exec = 'xdg-open -R "$@"', desc = "Reveal in Finder" },
 ]
 
 [open]
