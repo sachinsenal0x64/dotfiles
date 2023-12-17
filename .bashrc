@@ -36,7 +36,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 fzz() {
 
   EXTERNAL_COLUMNS=$COLUMNS \
-  fzf --preview='2>nul kitten icat --clear --transfer-mode=memory --place="$COLUMNS"x"$LINES"@"$(($EXTERNAL_COLUMNS-$COLUMNS))"x10 --align center --stdin=no {} >/dev/tty && bat --color always --style numbers --theme TwoDark --line-range :200 {}'
+  fzf --preview='2>/dev/null kitten icat --clear --transfer-mode=memory --place="$COLUMNS"x"$LINES"@"$(($EXTERNAL_COLUMNS-$COLUMNS))"x10 --align center --stdin=no {} >/dev/tty && bat --color always --style numbers --theme TwoDark --line-range :200 {}'
 
 }
 
