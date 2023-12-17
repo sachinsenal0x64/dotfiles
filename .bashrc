@@ -2,6 +2,19 @@
 
 # ~/.bashrc
 
+export PNPM_HOME="/home/pc/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+
+# Clipboard as cb
+
+export CLIPBOARD_NOAUDIO=1
+
+
+
 # Gnupg
 
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
@@ -18,6 +31,15 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 
+# Functions
+
+fzz() {
+
+  EXTERNAL_COLUMNS=$COLUMNS \
+  fzf --preview='2>nul kitten icat --clear --transfer-mode=memory --place="$COLUMNS"x"$LINES"@"$(($EXTERNAL_COLUMNS-$COLUMNS))"x10 --align center --stdin=no {} >/dev/tty && bat --color always --style numbers --theme TwoDark --line-range :200 {}'
+
+}
+
 
 
 # Python
@@ -25,14 +47,18 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export PYTHONSTARTUP="/etc/python/pythonrc"
 
 
-# Startship Launch
+# Eval Launch
+
 eval "$(starship init bash)"
+
+
+eval "$(thefuck --alias)"
 
 
 # Pfetch
 
 echo ""
-export PF_INFO="ascii title os wm editor kernel pkgs uptime palette"
+export PF_INFO="ascii title os wm editor shell kernel uptime palette"
 pfetch
 
 
@@ -48,8 +74,13 @@ alias gyr="gyr --replace"
 alias sudo='sudo -E'
 alias sync='rsync -avzh --progress --stats'
 alias activate='~/Documents/hifi_tui/bin/activate'
-alias dotbak='sync ~/dotfiles/ ~/Documents/github/dotfiles/'
+alias dotbak='sync ~/dotfiles/ ~/Documents/github/dotfiles/ && sync ~/.bashrc ~/Documents/github/dotfiles/'
 alias pdir='cd ~/Documents/github/'
+alias bat="bat --color always --style numbers --theme TwoDark"
+alias dl="n-m3u8dl-re"
+
+# Whoami
+
 [[ "$(whoami)" = "root" ]] && return
 
 [[ -z "$FUNCNEST" ]] && export FUNCNEST=100          # limits recursive functions, see 'man bash'
@@ -67,21 +98,28 @@ function ya() {
 	rm -f -- "$tmp"
 }
 
-# Yarn 
+
+
+# Reverse History Search 
+
+
+fzf_history_search() {
+  local selected_command
+  selected_command=$(fc -ln 1 | fzf --color=16 )  # Get command using fzf
+  READLINE_LINE="$selected_command"  # Set selected command to READLINE_LINE
+  READLINE_POINT=${#READLINE_LINE}   # Move cursor to the end of the line
+}
+
+
+# Key Binds
+
+bind -x '"\C-r": fzf_history_search'  # Reverse Search  Bind Ctrl+R to the function
+
+bind -x '"\C-f": fzz'  # fzf + image preview
 
 
 
-## Use the up and down arrow keys for finding a command in history
-## (you can write some initial letters of the command first).
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
 
-################################################################################
-## Some generally useful functions.
-## Consider uncommenting aliases below to start using these functions.
-##
-## October 2021: removed many obsolete functions. If you still need them, please look at
-## https://github.com/EndeavourOS-archive/EndeavourOS-archiso/raw/master/airootfs/etc/skel/.bashrc
 
 _open_files_for_editing() {
     # Open any given document file(s) for editing (or just viewing).
@@ -120,7 +158,6 @@ _open_files_for_editing() {
 
 # GIT
 
-
 export XDG_CONFIG_HOME="$HOME/.config"
 
 export GIT_HOME="$XDG_CONFIG_HOME/git"
@@ -137,9 +174,18 @@ export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 
 export HISTFILE="$XDG_STATE_HOME"/bash/.bash_history
 
+
 # Rust
 
 
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
 export CARGO_HOME="$XDG_DATA_HOME"/.cargo
+
+# pnpm
+export PNPM_HOME="/home/pc/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
