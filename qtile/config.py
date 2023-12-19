@@ -5,33 +5,32 @@
 #  \__\_\|_| |___|_____|_____|  \____\___/|_| |_|_| |_|\__, |
 #                                                      |___/
 
+import json
 import os
 import re
 import socket
 import subprocess
-import psutil
-import json
-from libqtile import hook
-from libqtile import qtile
+from pathlib import Path
 from typing import List
-from libqtile import bar, layout, widget
+
+import psutil
+from libqtile import bar, hook, layout, qtile, widget
 from libqtile.config import (
     Click,
     Drag,
+    DropDown,
     Group,
     Key,
-    Match,
-    Screen,
-    ScratchPad,
-    DropDown,
     KeyChord,
+    Match,
+    ScratchPad,
+    Screen,
 )
+from libqtile.dgroups import simple_key_binder
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from libqtile.widget import Spacer, Backlight
+from libqtile.widget import Backlight, Spacer
 from libqtile.widget.image import Image
-from libqtile.dgroups import simple_key_binder
-from pathlib import Path
 
 # Get home path
 home = str(Path.home())
@@ -40,7 +39,7 @@ home = str(Path.home())
 # Define Bar
 # --------------------------------------------------------
 wm_bar = "polybar"
-#wm_bar = "qtile"
+# wm_bar = "qtile"
 
 # --------------------------------------------------------
 # Check for VirtualBox
@@ -103,11 +102,11 @@ keys = [
     # Swap
     Key([mod, "shift"], "h", lazy.layout.swap_left()),
     Key([mod, "shift"], "l", lazy.layout.swap_right()),
-
-
-    Key([mod],"r",lazy.spawn('kitty -e sh -c "gyr --replace; sleep 1 && pkill -n kitty"')),  
-
-
+    Key(
+        [mod],
+        "r",
+        lazy.spawn('kitty -e sh -c "gyr --replace; sleep 1 && pkill -n kitty"'),
+    ),
     # Size
     # Key([mod], "h", lazy.layout.shrink(), lazy.layout.decrease_nmaster(), desc='Shrink window (MonadTall)'),
     # Key([mod], "l", lazy.layout.grow(), lazy.layout.increase_nmaster(), desc='Expand window (MonadTall)'),
@@ -141,9 +140,7 @@ keys = [
     # Apps
     Key([mod], "e", lazy.spawn("kitty -e sh -c yazi ")),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-    
     Key([mod], "b", lazy.spawn(browser), desc="Launch Browser"),
-   
     Key(
         [mod],
         "v",
@@ -156,34 +153,26 @@ keys = [
         lazy.spawn(home + "/dotfiles/wallpapers/wallpaper.sh next"),
         desc="Update Theme and Wallpaper",
     ),
-   
     Key(
         [mod, "control"],
         "w",
         lazy.spawn(home + "/dotfiles/wallpapers/wallpaper.sh prev"),
         desc="Select Theme and Wallpaper",
     ),
-   
     Key(
         [],
         "Print",
         lazy.spawn("flameshot full --clipboard --path 'Pictures'"),
     ),
-    
-    Key(["mod1"],
-        "z",lazy.spawn("flameshot gui --accept-on-select --clipboard")),
-
-
-    Key(["mod1"],
-        "d",lazy.spawn("flameshot gui --clipboard")),
-   
-    
-    Key([mod],
-        "z",lazy.spawn(home + "/dotfiles/scripts/displaycap.sh activewindow")),  
-       
-  
-  
-]   
+    Key(
+        [mod],
+        "Print",
+        lazy.spawn(home + "/dotfiles/scripts/winshot.sh"),
+    ),
+    Key(["mod1"], "z", lazy.spawn("flameshot gui --accept-on-select --clipboard")),
+    Key(["mod1"], "d", lazy.spawn("flameshot gui --clipboard")),
+    Key([mod], "z", lazy.spawn(home + "/dotfiles/scripts/displaycap.sh activewindow")),
+]
 
 
 # --------------------------------------------------------
@@ -209,7 +198,7 @@ groups.append(
     ScratchPad(
         "6",
         [
-           DropDown(
+            DropDown(
                 "terminal",
                 "kitty",
                 x=0.3,
@@ -242,24 +231,24 @@ keys.extend(
 # --------------------------------------------------------
 
 
-colors = os.path.expanduser('~/.cache/wal/colors.json')
+colors = os.path.expanduser("~/.cache/wal/colors.json")
 colordict = json.load(open(colors))
-Color0=(colordict['colors']['color0'])
-Color1=(colordict['colors']['color1'])
-Color2=(colordict['colors']['color2'])
-Color3=(colordict['colors']['color3'])
-Color4=(colordict['colors']['color4'])
-Color5=(colordict['colors']['color5'])
-Color6=(colordict['colors']['color6'])
-Color7=(colordict['colors']['color7'])
-Color8=(colordict['colors']['color8'])
-Color9=(colordict['colors']['color9'])
-Color10=(colordict['colors']['color10'])
-Color11=(colordict['colors']['color11'])
-Color12=(colordict['colors']['color12'])
-Color13=(colordict['colors']['color13'])
-Color14=(colordict['colors']['color14'])
-Color15=(colordict['colors']['color15'])
+Color0 = colordict["colors"]["color0"]
+Color1 = colordict["colors"]["color1"]
+Color2 = colordict["colors"]["color2"]
+Color3 = colordict["colors"]["color3"]
+Color4 = colordict["colors"]["color4"]
+Color5 = colordict["colors"]["color5"]
+Color6 = colordict["colors"]["color6"]
+Color7 = colordict["colors"]["color7"]
+Color8 = colordict["colors"]["color8"]
+Color9 = colordict["colors"]["color9"]
+Color10 = colordict["colors"]["color10"]
+Color11 = colordict["colors"]["color11"]
+Color12 = colordict["colors"]["color12"]
+Color13 = colordict["colors"]["color13"]
+Color14 = colordict["colors"]["color14"]
+Color15 = colordict["colors"]["color15"]
 
 # --------------------------------------------------------
 # Setup Layout Theme
@@ -291,9 +280,11 @@ layouts = [
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
-    layout.Floating(border_width=0,
-border_focus="#000000",
-border_normal="#000000",),
+    layout.Floating(
+        border_width=0,
+        border_focus="#000000",
+        border_normal="#000000",
+    ),
 ]
 
 # --------------------------------------------------------

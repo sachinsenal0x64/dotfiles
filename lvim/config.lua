@@ -90,6 +90,8 @@ lvim.plugins = {
 		end,
 	},
 
+	-- TYPE CHECKING
+
 	{
 		"mfussenegger/nvim-lint",
 		lazy = true,
