@@ -86,6 +86,7 @@ symbol = "kt "
 symbol = "lua "
 
 [nodejs]
+format = ""
 symbol = "nodejs "
 
 [memory_usage]
