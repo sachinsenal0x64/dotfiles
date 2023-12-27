@@ -11,11 +11,6 @@ lvim.leader = "space"
 lvim.colorscheme = "pywal"
 vim.opt.termguicolors = true
 
-vim.opt.number = true
-vim.opt.conceallevel = 2
-vim.opt.winbar = ""
-vim.opt.signcolumn = "yes:2"
-
 package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
 package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
 

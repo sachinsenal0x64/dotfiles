@@ -150,13 +150,13 @@ keys = [
     Key(
         [mod, "shift"],
         "w",
-        lazy.spawn(home + "/dotfiles/wallpapers/wallpaper.sh next"),
+        lazy.spawn(home + "/dotfiles/scripts/wallpaper.sh next"),
         desc="Update Theme and Wallpaper",
     ),
     Key(
         [mod, "control"],
         "w",
-        lazy.spawn(home + "/dotfiles/wallpapers/wallpaper.sh prev"),
+        lazy.spawn(home + "/dotfiles/scripts/wallpaper.sh prev"),
         desc="Select Theme and Wallpaper",
     ),
     Key(

@@ -194,3 +194,7 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+#Image Optimization
+alias optimize='~/.img-optimize/optimize.sh'
+
