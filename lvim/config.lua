@@ -11,6 +11,14 @@ lvim.leader = "space"
 lvim.colorscheme = "pywal"
 vim.opt.termguicolors = true
 
+vim.opt.number = true
+vim.opt.conceallevel = 2
+vim.opt.winbar = ""
+vim.opt.signcolumn = "yes:2"
+
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
+
 -- Keybindigs
 
 -- lvim.builtin.which_key.mappings = {
@@ -33,73 +41,64 @@ lvim.plugins = {
 		end,
 	},
 
-	-- DASHBOARD
+	-- IMAGE PREVIEW
 	{
-		"glepnir/dashboard-nvim",
-		dependencies = { { "nvim-tree/nvim-web-devicons" } },
-		event = "VimEnter",
-		opts = function()
-			return {
-				theme = "hyper",
-				config = {
-					week_header = {
-						enable = true,
+		"3rd/image.nvim",
+		config = function()
+			require("image").setup({
+				backend = "kitty",
+				integrations = {
+					markdown = {
+						enabled = true,
+						clear_in_insert_mode = false,
+						download_remote_images = true,
+						only_render_image_at_cursor = false,
+						filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
 					},
-					shortcut = {
-						{
-							desc = "Restore Session",
-							icon = " ",
-							icon_hl = "@function",
-							action = 'lua require("persistence").load()',
-							key = "s",
-						},
-						{
-							desc = "Files",
-							icon = " ",
-							icon_hl = "@variable",
-							group = "Label",
-							action = "Telescope find_files",
-							key = "f",
-						},
-						{
-							desc = "Oil",
-							icon = "󰈙 ",
-							icon_hl = "@variable",
-							group = "Label",
-							action = ":Oil",
-							key = ".",
-						},
-						{
-							desc = "MRU",
-							icon = " ",
-							group = "DiagnosticHint",
-							action = "Telescope oldfiles",
-							key = "r",
-						},
-						{
-							desc = "dotfiles",
-							icon = " ",
-							action = "Config",
-							key = "d",
-						},
-						{
-							desc = "Lazy",
-							icon = "󰒲 ",
-							icon_hl = "@property",
-							group = "Label",
-							action = "Lazy",
-							key = "z",
-						},
-						{
-							desc = "Quit",
-							icon = " ",
-							icon_hl = "@property",
-							action = "qa",
-							key = "q",
-						},
+					neorg = {
+						enabled = true,
+						clear_in_insert_mode = false,
+						download_remote_images = true,
+						only_render_image_at_cursor = false,
+						filetypes = { "norg" },
 					},
 				},
-			}
+				max_width = nil,
+				max_height = nil,
+				max_width_window_percentage = nil,
+				max_height_window_percentage = 50,
+				window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+				window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+				editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+				tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+				hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp" }, -- render image files as images when opened
+			})
+		end,
+	},
+
+	-- DASHBOARD
+	{
+		"MeanderingProgrammer/dashboard.nvim",
+		event = "VimEnter",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			{ "MaximilianLloyd/ascii.nvim", dependencies = { "MunifTanjim/nui.nvim" } },
+		},
+		config = function()
+			require("dashboard").setup({
+				header = require("ascii").art.text.neovim.sharp,
+				date_format = "%Y-%m-%d %H:%M:%S %A",
+				directories = {
+					"~/dotfiles",
+					"~/Documents/github",
+				},
+				highlight_groups = {
+					header = "Constant",
+					icon = "Type",
+					directory = "Delimiter",
+					hotkey = "Statement",
+				},
+			})
 		end,
 	},
 
