@@ -5,7 +5,7 @@ xrandr -s 1920x1080 --rate 60
 
 picom &
 
-~/dotfiles/wallpapers/wallpaper.sh
+~/dotfiles/scripts/wallpaper.sh
 
 killall polybar
 

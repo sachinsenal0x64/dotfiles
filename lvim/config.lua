@@ -16,15 +16,19 @@ package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/shar
 
 -- Keybindigs
 
+lvim.keys.normal_mode["gt"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["gT"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["bd"] = ":bd<CR>"
+
 -- lvim.builtin.which_key.mappings = {
---   ["c"] = { "<cmd>BufferClose!<CR>", "Close Buffer" },
+--["c"] = { "<cmd>bd<CR>", "Delete Buffer" },
 --   ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
 --   ["h"] = { '<cmd>let @/=""<CR>', "No Highlight" },
 --   ["i"] = { "<cmd>Lazy install<cr>", "Install" },
 --   ["z"] = { "<cmd>Lazy sync<cr>", "Sync" },
 --   ["S"] = { "<cmd>Lazy clear<cr>", "Status" },
 --   ["u"] = { "<cmd>Lazy update<cr>", "Update" },
---  }
+-- }
 
 -- Plugins
 
@@ -33,6 +37,42 @@ lvim.plugins = {
 		"AlphaTechnolog/pywal.nvim",
 		config = function()
 			require("pywal").setup()
+		end,
+	},
+
+	{
+		"DreamMaoMao/yazi.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+
+		keys = {
+			{ "<leader>yz", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
+		},
+	},
+
+	-- NEORG ORGANIZE FILES / NOTE TAKE
+
+	{
+		"nvim-neorg/neorg",
+		build = ":Neorg sync-parsers",
+		-- tag = "*",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("neorg").setup({
+				load = {
+					["core.defaults"] = {}, -- Loads default behaviour
+					["core.concealer"] = {}, -- Adds pretty icons to your documents
+					["core.dirman"] = { -- Manages Neorg workspaces
+						config = {
+							workspaces = {
+								notes = "~/notes",
+							},
+						},
+					},
+				},
+			})
 		end,
 	},
 
@@ -47,14 +87,14 @@ lvim.plugins = {
 						enabled = true,
 						clear_in_insert_mode = false,
 						download_remote_images = true,
-						only_render_image_at_cursor = false,
+						only_render_image_at_cursor = true,
 						filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
 					},
 					neorg = {
 						enabled = true,
 						clear_in_insert_mode = false,
 						download_remote_images = true,
-						only_render_image_at_cursor = false,
+						only_render_image_at_cursor = true,
 						filetypes = { "norg" },
 					},
 				},
@@ -72,28 +112,66 @@ lvim.plugins = {
 	},
 
 	-- DASHBOARD
+
 	{
-		"MeanderingProgrammer/dashboard.nvim",
-		event = "VimEnter",
+
+		"goolord/alpha-nvim",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-			{ "MaximilianLloyd/ascii.nvim", dependencies = { "MunifTanjim/nui.nvim" } },
 		},
 		config = function()
-			require("dashboard").setup({
-				header = require("ascii").art.text.neovim.sharp,
-				date_format = "%Y-%m-%d %H:%M:%S %A",
-				directories = {
-					"~/dotfiles",
-					"~/Documents/github",
-				},
-				highlight_groups = {
-					header = "Constant",
-					icon = "Type",
-					directory = "Delimiter",
-					hotkey = "Statement",
-				},
-			})
+			local alpha = require("alpha")
+			local dashboard = require("alpha.themes.dashboard")
+
+			dashboard.section.header.val = {
+				[[                                                                       ]],
+				[[                                                                       ]],
+				[[                                                                       ]],
+				[[                                                                       ]],
+				[[                                                                     ]],
+				[[       ████ ██████           █████      ██                     ]],
+				[[      ███████████             █████                             ]],
+				[[      █████████ ███████████████████ ███   ███████████   ]],
+				[[     █████████  ███    █████████████ █████ ██████████████   ]],
+				[[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
+				[[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
+				[[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
+				[[                                                                       ]],
+				[[                                                                       ]],
+				[[                                                                       ]],
+			}
+
+			_Gopts = {
+				position = "center",
+				hl = "Type",
+				-- wrap = "overflow",
+			}
+
+			-- Set menu
+			dashboard.section.buttons.val = {
+				dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
+				dashboard.button(
+					"f",
+					"  Find file",
+					":cd $HOME | Telescope find_files hidden=true no_ignore=true <CR>"
+				),
+				dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
+				dashboard.button("r", "󰄉  Recent files", ":Telescope oldfiles <CR>"),
+				dashboard.button("u", "󱐥  Update plugins", "<cmd>Lazy update<CR>"),
+				dashboard.button("c", "  Settings", ":e $HOME/.config/lvim/config.lua<CR>"),
+				dashboard.button("p", "  Projects", ":e $HOME/Documents/github <CR>"),
+				dashboard.button("d", "󱗼  Dotfiles", ":e $HOME/dotfiles <CR>"),
+				dashboard.button("q", "󰿅  Quit", "<cmd>qa<CR>"),
+			}
+
+			-- local function footer()
+			-- 	return "Footer Text"
+			-- end
+
+			-- dashboard.section.footer.val = footer()
+
+			dashboard.opts.opts.noautocmd = true
+			alpha.setup(dashboard.opts)
 		end,
 	},
 

@@ -195,8 +195,8 @@ keymap = [
 	{ on = [ "x" ], exec = [ "delete --cut", "move 1 --in-operating" ], desc = "Cut the current character" },
 
 	# Yank/Paste
-	{ on = [ "y" ], exec = "yank",           desc = "Copy the selected characters" },
-	{ on = [ "p" ], exec = "paste",          desc = "Paste the copied characters after the cursor" },
+	{ on = [ "y" ], exec = "yank", desc = "Copy the selected characters" },
+	{ on = [ "p" ], exec = "paste",desc = "Paste the copied characters after the cursor" },
 	{ on = [ "P" ], exec = "paste --before", desc = "Paste the copied characters before the cursor" },
 
 	# Undo/Redo
