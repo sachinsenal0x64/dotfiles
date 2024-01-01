@@ -1,38 +1,38 @@
-## My Awsome Tools
+# My Awsome Lazy Tools
 
-#### 🏖️ OS
+## 🏖️ OS
 - Arch Linux
   
-#### 🏖️ Window Manager 
+## 🏖️ Window Manager 
 - Qtile
   
-#### 🏖️ Terminal
+## 🏖️ Terminal
 - Kitty
 
-#### 🏖️  Color Schemes
+## 🏖️  Color Schemes
 - Pywal for OS 
 - Rose Pine for GTK and QT
 - Tokyonight for VIM
 
-#### 🏖️ Text Editors
+## 🏖️ Text Editors
 - Lunarvim
 - Neovim 
 
-#### 🏖️ Bar
+## 🏖️ Bar
 - Polybar
 
-#### 🏖️ Multiplexer
+## 🏖️ Multiplexer
 - Zellij
 
-#### 🏖️ Terminal File Manager
+## 🏖️ Terminal File Manager
 - Yazi
 
-#### 🏖️ Shell
+## 🏖️ Shell
 - Bash
   
-#### 🏖️ Git clis
+## 🏖️ Git clis
 - git
 - lazygit
 
-#### 🏖️ Prompt
+## 🏖️ Prompt
 - starship
