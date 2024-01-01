@@ -24,3 +24,13 @@
 
 #### 🏖️ Terminal File Manager
 - Yazi
+
+#### 🏖️ Shell
+- Bash
+  
+#### 🏖️ Git clis
+- git
+- lazygit
+
+#### 🏖️ Prompt
+- starship
