@@ -8,8 +8,20 @@
 vim.opt.mouse = ""
 lvim.transparent_window = true
 lvim.leader = "space"
-lvim.colorscheme = "pywal"
+lvim.colorscheme = "tokyonight-night"
 vim.opt.termguicolors = true
+vim.o.background = ""
+lvim.transparent_window = true
+lvim.builtin.lualine.sections.lualine_c = { "diff" }
+
+-- no need to set style = "lvim"
+local components = require("lvim.core.lualine.components")
+
+lvim.builtin.lualine.sections.lualine_a = { "mode" }
+lvim.builtin.lualine.sections.lualine_y = {
+	components.spaces,
+	components.location,
+}
 
 package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
 package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
@@ -19,6 +31,12 @@ package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/shar
 lvim.keys.normal_mode["gt"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["gT"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["bd"] = ":bd<CR>"
+lvim.keys.normal_mode["sr"] = ":SessionsLoad<CR>"
+
+-- lvim.builtin.which_key.mappings["P"] = {
+-- 	"<cmd>lua require'telescope'.extensions.project.project{}<CR>",
+-- 	"Projects",
+-- }
 
 -- lvim.builtin.which_key.mappings = {
 --["c"] = { "<cmd>bd<CR>", "Delete Buffer" },
@@ -33,12 +51,29 @@ lvim.keys.normal_mode["bd"] = ":bd<CR>"
 -- Plugins
 
 lvim.plugins = {
+
+	-- COLORSCHEME
+
 	{
-		"AlphaTechnolog/pywal.nvim",
-		config = function()
-			require("pywal").setup()
-		end,
+
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {
+			transparent = true,
+			styles = {
+				sidebars = "transparent",
+				keywords = { bold = true },
+				functions = { bold = true },
+				floats = "transparent",
+			},
+			on_colors = function(colors)
+				colors.bg_statusline = colors.NONE
+			end,
+		},
 	},
+
+	-- YAZI FILE MANAGER
 
 	{
 		"DreamMaoMao/yazi.nvim",
@@ -123,37 +158,89 @@ lvim.plugins = {
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
 
-			dashboard.section.header.val = {
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                     ]],
-				[[       ████ ██████           █████      ██                     ]],
-				[[      ███████████             █████                             ]],
-				[[      █████████ ███████████████████ ███   ███████████   ]],
-				[[     █████████  ███    █████████████ █████ ██████████████   ]],
-				[[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-				[[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-				[[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
-				[[                                                                       ]],
-			}
-
 			_Gopts = {
 				position = "center",
 				hl = "Type",
-				-- wrap = "overflow",
+				wrap = "overflow",
 			}
 
-			-- Set menu
+			-- DASHBOARD HEADER
+
+			local function getGreeting(name)
+				local tableTime = os.date("*t")
+				local datetime = os.date(" %Y-%m-%d-%A   %H:%M:%S ")
+				local hour = tableTime.hour
+				local greetingsTable = {
+					[1] = "  Sleep well",
+					[2] = "  Good morning",
+					[3] = "  Good afternoon",
+					[4] = "  Good evening",
+					[5] = "󰖔  Good night",
+				}
+				local greetingIndex = 0
+				if hour == 23 or hour < 7 then
+					greetingIndex = 1
+				elseif hour < 12 then
+					greetingIndex = 2
+				elseif hour >= 12 and hour < 18 then
+					greetingIndex = 3
+				elseif hour >= 18 and hour < 21 then
+					greetingIndex = 4
+				elseif hour >= 21 then
+					greetingIndex = 5
+				end
+				return "\t\t\t" .. datetime .. "\t" .. greetingsTable[greetingIndex] .. ", " .. name
+			end
+
+			local logo = [[
+				                                                                       
+                                                                           
+                                                                         
+           ████ ██████           █████      ██                     
+          ███████████             █████                             
+          █████████ ███████████████████ ███   ███████████   
+         █████████  ███    █████████████ █████ ██████████████   
+        █████████ ██████████ █████████ █████ █████ ████ █████   
+      ███████████ ███    ███ █████████ █████ █████ ████ █████  
+     ██████  █████████████████████ ████ █████ █████ ████ ██████ 
+                                                                           
+                                                                           
+      ]]
+
+			local userName = "Lazy"
+			local greeting = getGreeting(userName)
+			local marginBottom = 0
+			-- dashboard.section.header.val = vim.split(logo .. "\n" .. greeting, "\n")
+
+			-- Split logo into lines
+			local logoLines = {}
+			for line in logo:gmatch("[^\r\n]+") do
+				table.insert(logoLines, line)
+			end
+
+			-- Calculate padding for centering the greeting
+			local logoWidth = logo:find("\n") - 1 -- Assuming the logo width is the width of the first line
+			local greetingWidth = #greeting
+			local padding = math.floor((logoWidth - greetingWidth) / 2)
+
+			-- Generate spaces for padding
+			local paddedGreeting = string.rep(" ", padding) .. greeting
+
+			-- Add margin lines below the padded greeting
+			local margin = string.rep("\n", marginBottom)
+
+			-- Concatenate logo, padded greeting, and margin
+			local adjustedLogo = logo .. "\n" .. paddedGreeting .. margin
+
+			-- Set the adjusted logo with the moved greeting to the dashboard section
+			dashboard.section.header.val = vim.split(adjustedLogo, "\n")
+
 			dashboard.section.buttons.val = {
 				dashboard.button("n", "  New file", ":ene <BAR> startinsert <CR>"),
 				dashboard.button(
 					"f",
 					"  Find file",
-					":cd $HOME | Telescope find_files hidden=true no_ignore=true <CR>"
+					":cd $HOME | silent Telescope find_files hidden=true no_ignore=true <CR>"
 				),
 				dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
 				dashboard.button("r", "󰄉  Recent files", ":Telescope oldfiles <CR>"),
@@ -175,7 +262,7 @@ lvim.plugins = {
 		end,
 	},
 
-	-- LSP
+	-- PYTHON LSP
 
 	{
 		"pappasam/jedi-language-server",
@@ -263,6 +350,19 @@ lvim.plugins = {
 			vim.keymap.set({ "n", "v" }, "<leader>ml", function()
 				lint.try_lint()
 			end, { desc = "Trigger linting for current file" })
+		end,
+	},
+
+	-- SESSION MANAGER
+
+	{
+		"natecraddock/sessions.nvim",
+		config = function()
+			require("sessions").setup({
+				session_filepath = vim.fn.stdpath("data") .. "/sessions",
+				absolute = true,
+				autosave = true,
+			})
 		end,
 	},
 }
