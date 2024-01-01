@@ -39,3 +39,7 @@
 
 ## 🏖️ Prompt
 - Starship
+
+## 🏖️ Notification
+- Dunst
+
