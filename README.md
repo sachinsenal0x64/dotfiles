@@ -7,7 +7,7 @@
 #### 🏖️ Terminal
 - Kitty
 
-#### 🏖️  Color Schmes
+#### 🏖️  Color Schemes
 - Pywal for OS
 - Rose Pine for GTK and QT
 - Tokyonight for VIM
