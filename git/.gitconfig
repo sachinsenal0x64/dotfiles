@@ -1,0 +1,10 @@
+[credential]
+	helper = store --file=/home/pc/.config/git/.git-credentials
+[user]
+	email = you@example.com
+	name = Your Name
+[safe]
+	directory = /home/pc/.local/share/lunarvim/site/pack/lazy/opt/pywal.nvim
+	directory = /home/pc/.local/share/lunarvim/site/pack/lazy/opt/jedi-language-server
+[alias]
+	work = log --pretty=format:\"%C(yellow)%h %ar %C(auto)%d %Creset %s , %Cblue%cn\" --graph --all
