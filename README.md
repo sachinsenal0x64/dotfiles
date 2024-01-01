@@ -12,7 +12,7 @@
 - Rose Pine for GTK and QT
 - Tokyonight for VIM
 
-#### 🏖️ Text Editors
+#### 🏖️ Text Editor
 - Neovim
 
 #### 🏖️ Bar
