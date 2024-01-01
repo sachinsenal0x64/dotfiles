@@ -5,7 +5,10 @@
   
 ## 🏖️ Window Manager 
 - Qtile
-  
+
+## 🏖️ Compositor
+- Picom
+
 ## 🏖️ Terminal
 - Kitty
 
