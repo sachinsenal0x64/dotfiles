@@ -34,8 +34,8 @@
 - Bash
   
 ## 🏖️ Git clis
-- git
-- lazygit
+- Git
+- Lazygit
 
 ## 🏖️ Prompt
-- starship
+- Starship
