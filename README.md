@@ -8,6 +8,6 @@
 - Kitty
 
 #### 🏖️  Color Schemes
-- Pywal for OS
+- Pywal for OS 
 - Rose Pine for GTK and QT
 - Tokyonight for VIM
