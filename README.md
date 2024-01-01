@@ -1,1 +1,8 @@
-#### 🏖️ All my dotfiles
+#### 🏖️ OS
+- Arch Linux
+- 
+#### 🏖️ Window Manager 
+- Qtile
+  
+#### 🏖️ Terminal
+- Kitty
