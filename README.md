@@ -14,3 +14,12 @@
 
 #### 🏖️ Text Editors
 - Neovim
+
+#### 🏖️ Bar
+- Polybar
+
+#### 🏖️ Multiplexer
+- Zellij
+
+#### 🏖️ Terminal File Manager
+- Yazi
