@@ -1,6 +1,6 @@
 #### 🏖️ OS
 - Arch Linux
-- 
+  
 #### 🏖️ Window Manager 
 - Qtile
   
