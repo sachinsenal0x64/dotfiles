@@ -1,4 +1,4 @@
-# My Awsome Lazy Tools
+# My Awsome Lazy Efficient Tools
 
 ## 🏖️ OS
 - Arch Linux
