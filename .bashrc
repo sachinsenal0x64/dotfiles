@@ -81,8 +81,10 @@ alias sync='rsync -avzh --progress --stats'
 alias activate='source ~/Documents/pyenv/bin/activate'
 alias dotbak='sync ~/dotfiles/ ~/Documents/github/dotfiles/ && sync ~/.bashrc ~/Documents/github/dotfiles/'
 alias pdir='cd ~/Documents/github/'
-alias bat="bat --color always --style numbers --theme TwoDark"
+alias cat="bat --color always --style numbers --theme TwoDark"
 alias dl="n-m3u8dl-re"
+#Image Optimization
+alias optimize='~/.img-optimize/optimize.sh'
 
 # Whoami
 
@@ -194,7 +196,4 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-
-#Image Optimization
-alias optimize='~/.img-optimize/optimize.sh'
 

@@ -362,6 +362,7 @@ lvim.plugins = {
 				session_filepath = vim.fn.stdpath("data") .. "/sessions",
 				absolute = true,
 				autosave = true,
+				save = true,
 			})
 		end,
 	},
