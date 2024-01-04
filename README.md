@@ -27,7 +27,7 @@
 ## 🏖️ Multiplexer
 - Zellij
 
-## 🏖️ Terminal File Manager / Theme
+## 🏖️ Terminal File Manager / Themes
 - Yazi | Crystal theme
 
 ## 🏖️ Shell
@@ -45,3 +45,8 @@
 
 ## 🏖️ Fonts
 - Jetbrain mono nerds medium
+
+## 🏖️ Browsers / Themes
+- Firefox | Pywalfox |  Tabliss
+- Qtile | Rose Pine
+ 
