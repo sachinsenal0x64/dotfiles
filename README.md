@@ -27,8 +27,8 @@
 ## 🏖️ Multiplexer
 - Zellij
 
-## 🏖️ Terminal File Manager
-- Yazi
+## 🏖️ Terminal File Manager / Theme
+- Yazi | Crystal theme
 
 ## 🏖️ Shell
 - Bash
