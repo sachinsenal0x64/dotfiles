@@ -48,5 +48,5 @@
 
 ## 🏖️ Browsers / Themes
 - Firefox | Pywalfox |  Tabliss
-- Qtile | Rose Pine
+- Qtile | Rose Pine QT
  
