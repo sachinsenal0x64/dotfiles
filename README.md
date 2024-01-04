@@ -43,3 +43,5 @@
 ## 🏖️ Notification
 - Dunst
 
+## 🏖️ Fonts
+- Jetbrain mono nerds medium
