@@ -41,6 +41,7 @@ video = [
 	{ exec = 'mpv "$@"',block= true },
 	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
 ]
+
 audio = [
 	{ exec = 'mpv --no-video "$@"',block=true },
 	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
