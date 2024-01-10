@@ -1,0 +1,15 @@
+[Unit]
+Description=Internet Share
+
+[Service]
+ExecStart=/home/pc/dotfiles/scripts/internet-share.sh
+User=root
+Group=root
+Restart=always
+RemainAfterExit=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
