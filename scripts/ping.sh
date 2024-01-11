@@ -1,7 +1,7 @@
 #!/bin/sh
 
-connected="󰒢 "
-disconnected="󰞃 "
+connected="󰒢"
+disconnected="󰞃"
 
 while true; do
     if ping -c 1 1.1.1.1 &>/dev/null; then

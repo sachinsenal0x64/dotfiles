@@ -86,6 +86,15 @@ alias dl="n-m3u8dl-re"
 #Image Optimization
 alias optimize='~/.img-optimize/optimize.sh'
 
+# Power Menu
+
+alias restart='systemctl reboot'
+alias shutdown='systemctl poweroff'
+alias sleep='systemctl suspend'
+alias hibernate='systemctl hibernate'
+alias lock='slock'
+alias logout="~/dotfiles/scripts/logout.sh"
+
 # Whoami
 
 [[ "$(whoami)" = "root" ]] && return
