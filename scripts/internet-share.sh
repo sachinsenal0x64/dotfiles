@@ -9,6 +9,10 @@ iptables -t nat -A POSTROUTING -o nekoray-tun -j MASQUERADE
 ip addr add 192.168.1.1/24 dev eno1
 ip link set eno1 up
 
+ip link set mtu 1280 eno1
+ip link set mtu 1280 enp6s0u2c4i2
+ip link set mtu 1280 enp0s26u1u6
+
 sysctl -w net.ipv6.conf.all.forwarding=1
 sysctl -w net.ipv4.ip_forward=1
 
