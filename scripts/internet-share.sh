@@ -24,6 +24,11 @@ sudo ip rule add fwmark 1 table 200
 sudo ip route add default dev nekoray-tun table 200
 
 
+# SET MTU 1500 both server and client sides
+
+# sudo ip link set dev eth0 mtu 1500
+
+
 # Configure network interface
 
 ip addr add 192.168.1.1/24 dev $INTERFACE
