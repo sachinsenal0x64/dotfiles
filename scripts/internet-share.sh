@@ -38,6 +38,8 @@ ip link set $INTERFACE up
 
 sysctl -w net.ipv6.conf.all.forwarding=1
 sysctl -w net.ipv4.ip_forward=1
+sysctl -w net.ipv4.ip_no_pmtu_disc = 1
+sysctl -w net.ipv4.conf.all.send_redirects=0
 
 # Xbox Port Forward Output = Nat Type : Open
 
