@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Auto Start = systemd unit : scripts/ics.service
+
 # Define interface variable
 
 INTERFACE="enp0s26u1u6"
