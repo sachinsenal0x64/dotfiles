@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# Set up iptables rules
+# Set up iptables rules : Can Share Internate
+
 iptables -A FORWARD -i nekoray-tun -o enp0s26u1u6 -j ACCEPT
 iptables -A FORWARD -i enp0s26u1u6 -o nekoray-tun -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -t nat -A POSTROUTING -o nekoray-tun -j MASQUERADE
@@ -8,14 +9,17 @@ sudo iptables -t mangle -A OUTPUT -s 192.168.8.100 -j MARK --set-mark 1
 sudo ip rule add fwmark 1 table 200
 sudo ip route add default dev nekoray-tun table 200
 
-# Configure network interface eno1
+# Configure network interface 
+
 ip addr add 192.168.1.1/24 dev enp0s26u1u6
 ip link set enp0s26u1u6 up
 
+# IP Forwaring
 
 sysctl -w net.ipv6.conf.all.forwarding=1
 sysctl -w net.ipv4.ip_forward=1
 
+# Xbox Port Forward Output = Nat Type : Open
 
 iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 3074 -j DNAT --to-destination 192.168.1.2:3074
 iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 88 -j DNAT --to-destination 192.168.1.2:88
