@@ -23,6 +23,7 @@ sudo iptables -t mangle -A OUTPUT -s $ISP_GATEWAY -j MARK --set-mark 1
 sudo ip rule add fwmark 1 table 200
 sudo ip route add default dev nekoray-tun table 200
 
+
 # Configure network interface
 
 ip addr add 192.168.1.1/24 dev $INTERFACE
