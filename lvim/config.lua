@@ -32,6 +32,7 @@ lvim.keys.normal_mode["gt"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["gT"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["bd"] = ":bd<CR>"
 lvim.keys.normal_mode["sr"] = ":SessionsLoad<CR>"
+lvim.keys.normal_mode["ss"] = ":SessionsSave<CR>"
 
 -- lvim.builtin.which_key.mappings["P"] = {
 -- 	"<cmd>lua require'telescope'.extensions.project.project{}<CR>",

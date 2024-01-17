@@ -85,6 +85,7 @@ alias cat="bat --color always --style numbers --theme TwoDark"
 alias dl="n-m3u8dl-re"
 #Image Optimization
 alias optimize='~/.img-optimize/optimize.sh'
+alias cert='~/Downloads/cacert.pem'
 
 # Power Menu
 
@@ -206,3 +207,7 @@ case ":$PATH:" in
 esac
 # pnpm end
 
+export http_proxy=''
+export https_proxy=''
+export ftp_proxy=''
+export socks_proxy=''

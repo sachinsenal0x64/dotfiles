@@ -1,17 +1,17 @@
 #!/bin/sh
 
 # Set up iptables rules
-iptables -A FORWARD -i nekoray-tun -o eno1 -j ACCEPT
-iptables -A FORWARD -i eno1 -o nekoray-tun -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i nekoray-tun -o enp0s26u1u6 -j ACCEPT
+iptables -A FORWARD -i enp0s26u1u6 -o nekoray-tun -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -t nat -A POSTROUTING -o nekoray-tun -j MASQUERADE
+sudo iptables -t mangle -A OUTPUT -s 192.168.8.100 -j MARK --set-mark 1
+sudo ip rule add fwmark 1 table 200
+sudo ip route add default dev nekoray-tun table 200
 
 # Configure network interface eno1
-ip addr add 192.168.1.1/24 dev eno1
-ip link set eno1 up
+ip addr add 192.168.1.1/24 dev enp0s26u1u6
+ip link set enp0s26u1u6 up
 
-ip link set mtu 1280 eno1
-ip link set mtu 1280 enp6s0u2c4i2
-ip link set mtu 1280 enp0s26u1u6
 
 sysctl -w net.ipv6.conf.all.forwarding=1
 sysctl -w net.ipv4.ip_forward=1
