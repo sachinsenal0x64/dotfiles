@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Auto Start = systemd unit : scripts/ics.service
+# Auto Start = get systemd unit : scripts/ics.service
 
 # Define interface variable
 
