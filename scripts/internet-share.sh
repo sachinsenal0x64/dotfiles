@@ -5,6 +5,9 @@
 iptables -A FORWARD -i nekoray-tun -o enp0s26u1u6 -j ACCEPT
 iptables -A FORWARD -i enp0s26u1u6 -o nekoray-tun -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -t nat -A POSTROUTING -o nekoray-tun -j MASQUERADE
+
+# This usefull whem you use nekoray Output = you can ping isp gateway & remote servers 
+
 sudo iptables -t mangle -A OUTPUT -s 192.168.8.100 -j MARK --set-mark 1
 sudo ip rule add fwmark 1 table 200
 sudo ip route add default dev nekoray-tun table 200
