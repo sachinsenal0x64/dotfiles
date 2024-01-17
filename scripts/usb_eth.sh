@@ -8,7 +8,8 @@ iptables -A FORWARD -i nekoray-tun -o enp0s20u4 -j ACCEPT
 iptables -A FORWARD -i enp0s20u4 -o nekoray-tun -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -t nat -A POSTROUTING -o nekoray-tun -j MASQUERADE
 
-# Configure network interface enp0s26u1u6
+# Configure network interface
+
 ip addr add 192.168.2.1/24 dev enp0s20u4
 ip link set enp0s20u4 up
 
