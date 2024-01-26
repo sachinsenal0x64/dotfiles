@@ -10,6 +10,8 @@ INTERFACE="enp0s26u1u6"
 
 ISP_GATEWAY="192.168.8.100"
 
+# Defiine xbox ip
+
 XBOX_IP="192.168.1.2"
 
 # Define iptables rules for share internet connection
