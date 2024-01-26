@@ -10,6 +10,8 @@ INTERFACE="enp0s26u1u6"
 
 ISP_GATEWAY="192.168.8.100"
 
+XBOX_IP="192.168.1.2"
+
 # Define iptables rules for share internet connection
 
 iptables -A FORWARD -i nekoray-tun -o $INTERFACE -j ACCEPT
@@ -43,9 +45,9 @@ sysctl -w net.ipv4.conf.all.send_redirects=0
 
 # Xbox Port Forward Output = Nat Type : Open
 
-iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 3074 -j DNAT --to-destination 192.168.1.2:3074
-iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 88 -j DNAT --to-destination 192.168.1.2:88
-iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 53 -j DNAT --to-destination 192.168.1.2:53
+iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 3074 -j DNAT --to-destination $XBOX_IP:3074
+iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 88 -j DNAT --to-destination $XBOX_IP:88
+iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 53 -j DNAT --to-destination $XBOX_IP:53
 
 echo "Setup complete."
 exit 0;
