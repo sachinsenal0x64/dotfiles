@@ -203,6 +203,9 @@ keymap = [
 	{ on = [ "u" ],     exec = "undo", desc = "Undo the last operation" },
 	{ on = [ "<C-r>" ], exec = "redo", desc = "Redo the last operation" },
 
+  # File Compress
+
+
 	# Help
 	{ on = [ "~" ], exec = "help", desc = "Open help" }
 ]

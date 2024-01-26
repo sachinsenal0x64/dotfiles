@@ -31,7 +31,6 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 
-export PATH=/home/pc/.local/bin:$PATH
 
 
 
@@ -55,6 +54,7 @@ export PYTHONSTARTUP="/etc/python/pythonrc"
 # Eval Launch
 
 eval "$(starship init bash)"
+starship preset nerd-font-symbols -o ~/dotfiles/starship/starship.toml
 
 
 eval "$(thefuck --alias)"
@@ -211,3 +211,11 @@ export http_proxy=''
 export https_proxy=''
 export ftp_proxy=''
 export socks_proxy=''
+
+
+
+
+# GO
+
+
+export PATH=$PATH:$HOME/go/bin
