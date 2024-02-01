@@ -49,4 +49,7 @@
 ## 🏖️ Browsers / Themes
 - Firefox | Pywalfox |  Tabliss
 - Qtile | Rose Pine QT
- 
+
+## 🏖️ Player
+- MPV
+
