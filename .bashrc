@@ -2,6 +2,8 @@
 
 # ~/.bashrc
 
+# Pnpm Path
+
 export PNPM_HOME="/home/pc/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
@@ -9,9 +11,29 @@ case ":$PATH:" in
 esac
 
 
+# Cargo Path 
+
+export CARGO_HOME="/home/pc/.local/share/.cargo/bin"
+case ":$PATH:" in
+  *":$CARGO_HOME:"*) ;;
+  *) export PATH="$CARGO_HOME:$PATH" ;;
+esac
+
+# local Path
+
+export LOCAL_BIN_HOME="/home/pc/.local/bin/"
+case ":$PATH:" in
+  *":$LOCAL_BIN_HOME:"*) ;;
+  *) export PATH="$LOCAL_BIN_HOME:$PATH" ;;
+esac
+
+
+
+
 # Clipboard as cb
 
 export CLIPBOARD_NOAUDIO=1
+export TERM=xterm-256color
 
 
 # Gnupg
@@ -86,6 +108,8 @@ alias dl="n-m3u8dl-re"
 #Image Optimization
 alias optimize='~/.img-optimize/optimize.sh'
 alias cert='~/Downloads/cacert.pem'
+alias jrpc='aria2c --enable-rpc --dir=/home/pc/Documents/tv/ --daemon'
+
 
 # Power Menu
 

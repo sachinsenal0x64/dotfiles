@@ -4,13 +4,18 @@
 
 INTERFACE="enp0s26u1u6"
 
+# Where your internet come from EX : router / mobile hostport
+
+WAN="enp0s20u4c4i2"
+
 # Define gateway variable
 
 HOST_IP="0.0.0.0/0"
 
-# Defiine xbox ip
+# TTL Mangling bypass hostport limits
 
-XBOX_IP="192.168.1.2"
+sudo sysctl -w net.ipv4.ip_default_ttl=65
+sudo sysctl -w net.ipv6.conf.all.hop_limit=65
 
 # Define iptables rules for share internet connection
 
@@ -44,9 +49,9 @@ sudo sysctl -p
 
 # Xbox Port Forwarding Output = Nat Type : Open
 
-iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 3074 -j DNAT --to-destination $XBOX_IP:3074
-iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 88 -j DNAT --to-destination $XBOX_IP:88
-iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 53 -j DNAT --to-destination $XBOX_IP:53
+iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 3074 -j DNAT --to-destination 192.168.1.2:3074
+iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 88 -j DNAT --to-destination 192.168.1.2:88
+iptables -t nat -A PREROUTING -i nekoray-tun -p udp --dport 53 -j DNAT --to-destination 192.168.1.2:53
 
 echo "Setup complete."
 exit 0;
