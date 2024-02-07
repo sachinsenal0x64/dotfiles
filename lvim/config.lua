@@ -29,6 +29,17 @@ lvim.keys.normal_mode["bd"] = ":bd<CR>"
 lvim.keys.normal_mode["sr"] = ":SessionsLoad<CR>"
 lvim.keys.normal_mode["ss"] = ":SessionsSave<CR>"
 
+-- Format Go code & auto import
+
+local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.go",
+	callback = function()
+		require("go.format").goimport()
+	end,
+	group = format_sync_grp,
+})
+
 -- lvim.builtin.which_key.mappings["P"] = {
 -- 	"<cmd>lua require'telescope'.extensions.project.project{}<CR>",
 -- 	"Projects",

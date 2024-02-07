@@ -27,13 +27,30 @@ case ":$PATH:" in
   *) export PATH="$LOCAL_BIN_HOME:$PATH" ;;
 esac
 
+# GTK 2
 
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 
+# Icons
+
+export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons
+
+# Redis
+
+export REDISCLI_HISTFILE="$XDG_DATA_HOME"/redis/rediscli_history
+
+# Go path 
+
+export GOPATH="$XDG_DATA_HOME"/go
+
+# Mitm Proxy
+
+alias mitmproxy="mitmproxy --set confdir=$XDG_CONFIG_HOME/mitmproxy"
+alias mitmweb="mitmweb --set confdir=$XDG_CONFIG_HOME/mitmproxy"
 
 # Clipboard as cb
 
 export CLIPBOARD_NOAUDIO=1
-export TERM=xterm-256color
 
 
 # Gnupg

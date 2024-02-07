@@ -13,4 +13,4 @@ polybar -r mybar
 
 setxkbmap us
 
-
+playerctld daemon &

@@ -154,7 +154,7 @@ keymap = [
 	{ on = [ "<Up>" ],   exec = "arrow -1", desc = "Move cursor up" },
 	{ on = [ "<Down>" ], exec = "arrow 1",  desc = "Move cursor down" },
 
-	{ on = [ "~" ], exec = "help", desc = "Open help" }
+	{ on = [ "~" ], exec = "help", desc = "Open help" } 
 ]
 
 [input]
@@ -230,3 +230,4 @@ keymap = [
 	# Filtering
 	{ on = [ "/" ], exec = "filter", desc = "Apply a filter for the help items" },
 ]
+

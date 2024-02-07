@@ -18,9 +18,11 @@ folder = [
 	{ exec = 'open -R "$@"', desc = "Reveal in Finder" },
 	{ exec = '$EDITOR "$@"' },
 ]
+
 archive = [
 	{ exec = 'unar "$1"', desc = "Extract here" },
 ]
+
 text = [
 	{ exec = '$EDITOR "$@"', block= true },
 ]
@@ -73,9 +75,7 @@ rules = [
 	{ mime = "application/x-7z-compressed", use = "archive" },
 	{ mime = "application/x-rar", use = "archive" },
 	{ mime = "application/pdf", use = "pdf" },
- 	
-
-{ mime = "*", use = "fallback" },
+ 	{ mime = "*", use = "fallback" },
   
 ]
 
@@ -85,10 +85,11 @@ micro_workers = 5
 macro_workers = 10
 bizarre_retry = 5
 
+
+
 [plugins]
 preload = ["~/dotfiles/yazi/ui.lua",
           "~/dotfiles/yazi/status.lua"]
-
 
 [log]
 enabled = false
