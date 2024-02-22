@@ -8,8 +8,10 @@ vim.opt.termguicolors = true
 vim.o.background = ""
 lvim.transparent_window = true
 lvim.builtin.lualine.sections.lualine_c = { "diff" }
+lvim.builtin.treesitter.ensure_installed = { "python" }
 
--- no need to set style = "lvim"
+-- No need to set style = "lvim"
+
 local components = require("lvim.core.lualine.components")
 
 lvim.builtin.lualine.sections.lualine_a = { "mode" }
@@ -19,10 +21,12 @@ lvim.builtin.lualine.sections.lualine_y = {
 }
 
 package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+
 package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
 
 -- Keybindigs
 
+lvim.keys.normal_mode["<leader>r"] = ":SymbolRenamerOpen<CR>"
 lvim.keys.normal_mode["gt"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["gT"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["bd"] = ":bd<CR>"
@@ -35,7 +39,7 @@ local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*.go",
 	callback = function()
-		require("go.format").goimport()
+		require("go.format")
 	end,
 	group = format_sync_grp,
 })
@@ -269,8 +273,6 @@ lvim.plugins = {
 		end,
 	},
 
-	-- Python
-
 	-- PYTHON LSP
 
 	{
@@ -291,7 +293,7 @@ lvim.plugins = {
 
 	{
 		"stevearc/conform.nvim",
-		lazy = true,
+		enabled = true,
 		event = { "BufReadPre", "BufNewFile" }, -- to disable, comment this out
 		config = function()
 			local conform = require("conform")
@@ -310,7 +312,7 @@ lvim.plugins = {
 					markdown = { "prettier" },
 					graphql = { "prettier" },
 					lua = { "stylua" },
-					python = { "isort", "black" },
+					python = { "isort", "ruff_format" },
 				},
 				format_on_save = {
 					lsp_fallback = true,
@@ -344,7 +346,7 @@ lvim.plugins = {
 				javascriptreact = { "eslint_d" },
 				typescriptreact = { "eslint_d" },
 				svelte = { "eslint_d" },
-				python = { "pylint" },
+				python = { "ruff" },
 			}
 
 			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -391,5 +393,73 @@ lvim.plugins = {
 		event = { "CmdlineEnter" },
 		ft = { "go", "gomod" },
 		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+	},
+	{
+		"Zeioth/markmap.nvim",
+		build = "yarn global add markmap-cli",
+		cmd = { "MarkmapOpen", "MarkmapSave", "MarkmapWatch", "MarkmapWatchStop" },
+		opts = {
+			html_output = "/tmp/markmap.html", -- (default) Setting a empty string "" here means: [Current buffer path].html
+			hide_toolbar = false, -- (default)
+			grace_period = 3600000, -- (default) Stops markmap watch after 60 minutes. Set it to 0 to disable the grace_period.
+		},
+		config = function(_, opts)
+			require("markmap").setup(opts)
+		end,
+	},
+
+	-- Present
+
+	{
+		"Chaitanyabsprip/present.nvim",
+		config = function()
+			require("present").setup({
+				default_mappings = true,
+				kitty = {
+					normal_font_size = 12,
+					zoom_font_size = 50,
+				},
+			})
+		end,
+	},
+
+	-- Rename
+
+	{
+		"seasonalmatcha/symbol-renamer.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("symbol-renamer").setup({
+				borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				relative = "cursor",
+				focusable = true,
+				width = 40,
+				height = 1,
+				line = "cursor+2",
+				col = "cursor",
+				padding = { 0, 1, 0, 1 },
+			})
+		end,
+	},
+
+	-- VENV SWITCHER
+
+	{
+		"linux-cultist/venv-selector.nvim",
+		dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
+		opts = {
+			-- Your options go here
+			venvwrapper_path = "~/Documents/venv",
+			auto_refresh = true,
+		},
+		event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+		keys = {
+			-- Keymap to open VenvSelector to pick a venv.
+			{ "<leader>vs", "<cmd>VenvSelect<cr>" },
+			-- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+			{ "<leader>vc", "<cmd>VenvSelectCached<cr>" },
+		},
 	},
 }

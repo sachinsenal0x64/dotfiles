@@ -1,0 +1,3 @@
+defaults:
+  theme: terminal-dark
+  image_protocol: kitty-remote

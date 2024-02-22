@@ -1,6 +1,40 @@
 #! /bin/bash
 
+# Pyenv
+
+
+# Load pyenv automatically by appending
+# the following to 
+# ~/.bash_profile if it exists, otherwise ~/.profile (for login shells)
+# and ~/.bashrc (for interactive shells) :
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# Restart your shell for the changes to take effect.
+
+# Load pyenv-virtualenv automatically by adding
+# the following to ~/.bashrc:
+
+eval "$(pyenv virtualenv-init -)"
+
+
 # ~/.bashrc
+
+
+export PATH="$HOME/.local/bin:\
+$HOME/.cargo/bin:\
+$HOME/.npm-global/bin:\
+$HOME/.yarn/bin:\
+$HOME/.config/yarn/global/node_modules/.bin:\
+$HOME/.local/share/gem/ruby/3.0.0/bin:\
+$HOME/.cargo/env:\
+/root/.local/share/gem/ruby/3.0.0/bin:\
+/usr/local/bin:\
+/usr/share/nvm/init-nvm.sh:\
+$PATH"
+
 
 # Pnpm Path
 
@@ -10,6 +44,10 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+# Flyctl 
+
+export FLYCTL_INSTALL="/home/pc/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # Cargo Path 
 
@@ -19,6 +57,7 @@ case ":$PATH:" in
   *) export PATH="$CARGO_HOME:$PATH" ;;
 esac
 
+
 # local Path
 
 export LOCAL_BIN_HOME="/home/pc/.local/bin/"
@@ -26,6 +65,7 @@ case ":$PATH:" in
   *":$LOCAL_BIN_HOME:"*) ;;
   *) export PATH="$LOCAL_BIN_HOME:$PATH" ;;
 esac
+
 
 # GTK 2
 
@@ -41,7 +81,13 @@ export REDISCLI_HISTFILE="$XDG_DATA_HOME"/redis/rediscli_history
 
 # Go path 
 
-export GOPATH="$XDG_DATA_HOME"/go
+export GOPATH=$HOME/go
+
+case ":$PATH:" in
+  *":$GOPATH:"*) ;;
+  *) export PATH="$GOPATH:$PATH" ;;
+esac
+
 
 # Mitm Proxy
 
@@ -72,7 +118,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 
 
+# Locale
 
+export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 # Functions
 
@@ -115,9 +163,10 @@ alias ls='eza -al --icons'
 alias vi='lvim'
 alias rec='~/dotfiles/scripts/screen_record.sh'
 alias gyr="gyr --replace"
+alias ssh="kitten ssh"
 alias sudo='sudo -E'
 alias sync='rsync -avzh --progress --stats'
-alias activate='source ~/Documents/pyenv/bin/activate'
+alias activate='source ~/Documents/venv/pyenv/bin/activate'
 alias dotbak='sync ~/dotfiles/ ~/Documents/github/dotfiles/ && sync ~/.bashrc ~/Documents/github/dotfiles/'
 alias pdir='cd ~/Documents/github/'
 alias cat="bat --color always --style numbers --theme TwoDark"
@@ -260,3 +309,7 @@ export socks_proxy=''
 
 
 export PATH=$PATH:$HOME/go/bin
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH

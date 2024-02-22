@@ -5,6 +5,7 @@
 #  \__\_\|_| |___|_____|_____|  \____\___/|_| |_|_| |_|\__, |
 #                                                      |___/
 
+
 import json
 import os
 import re
@@ -33,6 +34,8 @@ from libqtile.widget import Backlight, Spacer
 from libqtile.widget.image import Image
 
 # Get home path
+
+
 home = str(Path.home())
 
 # --------------------------------------------------------
@@ -58,7 +61,7 @@ platform = int(os.popen("cat /sys/class/dmi/id/chassis_type").read())
 # --------------------------------------------------------
 
 # terminal = guess_terminal(terminal)
-browser = "firefox"
+browser = "thorium-browser-sse3"
 
 powe = "pow"
 
@@ -193,6 +196,7 @@ dgroups_key_binder = simple_key_binder(mod)
 # --------------------------------------------------------
 # Scratchpads
 # --------------------------------------------------------
+
 
 groups.append(
     ScratchPad(
