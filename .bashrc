@@ -175,6 +175,11 @@ alias dl="n-m3u8dl-re"
 alias optimize='~/.img-optimize/optimize.sh'
 alias cert='~/Downloads/cacert.pem'
 alias jrpc='aria2c --enable-rpc --dir=/home/pc/Documents/tv/ --daemon'
+alias music='musikcube'
+
+# SMS RECEIVE FROM MOBILE VIA ADB
+
+alias sms='adb -s 0123456789ABCDEF shell '\''content query --uri content://sms/inbox --projection _id,date,address,body --sort "date ASC"'\'' | bat'
 
 
 # Power Menu

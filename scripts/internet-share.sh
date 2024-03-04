@@ -2,11 +2,11 @@
 
 # Define interface variable
 
-INTERFACE="enp0s26u1u6"
+INTERFACE="enp0s26u1u5"
 
 # Where your internet come from EX : router / mobile hostport
 
-WAN="enp0s20u4c4i2"
+WAN="enp0s26u1u6c4i2"
 
 # Define gateway variable
 
