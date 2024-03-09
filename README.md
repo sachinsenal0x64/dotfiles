@@ -51,6 +51,7 @@
 
 ## 🏖️ Browsers / Themes
 - Firefox | Pywalfox |  Tabliss
+- Thorium | Rose Pine QT | Tabliss
 - Qtile | Rose Pine QT
 
 ## 🏖️ Player
