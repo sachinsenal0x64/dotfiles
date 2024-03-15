@@ -1,5 +1,7 @@
 ### 🚀 My Lazy Efficient Tools Its Make You More Productivity / Structured Person.
 
+<br>
+
 ![image](https://sachinsenal0x64.github.io/picx-images-hosting/304028946-7803ee3c-675e-43c1-b521-e0101e6430db.177juam2y1kw.webp)
 
 
@@ -26,7 +28,7 @@
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium                                       | Rose Pine QT <br> Tabliss      |
 |                             | Qtile                                         | Rose Pine QT <br> Rose Pine GTK|
-| 🏖️ Player                   | MPV                                           |                                |
+| 🏖️ Players                  | MPV | HIFI-TUI | MUSIKCUBE                    |                                |
 | 🏖️ Custom Scripts           | ADB SMS Recevier                              |                                |
 |                             | NAT Type Opener / Share Your Internet         |                                |
 |                             | Wallapaper Changer                            |                                |
