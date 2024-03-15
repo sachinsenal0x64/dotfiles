@@ -28,7 +28,7 @@
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium                                       | Rose Pine QT <br> Tabliss      |
 |                             | Qtile                                         | Rose Pine QT <br> Rose Pine GTK|
-| 🏖️ Players                  | MPV | HIFI-TUI | MUSIKCUBE                    |                                |
+| 🏖️ Players                  | MPV <br> HIFI-TUI <br> MUSIKCUBE              |                                |
 | 🏖️ Custom Scripts           | ADB SMS Recevier                              |                                |
 |                             | NAT Type Opener / Share Your Internet         |                                |
 |                             | Wallapaper Changer                            |                                |
