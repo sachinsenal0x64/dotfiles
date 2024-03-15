@@ -1,4 +1,4 @@
-# 🚀 My Awsome Lazy Efficient Tools
+# 🚀 My Awesome Lazy Efficient Tools
 
 ![image](https://sachinsenal0x64.github.io/picx-images-hosting/304028946-7803ee3c-675e-43c1-b521-e0101e6430db.177juam2y1kw.webp)
 
@@ -12,8 +12,8 @@
 | 🏖️ Color Schemes            | Pywal for OS                                  |                                |
 |                             | Rose Pine for GTK and QT                      |                                |
 |                             | Tokyonight for VIM                            |                                |
-| 🏖️ Text Editors             | Lunarvim                                      |                                |
-|                             | Neovim                                        |                                |
+| 🏖️ Text Editors             | Neovim                                        |                                |
+|                             | Lunarvim                                      |                                |
 | 🏖️ Bar                      | Polybar                                       |                                |
 | 🏖️ Multiplexer              | Zellij                                        |                                |
 | 🏖️ Terminal File Manager    | Yazi                                          | Crystal theme                  |
@@ -28,10 +28,10 @@
 |                             | Qtile                                         | Rose Pine QT                   |
 | 🏖️ Player                   | MPV                                           |                                |
 | 🏖️ Scripts                  | ADB SMS  RECEIVER                             |                                |
-|                             | NAT TYPE OPEN                                 |                                |
+|                             | NAT TYPE OPENER                               |                                |
 |                             | INTERNET SHARE                                |                                |
 |                             | WALLPAPER CHANGER                             |                                |
-|                             | GITHUB NOTIFICATION                           |                                |
+|                             | GITHUB NOTIFICATION RECEIVER                  |                                |
 |                             | NETWORK STATUS                                |                                |
 
 
