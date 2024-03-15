@@ -1,4 +1,4 @@
-# 🚀 My Awesome Lazy Efficient Tools
+## 🚀 My Awesome Lazy Efficient Tools Its Make You Productivity Structured Person.
 
 ![image](https://sachinsenal0x64.github.io/picx-images-hosting/304028946-7803ee3c-675e-43c1-b521-e0101e6430db.177juam2y1kw.webp)
 
@@ -25,16 +25,10 @@
 | 🏖️ Fonts                    | Jetbrain mono nerds medium                    |                                |
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium                                       | Rose Pine QT <br> Tabliss      |
-|                             | Qtile                                         | Rose Pine QT                   |
+|                             | Qtile                                         | Rose Pine QT <br> Rose Pine GTK|
 | 🏖️ Player                   | MPV                                           |                                |
-| 🏖️ Scripts                  | ADB SMS  RECEIVER                             |                                |
-|                             | NAT TYPE OPENER                               |                                |
-|                             | INTERNET SHARE                                |                                |
-|                             | WALLPAPER CHANGER                             |                                |
-|                             | GITHUB NOTIFICATION RECEIVER                  |                                |
-|                             | NETWORK STATUS                                |                                |
-
-
-
-
-
+| 🏖️ Custom Scripts           | ADB SMS Recevier                              |                                |
+|                             | NAT Type Opener / Share Your Internet         |                                |
+|                             | Wallapaper Changer                            |                                |
+|                             | Github Notification Receiver                  |                                |
+|                             | Network Status Checker                        |                                |
