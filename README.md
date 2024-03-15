@@ -34,4 +34,4 @@
 |                             | Wallapaper Changer                            |                                |
 |                             | Github Notification Receiver                  |                                |
 |                             | Network Status Checker                        |                                |
-| 🏖️                          | Network Status Checker                        |                                |
+| 🏖️ SSH Console              | Windterm                                      |                                |
