@@ -1,4 +1,4 @@
-### 🚀 My Awesome Lazy Efficient Tools Its Make You More Productivity / Structured Person.
+### 🚀 My Lazy Efficient Tools Its Make You More Productivity / Structured Person.
 
 ![image](https://sachinsenal0x64.github.io/picx-images-hosting/304028946-7803ee3c-675e-43c1-b521-e0101e6430db.177juam2y1kw.webp)
 
