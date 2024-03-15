@@ -10,6 +10,8 @@ set_wallpaper() {
   echo "$1" > "$cache_file"
   qtile cmd-obj -o cmd -f restart
   pywalfox update
+  rm ~/.fehbg
+
 }
 
 # Read the cache to get the last displayed wallpaper

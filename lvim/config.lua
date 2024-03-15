@@ -20,9 +20,9 @@ lvim.builtin.lualine.sections.lualine_y = {
 	components.location,
 }
 
-package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$XDG_DATA_HOME") .. "/luarocks/.luarocks/share/lua/5.1/?/init.lua;"
 
-package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$XDG_DATA_HOME") .. "/luarocks/.luarocks/share/lua/5.1/?.lua;"
 
 -- Keybindigs
 
@@ -396,7 +396,7 @@ lvim.plugins = {
 	},
 	{
 		"Zeioth/markmap.nvim",
-		build = "yarn global add markmap-cli",
+		build = "bun install -g markmap-cli",
 		cmd = { "MarkmapOpen", "MarkmapSave", "MarkmapWatch", "MarkmapWatchStop" },
 		opts = {
 			html_output = "/tmp/markmap.html", -- (default) Setting a empty string "" here means: [Current buffer path].html
@@ -451,7 +451,7 @@ lvim.plugins = {
 		dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
 		opts = {
 			-- Your options go here
-			venvwrapper_path = "~/Documents/venv",
+			venvwrapper_path = "~/Documents/venv/",
 			auto_refresh = true,
 		},
 		event = "VeryLazy", -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
