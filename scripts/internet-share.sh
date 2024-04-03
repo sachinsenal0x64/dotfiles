@@ -21,6 +21,7 @@ sudo sysctl -w net.ipv6.conf.all.hop_limit=65
 
 iptables -A FORWARD -i nekoray-tun -o $INTERFACE -j ACCEPT
 iptables -A FORWARD -i $INTERFACE -o nekoray-tun -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -d 192.168.100.1 -i $INTERFACE -o nekoray-tun -j ACCEPT
 iptables -t nat -A POSTROUTING -o nekoray-tun -j MASQUERADE
 
 

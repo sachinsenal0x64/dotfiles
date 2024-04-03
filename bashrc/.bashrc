@@ -1,11 +1,10 @@
 #! /bin/bash
 
 
-# Android
+# Flyctl 
 
-alias adb='HOME="$XDG_DATA_HOME"/android adb'
-export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
-export ANDROID_HOME="$XDG_DATA_HOME"/android/sdk
+export FLY_CONFIG_DIR="$XDG_STATE_HOME"/fly
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # Pyenv
 
@@ -13,13 +12,6 @@ export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-
-
-# Flyctl 
-
-
-export FLY_CONFIG_DIR="$XDG_STATE_HOME"/fly
-export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # Cargo Path 
 
@@ -50,15 +42,6 @@ export XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons
 # Redis
 
 export REDISCLI_HISTFILE="$XDG_DATA_HOME"/redis/rediscli_history
-
-# Go path 
-
-export GOPATH=$HOME/go
-
-case ":$PATH:" in
-  *":$GOPATH:"*) ;;
-  *) export PATH="$GOPATH:$PATH" ;;
-esac
 
 
 # Mitm Proxy
@@ -133,6 +116,7 @@ alias icat="kitten icat"
 alias vim='nvim'
 alias ls='eza -al --icons'
 alias vi='lvim'
+alias irec='~/dotfiles/scripts/intel_screen.sh'
 alias rec='~/dotfiles/scripts/screen_record.sh'
 alias gyr="gyr --replace"
 alias ssh="kitten ssh"
@@ -143,6 +127,9 @@ alias dotbak='sync ~/dotfiles/ ~/Documents/github/dotfiles/ && sync ~/.bashrc ~/
 alias pdir='cd ~/Documents/github/'
 alias cat="bat --color always --style numbers --theme TwoDark"
 alias dl="n-m3u8dl-re"
+alias mitm="~/dotfiles/scripts/mitmproxy.sh"
+alias mitmc="~/dotfiles/scripts/mitmclear.sh"
+alias fly="flyctl"
 
 #Image Optimization
 alias optimize='~/.img-optimize/optimize.sh'
@@ -275,6 +262,7 @@ export CARGO_HOME="$XDG_DATA_HOME"/.cargo
 
 # GO
 
+export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH="$XDG_DATA_HOME"/go
 
 # bun
