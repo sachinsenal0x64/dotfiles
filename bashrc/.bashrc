@@ -130,6 +130,8 @@ alias dl="n-m3u8dl-re"
 alias mitm="~/dotfiles/scripts/mitmproxy.sh"
 alias mitmc="~/dotfiles/scripts/mitmclear.sh"
 alias fly="flyctl"
+alias noi="ali"
+
 
 #Image Optimization
 alias optimize='~/.img-optimize/optimize.sh'
