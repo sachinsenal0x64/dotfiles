@@ -15,44 +15,44 @@ cache_dir  = "~/.cache"
 
 [opener]
 folder = [
-	{ exec = 'open -R "$@"', desc = "Reveal in Finder" },
-	{ exec = '$EDITOR "$@"' },
+	{ run = 'open -R "$@"', desc = "Reveal in Finder" },
+	{ run = '$EDITOR "$@"' },
 ]
 
 archive = [
-	{ exec = 'unar "$1"', desc = "Extract here" },
+	{ run = 'unar "$1"', desc = "Extract here" },
 ]
 
 text = [
-	{ exec = '$EDITOR "$@"', block= true },
+	{ run = '$EDITOR "$@"', block= true },
 ]
 
 image = [
-	{ exec = 'imv-dir  "$@"',block = true},
-  { exec = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF" },
+	{ run = 'imv-dir  "$@"',block = true},
+  { run = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF" },
 ]
 
 
 pdf = [
 
-	{exec = 'zathura "$@"',block = true}
+	{run = 'zathura "$@"',block = true}
 
 ]
 
 video = [
-	{ exec = 'mpv "$@"',block= true },
-	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
+	{ run = 'mpv "$@"',block= true },
+	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
 ]
 
 audio = [
-	{ exec = 'mpv --no-video "$@"',block=true },
-	{ exec = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
+	{ run = 'mpv --no-video "$@"',block=true },
+	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
 ]
 
 
 fallback = [
-	{ exec = 'xdg-open "$@"', desc = "Open" },
-	{ exec = 'xdg-open -R "$@"', desc = "Reveal in Finder" },
+	{ run = 'xdg-open "$@"', desc = "Open" },
+	{ run = 'xdg-open -R "$@"', desc = "Reveal in Finder" },
 ]
 
 [open]
@@ -90,6 +90,9 @@ bizarre_retry = 5
 [plugins]
 preload = ["~/dotfiles/yazi/ui.lua",
           "~/dotfiles/yazi/status.lua"]
+
+
+
 
 [log]
 enabled = false

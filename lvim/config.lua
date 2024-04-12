@@ -32,6 +32,8 @@ lvim.keys.normal_mode["gT"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["bd"] = ":bd<CR>"
 lvim.keys.normal_mode["sr"] = ":SessionsLoad<CR>"
 lvim.keys.normal_mode["ss"] = ":SessionsSave<CR>"
+lvim.keys.normal_mode["<leader>tt"] = ":Telescope live_grep<CR>"
+
 
 -- Format Go code & auto import
 
