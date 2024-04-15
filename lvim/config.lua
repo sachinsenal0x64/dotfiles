@@ -203,11 +203,10 @@ lvim.plugins = {
         elseif hour >= 21 then
           greetingIndex = 5
         end
-        return "\t\t\t" .. "\t\t\t" .. datetime .. "\t" .. greetingsTable[greetingIndex] .. ", " .. name
+        return "\t\t\t" .. "\t\t" .. datetime .. "" .. greetingsTable[greetingIndex] .. ", " .. name
       end
 
       local logo = [[
-
                                               
        ████ ██████           █████      ██
       ███████████             █████ 
@@ -216,7 +215,6 @@ lvim.plugins = {
     █████████ ██████████ █████████ █████ █████ ████ █████
   ███████████ ███    ███ █████████ █████ █████ ████ █████
  ██████  █████████████████████ ████ █████ █████ ████ ██████
-
 
       ]]
 
