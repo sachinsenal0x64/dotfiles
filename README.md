@@ -9,7 +9,7 @@
 |-----------------------------|-----------------------------------------------|--------------------------------|
 | 🏖️ OS                       | Arch Linux                                    |                                |
 | 🏖️ Window Manager           | Qtile                                         |                                |
-| 🏖️ Compositor               | Picom                                         |                                |
+| 🏖️ Compositor               | Picom (Arian8j2/picom)                        |                                |
 | 🏖️ Terminal                 | Kitty                                         |                                |
 | 🏖️ Color Schemes            | Pywal for OS                                  |                                |
 |                             | Rose Pine for GTK and QT                      |                                |
