@@ -61,7 +61,7 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 
 # Default Apps
 
-export EDITOR="lvim"
+export EDITOR="nvim"
 
 export XDG_DATA_HOME="$HOME/.local/share"
 
@@ -113,9 +113,8 @@ pfetch
 
 alias clean="sudo pacman -Scc  && paru -Scc "
 alias icat="kitten icat"
-alias vim='nvim'
 alias ls='eza -al --icons'
-alias vi='lvim'
+alias vi='nvim'
 alias irec='~/dotfiles/scripts/intel_screen.sh'
 alias rec='~/dotfiles/scripts/screen_record.sh'
 alias gyr="gyr --replace"

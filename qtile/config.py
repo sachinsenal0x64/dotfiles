@@ -8,13 +8,9 @@
 
 import json
 import os
-import re
-import socket
 import subprocess
 from pathlib import Path
-from typing import List
 
-import psutil
 from libqtile import bar, hook, layout, qtile, widget
 from libqtile.config import (
     Click,
@@ -22,16 +18,12 @@ from libqtile.config import (
     DropDown,
     Group,
     Key,
-    KeyChord,
     Match,
     ScratchPad,
     Screen,
 )
 from libqtile.dgroups import simple_key_binder
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from libqtile.widget import Backlight, Spacer
-from libqtile.widget.image import Image
 
 # Get home path
 

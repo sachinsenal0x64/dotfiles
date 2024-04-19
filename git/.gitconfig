@@ -1,7 +1,7 @@
 [credential]
 	helper = store --file=/home/pc/.config/git/.git-credentials
 [user]
-	email = you@example.com
+	email = sachinsenal0x64@users.noreply.github.com
 	name = 0x64
 [safe]
 	directory = ~/.local/share/lunarvim/site/pack/lazy/opt/pywal.nvim

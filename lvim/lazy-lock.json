@@ -13,7 +13,7 @@
   "gitsigns.nvim": { "branch": "main", "commit": "6ef8c54fb526bf3a0bc4efb0b2fe8e6d9a7daed2" },
   "go.nvim": { "branch": "master", "commit": "591a0b837420f27c734600fa5c6de87f18352e50" },
   "guihua.lua": { "branch": "master", "commit": "3b3126ae87c254f6849e708549ba76c39e3f42f8" },
-  "image.nvim": { "branch": "master", "commit": "9be5ede323756d7ee2bbef2bc157767b3972cce6" },
+  "image.nvim": { "branch": "master", "commit": "0c9724cd0fc3eff716d9bac21643f9e167bfd954" },
   "indent-blankline.nvim": { "branch": "master", "commit": "9637670896b68805430e2f72cf5d16be5b97a22a" },
   "jedi-language-server": { "branch": "main", "commit": "d64317fca56431c8b82b1ae2a54b09956c380a9b" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },

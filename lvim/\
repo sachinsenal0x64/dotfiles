@@ -1,19 +1,6 @@
 -- Misc
 
-vim.opt.mouse = ""
-lvim.transparent_window = true
-lvim.leader = "space"
-lvim.colorscheme = "tokyonight-night"
-vim.opt.termguicolors = true
-vim.o.background = ""
-lvim.transparent_window = true
-lvim.builtin.lualine.sections.lualine_c = { "diff" }
-lvim.builtin.treesitter.ensure_installed = { "python" }
-
-
-
 -- Execute Code with F4 and stop it with F5 also hide output using ESC key
-
 
 local languages = {
   python = {
@@ -59,6 +46,9 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.api.nvim_win_set_option(output_win, 'wrap', false)
         vim.api.nvim_buf_set_option(output_buf, 'bufhidden', 'wipe')
       end
+      if not vim.api.nvim_win_is_valid(output_win) then
+        vim.api.nvim_set_current_win(output_win)
+      end
     end
 
     local function output_to_buffer(data, isError)
@@ -68,54 +58,70 @@ vim.api.nvim_create_autocmd("FileType", {
       end
     end
 
+
     local function close_output_buffer()
+      -- Close the output window if it's open
       if output_win and vim.api.nvim_win_is_valid(output_win) then
         vim.api.nvim_win_close(output_win, true)
         output_win = nil
       end
+      -- Optionally clear the buffer
       if output_buf and vim.api.nvim_buf_is_valid(output_buf) then
         vim.api.nvim_buf_delete(output_buf, { force = true })
         output_buf = nil
       end
-      vim.notify("🤏 Buffer Closed", vim.log.levels.INFO)
+      -- Notify that the window and buffer are closed
+      vim.notify(" 🤏 Buffer Closed", vim.log.levels.INFO)
     end
 
+    -- Add the keymap for closing the output buffer
     vim.keymap.set("n", "<F6>", close_output_buffer, { desc = "Close the output buffer" })
 
+
     local function restart_script()
+      -- Stop any currently running job
       if job_id then
         vim.fn.jobstop(job_id)
         job_id = nil
       end
 
+      -- Optionally add a delay here to ensure resources (like ports) are freed up
       vim.defer_fn(function()
-        vim.cmd("write")
+        -- Save the file before restarting the script
+
+        vim.cmd('silent! write')
         local file = vim.fn.shellescape(vim.fn.expand('%'))
         vim.notify(lang.emoji .. " Starting script...", vim.log.levels.INFO)
+
+        -- Reopen the output buffer to capture new output
         open_output_buffer()
+
+        -- Start the script
         job_id = vim.fn.jobstart(lang.cmd .. " " .. file, {
           on_stdout = function(_, data)
             output_to_buffer(data, false)
           end,
           on_stderr = function(_, data)
-            output_to_buffer(data, false)
+            output_to_buffer(data, false) -- Ensure errors are marked appropriately
           end,
           on_exit = function(_, code)
             job_id = nil
             if code > 0 then
-              vim.notify(lang.emoji .. " Script exited with code " .. code)
+              vim.notify(lang.emoji .. " Script exited with code " .. code, vim.log.levels.ERROR)
             else
-              vim.notify(lang.emoji .. " Script executed successfully " .. code)
+              vim.notify(lang.emoji .. " Script executed successfully", vim.log.levels.INFO)
             end
+            close_output_buffer() -- Optionally close the output buffer automatically
           end,
         })
-      end, 500)
+      end, 500) -- Delay of 500 milliseconds
     end
 
-    vim.keymap.set("n", "<F4>", restart_script, { desc = lang.desc, buffer = true })
+    vim.keymap.set("n", "<F4>", restart_script, { desc = lang.desc })
 
+    -- Add hot reloading on file save
     vim.keymap.set("n", "<F5>", function()
-      if job_id and vim.fn.jobwait({ job_id }, 0)[1] == -1 then
+      if job_id and job_id ~= 0 and vim.fn.jobwait({ job_id }, 0)[1] == -1 then
         vim.fn.jobstop(job_id)
         vim.notify(lang.emoji .. " Stopping script...", vim.log.levels.INFO)
         job_id = nil
@@ -127,11 +133,12 @@ vim.api.nvim_create_autocmd("FileType", {
       end
     end, { desc = lang.kill_desc })
 
+    -- Add hot reloading on file save
     vim.api.nvim_create_autocmd("BufWritePost", {
       group = dev_group,
-      pattern = { "*.py", "*.go" },
+      pattern = { "*.py", "*.go" }, -- Adjust the pattern based on the files you want to hot reload
       callback = function()
-        if job_id and vim.fn.jobwait({ job_id }, 0)[1] == -1 then
+        if job_id then
           restart_script()
           close_output_buffer()
         end
@@ -140,6 +147,16 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+
+vim.opt.mouse = ""
+lvim.transparent_window = true
+lvim.leader = "space"
+lvim.colorscheme = "tokyonight-night"
+vim.opt.termguicolors = true
+vim.o.background = ""
+lvim.transparent_window = true
+lvim.builtin.lualine.sections.lualine_c = { "diff" }
+lvim.builtin.treesitter.ensure_installed = { "python" }
 
 -- No need to set style = "lvim"
 
@@ -334,7 +351,7 @@ lvim.plugins = {
         elseif hour >= 21 then
           greetingIndex = 5
         end
-        return "\t\t" .. "\t\t" .. datetime .. "" .. greetingsTable[greetingIndex] .. ", " .. name
+        return "\t\t\t" .. "\t\t" .. datetime .. "" .. greetingsTable[greetingIndex] .. ", " .. name
       end
 
       local logo = [[

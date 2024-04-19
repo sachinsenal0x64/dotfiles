@@ -7,11 +7,11 @@ sort_dir_first = true
 show_hidden    = true
 show_symlink   = true
 
+
 [preview]
 tab_size   = 2
 max_width  = 1000
 max_height = 1000
-cache_dir  = "~/.cache"
 
 [opener]
 folder = [
@@ -58,7 +58,7 @@ fallback = [
 [open]
 rules = [
 	{ name = "*/", use = "folder" },
-  { mime = "text/*", use = "text" },
+	{ mime = "text/*", use = "text" },
 	{ mime = "image/*", use = "image" },
 	{ mime = "video/*", use = "video" },
 	{ mime = "audio/*", use = "audio" },
@@ -92,6 +92,28 @@ preload = ["~/dotfiles/yazi/ui.lua",
           "~/dotfiles/yazi/status.lua"]
 
 
+prepend_previewers = [
+ 
+
+ { mime = "application/*zip",            run = "ouch" },
+ { mime = "application/x-tar",           run = "ouch" },
+ { mime = "application/x-bzip2",         run = "ouch" },
+ { mime = "application/x-7z-compressed", run = "ouch" },
+ { mime = "application/x-rar",           run = "ouch" },
+ { mime = "application/x-xz",            run = "ouch" },
+
+]
+
+
+[[plugin.prepend_previewers]]
+mime = "audio/*"
+run = "exifaudio"
+
+
+[[manager.prepend_keymap]]
+on   = [ "<Enter>" ]
+run  = "plugin --sync smart-enter"
+desc = "Enter the child directory, or open the file"
 
 
 [log]
