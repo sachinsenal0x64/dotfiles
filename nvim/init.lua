@@ -14,6 +14,9 @@ vim.api.nvim_create_autocmd('BufUnload', {
 
 vim.opt.termguicolors = true
 
+vim.opt.autochdir = true
+vim.opt.swapfile = false
+
 local function set_statusline_transparency()
   vim.opt.statusline = ' '
   vim.api.nvim_set_hl(0, 'Statusline', { link = 'Normal' })
@@ -22,63 +25,120 @@ end
 -- Run the function when Neovim starts
 vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = set_statusline_transparency })
 
--- Execute Code with F4 and stop it with F5 also hide buffer using F6
+-- Execute Code with F4 / Test File F3 and stop it with F5 also hide buffer using F6 / re open buffer F8 need silent mode ? then press F7
+
+-- Config
+
+Reloader = '💤'
+
+Sleep = '💤'
+
+Start = '🚀'
+
+Test = '🧪'
+
+Test_Done = '🧪.✅'
+
+Test_Fail = '🧪.❌'
+
+Langs = { 'python', 'go' }
+
+-- Use This If you dont have main.* file in your working directory
+
+Custom_File = 'index.py'
 
 local languages = {
   python = {
     cmd = 'python3',
     desc = 'Run Python file asynchronously',
     kill_desc = 'Kill the running Python file',
-    emoji = ' ', -- Python emoji
+    emoji = '🐍',
+    test = 'python -m unittest',
+    ext = { '.py' },
+    pattern = { '*.py' },
   },
+
   go = {
     cmd = 'go run',
     desc = 'Run Go file asynchronously',
     kill_desc = 'Kill the running Go file',
-    emoji = ' ', -- Gopher emoji for Go
+    emoji = '🐹',
+    test = 'go test',
+    ext = { '.go' },
+    pattern = { '*.go' },
   },
 }
 
+--End
+
+local job_id = nil
+local output_buf = nil
+local output_win = nil
+
+-- Create an autocmd group for development mappings
 local dev_group = vim.api.nvim_create_augroup('dev_mapping', { clear = true })
 
+-- Set up autocmds based on file type (python or go)
 vim.api.nvim_create_autocmd('FileType', {
   desc = 'Dynamic filetype mappings for running code',
   group = dev_group,
-  pattern = { 'python', 'go' },
+  pattern = Langs,
   callback = function(args)
     local lang = languages[args.match]
     if not lang then
       return
     end
 
-    local job_id = nil
-    local output_buf = nil
-    local output_win = nil
-
+    -- Function to open the output buffer in a floating window
     local function open_output_buffer()
+      -- Check if the buffer is still valid or if it needs to be created
       if not output_buf or not vim.api.nvim_buf_is_valid(output_buf) then
+        -- Create a new buffer that is not listed and not loaded into memory when deleted
         output_buf = vim.api.nvim_create_buf(false, true)
+        -- Calculate window dimensions as a percentage of the total screen size
+        local win_height = math.floor(vim.api.nvim_get_option 'lines' * 0.3) -- 30% of available height
+        local win_width = math.floor(vim.api.nvim_get_option 'columns' * 0.8) -- 80% of available width
+
+        -- Calculate and set window position and create the window
         output_win = vim.api.nvim_open_win(output_buf, true, {
           relative = 'editor',
-          width = vim.api.nvim_get_option 'columns' - 30,
-          height = 10,
-          row = vim.api.nvim_get_option 'lines' - 10 - 1,
+          width = win_width,
+          height = win_height,
+          row = vim.api.nvim_get_option 'lines' - win_height - 1,
           col = 10,
           style = 'minimal',
           border = 'rounded',
         })
+        -- Set specific window options
         vim.api.nvim_win_set_option(output_win, 'wrap', false)
         vim.api.nvim_buf_set_option(output_buf, 'bufhidden', 'wipe')
       end
     end
 
-    local function output_to_buffer(data, isError)
-      if data and #data > 0 then
-        local lines = isError and { 'ERROR: ' .. table.concat(data, '\n') } or data
-        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, lines)
+    local function output_to_buffer(data, is_error)
+      if not data or #data == 0 then
+        return
       end
-    end
 
+      local lines = {}
+      if is_error then
+        lines = { table.concat(data, ' ') }
+      else
+        lines = data
+      end
+
+      -- Attempt to set lines in buffer
+      local success, err = pcall(function()
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, lines)
+      end)
+
+      -- Check if there was an error
+      if not success then
+        print ''
+      end
+    end -- Ensure the functions are accessible by making them global
+
+    -- Function to close the output buffer
     local function close_output_buffer()
       if output_win and vim.api.nvim_win_is_valid(output_win) then
         vim.api.nvim_win_close(output_win, true)
@@ -91,60 +151,213 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.notify('🤏 Buffer Closed', vim.log.levels.INFO)
     end
 
-    vim.keymap.set('n', '<F6>', close_output_buffer, { desc = 'Close the output buffer' })
+    -- Define a function to find the main_test file
+    local function find_test_file(directory, extensions)
+      for _, file in ipairs(vim.fn.readdir(directory)) do
+        local path = directory .. '/' .. file
+        if vim.fn.isdirectory(path) == 1 then
+          -- If it's a directory, recursively search inside it
+          local test_file = find_test_file(path, extensions)
+          if test_file then
+            return test_file
+          end
+        else
+          -- Check if the file name matches any of the extensions
+          for _, ext in ipairs(extensions) do
+            if file:match('_test' .. ext .. '$') then
+              return path
+            end
+          end
+        end
+      end
+      return nil
+    end
 
-    local function restart_script()
+    local function test_restart_script()
       if job_id then
         vim.fn.jobstop(job_id)
         job_id = nil
       end
 
+      -- Get the root directory of the project
+      local root_dir = vim.fn.getcwd()
+      -- Find the main file in the root directory and its subdirectories
+      local main_file = find_test_file(root_dir, lang.ext)
+
+      if not main_file then
+        vim.notify('Test file not found in project directory or its subdirectories', vim.log.levels.ERROR)
+        return
+      end
+      vim.cmd 'write'
+      local file = vim.fn.shellescape(main_file) -- Get the current file path
+
+      -- vim.notify(lang.emoji .. ' Starting script...', vim.log.levels.INFO)
+      Reloader = Test
+      open_output_buffer()
+
       vim.defer_fn(function()
-        vim.cmd 'write'
-        local file = vim.fn.shellescape(vim.fn.expand '%')
-        vim.notify(lang.emoji .. ' Starting script...', vim.log.levels.INFO)
-        open_output_buffer()
-        job_id = vim.fn.jobstart(lang.cmd .. ' ' .. file, {
+        job_id = vim.fn.jobstart(lang.test .. ' ', {
           on_stdout = function(_, data)
             output_to_buffer(data, false)
           end,
           on_stderr = function(_, data)
-            output_to_buffer(data, false)
+            output_to_buffer(data, true)
           end,
           on_exit = function(_, code)
             job_id = nil
             if code > 0 then
-              vim.notify(lang.emoji .. ' Script exited with code ' .. code)
+              vim.notify(lang.emoji .. ' Script exited with code ' .. code, vim.log.levels.WARN)
+              Reloader = Test_Fail
             else
-              vim.notify(lang.emoji .. ' Script executed successfully ' .. code)
+              vim.notify(lang.emoji .. ' Script executed successfully', vim.log.levels.INFO)
+              Reloader = Test_Done
             end
           end,
         })
       end, 500)
     end
 
-    vim.keymap.set('n', '<F4>', restart_script, { desc = lang.desc, buffer = true })
-
-    vim.keymap.set('n', '<F5>', function()
-      if job_id and vim.fn.jobwait({ job_id }, 0)[1] == -1 then
-        vim.fn.jobstop(job_id)
-        vim.notify(lang.emoji .. ' Stopping script...', vim.log.levels.INFO)
-        job_id = nil
-        if output_win and vim.api.nvim_win_is_valid(output_win) then
-          vim.api.nvim_win_close(output_win, false)
+    -- Recursive function to search for the main file in the directory and its subdirectories
+    local function find_main_file(directory, extensions)
+      for _, file in ipairs(vim.fn.readdir(directory)) do
+        local path = directory .. '/' .. file
+        if vim.fn.isdirectory(path) == 1 then
+          -- If it's a directory, recursively search inside it
+          local main_file = find_main_file(path, extensions)
+          if main_file then
+            return main_file
+          end
+        else
+          -- Check if the file name matches any of the extensions
+          for _, ext in ipairs(extensions) do
+            if file == 'main' .. ext then
+              return path
+            elseif file == Custom_File .. ext then
+              return path
+            end
+          end
         end
-      else
-        vim.notify(lang.emoji .. ' No script is running.', vim.log.levels.INFO)
       end
-    end, { desc = lang.kill_desc })
+      return nil
+    end
 
+    -- Function to restart the script
+    local function restart_script()
+      if job_id then
+        vim.fn.jobstop(job_id)
+        job_id = nil
+      end
+
+      -- Get the root directory of the project
+      local root_dir = vim.fn.getcwd()
+      -- Find the main file in the root directory and its subdirectories
+      local main_file = find_main_file(root_dir, lang.ext)
+
+      if not main_file then
+        vim.notify('Main file not found in project directory or its subdirectories', vim.log.levels.ERROR)
+        return
+      end
+      vim.cmd 'write'
+      local file = vim.fn.shellescape(main_file) -- Get the current file path
+
+      -- vim.notify(lang.emoji .. ' Starting script...', vim.log.levels.INFO)
+      Reloader = Start
+      open_output_buffer()
+
+      vim.defer_fn(function()
+        job_id = vim.fn.jobstart(lang.cmd .. ' ' .. file, {
+          on_stdout = function(_, data)
+            output_to_buffer(data, false)
+          end,
+          on_stderr = function(_, data)
+            output_to_buffer(data, true)
+          end,
+          on_exit = function(_, code)
+            job_id = nil
+            --   if code > 0 then
+            --     vim.notify(lang.emoji .. ' Script exited with code ' .. code, vim.log.levels.WARN)
+            --   else
+            -- vim.notify(lang.emoji .. ' Script executed successfully', vim.log.levels.INFO)
+            --   end
+          end,
+        })
+      end, 500)
+    end
+
+    -- Function to silently restart the script (without output)
+
+    local function silent_restart_script()
+      if job_id then
+        vim.fn.jobstop(job_id)
+        job_id = nil
+      end
+
+      vim.defer_fn(function()
+        -- Get the root directory of the project
+        local root_dir = vim.fn.getcwd()
+        -- Find the main file in the root directory and its subdirectories
+        local main_file = find_main_file(root_dir, lang.ext)
+
+        if not main_file then
+          vim.notify('Main file not found in project directory or its subdirectories', vim.log.levels.ERROR)
+          return
+        end
+        vim.cmd 'write'
+        local file = vim.fn.shellescape(main_file) -- Get the current file path
+
+        -- vim.notify(lang.emoji .. ' Silently starting script...', vim.log.levels.INFO)
+        Reloader = Start
+        job_id = vim.fn.jobstart(lang.cmd .. ' ' .. file, {
+          on_stdout = function(_, data) end, -- No output handling
+          on_stderr = function(_, data) end, -- No output handling
+          on_exit = function(_, code)
+            job_id = nil
+            -- Uncomment the following lines to display exit status notifications
+            -- if code > 0 then
+            --   vim.notify(lang.emoji .. ' Silent script exited with code ' .. code, vim.log.levels.WARN)
+            -- else
+            -- vim.notify(lang.emoji .. ' Silent script executed successfully', vim.log.levels.INFO)
+            -- end
+          end,
+        })
+      end, 500) -- Defer the function call by 500ms to allow for any pending operations
+    end
+
+    -- Define the function to handle the F5 key press for stopping a running job
+    local function stop_running_job()
+      if not job_id then
+        vim.notify(lang.emoji .. ' No script is running.', vim.log.levels.INFO)
+        return
+      end
+
+      -- Stop the job if it's running
+      vim.fn.jobstop(job_id)
+      vim.notify(lang.emoji .. ' Stopping script...', vim.log.levels.INFO)
+      Reloader = Sleep
+      job_id = nil
+
+      -- Close the output window if it's still valid and open
+      if output_win and vim.api.nvim_win_is_valid(output_win) then
+        vim.api.nvim_win_close(output_win, true)
+      end
+    end
+
+    -- Set up keymappings
+    vim.keymap.set('n', '<F3>', test_restart_script, { desc = lang.desc, buffer = true })
+    vim.keymap.set('n', '<F4>', restart_script, { desc = lang.desc, buffer = true })
+    vim.keymap.set('n', '<F8>', open_output_buffer, { desc = lang.desc, buffer = true })
+    vim.keymap.set('n', '<F5>', stop_running_job, { desc = lang.kill_desc })
+    vim.keymap.set('n', '<F6>', close_output_buffer, { desc = 'Close the output buffer' })
+    vim.keymap.set('n', '<F7>', silent_restart_script, { desc = 'Silently restart the script', buffer = true })
+
+    -- Set up autocmd to restart the script silently on file write
     vim.api.nvim_create_autocmd('BufWritePost', {
       group = dev_group,
-      pattern = { '*.py', '*.go' },
+      pattern = lang.pattern,
       callback = function()
         if job_id and vim.fn.jobwait({ job_id }, 0)[1] == -1 then
-          restart_script()
           close_output_buffer()
+          silent_restart_script()
         end
       end,
     })
@@ -156,7 +369,7 @@ vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -226,9 +439,9 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('n', 'bp', '<Cmd>BufferLineCyclePrev<CR>')
-vim.keymap.set('n', 'bn', '<Cmd>BufferLineCycleNext<CR>')
-vim.keymap.set('n', '<F6>', '<Cmd>bd<CR>')
+vim.keymap.set('n', 'bp', '<Cmd>bp<CR>')
+vim.keymap.set('n', 'bn', '<Cmd>bn<CR>')
+vim.keymap.set('n', '<F9>', '<Cmd>bd<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -236,6 +449,8 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>e', '<Cmd>Neotree<CR>')
+vim.keymap.set('v', 'ss', '<Cmd>SessionsSave<CR>')
+vim.keymap.set('v', 'sr', '<Cmd>SessionsLoad<CR>')
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -413,6 +628,136 @@ require('lazy').setup({
       opts = {},
     },
 
+    {
+      'yanskun/gotests.nvim',
+      ft = 'go',
+      config = function()
+        require('gotests').setup()
+      end,
+    },
+    {
+      'rolv-apneseth/tfm.nvim',
+      lazy = false,
+      opts = {
+        -- TFM to use
+        -- Possible choices: "ranger" | "nnn" | "lf" | "vifm" | "yazi" (default)
+        file_manager = 'yazi',
+        -- Replace netrw entirely
+        -- Default: false
+        replace_netrw = true,
+        -- Enable creation of commands
+        -- Default: false
+        -- Commands:
+        --   Tfm: selected file(s) will be opened in the current window
+        --   TfmSplit: selected file(s) will be opened in a horizontal split
+        --   TfmVsplit: selected file(s) will be opened in a vertical split
+        --   TfmTabedit: selected file(s) will be opened in a new tab page
+        enable_cmds = true,
+        -- Custom keybindings only applied within the TFM buffer
+        -- Default: {}
+        keybindings = {
+          ['<ESC>'] = 'q',
+          -- Override the open mode (i.e. vertical/horizontal split, new tab)
+          -- Tip: you can add an extra `<CR>` to the end of these to immediately open the selected file(s) (assuming the TFM uses `enter` to finalise selection)
+          ['<C-v>'] = "<C-\\><C-O>:lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.vsplit)<CR>",
+          ['<C-x>'] = "<C-\\><C-O>:lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.split)<CR>",
+          ['<C-t>'] = "<C-\\><C-O>:lua require('tfm').set_next_open_mode(require('tfm').OPEN_MODE.tabedit)<CR>",
+        },
+        -- Customise UI. The below options are the default
+        ui = {
+          border = 'rounded',
+          height = 0.8,
+          width = 0.8,
+          x = 0.5,
+          y = 0.5,
+        },
+      },
+      keys = {
+        -- Make sure to change these keybindings to your preference,
+        -- and remove the ones you won't use
+        {
+          '<leader>yz',
+          ':Tfm<CR>',
+          desc = 'TFM',
+        },
+        {
+          '<leader>mh',
+          ':TfmSplit<CR>',
+          desc = 'TFM - horizontal split',
+        },
+        {
+          '<leader>mv',
+          ':TfmVsplit<CR>',
+          desc = 'TFM - vertical split',
+        },
+        {
+          '<leader>mt',
+          ':TfmTabedit<CR>',
+          desc = 'TFM - new tab',
+        },
+      },
+    },
+    {
+      'siawkz/nvim-cheatsh',
+      dependencies = {
+        'nvim-telescope/telescope.nvim',
+      },
+      opts = {
+        cheatsh_url = 'https://cht.sh/', -- URL of the cheat.sh instance to use, support self-hosted instances
+        position = 'bottom', -- position of the window can be: bottom, top, left, right
+        height = 20, -- height of the cheat when position is top or bottom
+        width = 100, -- width of the cheat when position is left or right
+      },
+    },
+
+    -- SESSION MANAGER
+
+    {
+      'natecraddock/sessions.nvim',
+      config = function()
+        require('sessions').setup {
+          session_filepath = vim.fn.stdpath 'data' .. '/sessions',
+          absolute = true,
+          autosave = true,
+          save = true,
+        }
+      end,
+    },
+
+    -- IMAGE PREVIEW
+    {
+      '3rd/image.nvim',
+      config = function()
+        require('image').setup {
+          backend = 'kitty',
+          integrations = {
+            markdown = {
+              enabled = true,
+              clear_in_insert_mode = true,
+              download_remote_images = true,
+              only_render_image_at_cursor = true,
+              filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
+            },
+            neorg = {
+              enabled = true,
+              clear_in_insert_mode = true,
+              download_remote_images = true,
+              only_render_image_at_cursor = true,
+              filetypes = { 'norg' },
+            },
+          },
+          max_width = nil,
+          max_height = nil,
+          max_width_window_percentage = nil,
+          max_height_window_percentage = 50,
+          window_overlap_clear_enabled = false, -- toggles images when windows are overlapped
+          window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
+          editor_only_render_when_focused = false, -- auto show/hide images when the editor gains/looses focus
+          tmux_show_only_in_active_window = false, -- auto show/hide images in the correct Tmux window (needs visual-activity off)
+          hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp' }, -- render image files as images when opened
+        }
+      end,
+    },
     -- Here is a more advanced example where we pass configuration
     -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
     --    require('gitsigns').setup({ ... })
@@ -420,17 +765,54 @@ require('lazy').setup({
     -- See `:help gitsigns` to understand what the configuration keys do
     { -- Adds git related signs to the gutter, as well as utilities for managing changes
       'lewis6991/gitsigns.nvim',
-      opts = {
-        signs = {
-          add = { text = '+' },
-          change = { text = '~' },
-          delete = { text = '_' },
-          topdelete = { text = '‾' },
-          changedelete = { text = '~' },
-        },
-      },
-    },
 
+      config = function()
+        require('gitsigns').setup {
+
+          signs = {
+            add = { text = '┃' },
+            change = { text = '┃' },
+            delete = { text = '_' },
+            topdelete = { text = '‾' },
+            changedelete = { text = '~' },
+            untracked = { text = '┆' },
+          },
+          signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+          numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+          linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+          word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+          watch_gitdir = {
+            follow_files = true,
+          },
+          auto_attach = true,
+          attach_to_untracked = false,
+          current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+          current_line_blame_opts = {
+            virt_text = true,
+            virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+            delay = 1000,
+            ignore_whitespace = false,
+            virt_text_priority = 100,
+          },
+          current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+          current_line_blame_formatter_opts = {
+            relative_time = false,
+          },
+          sign_priority = 6,
+          update_debounce = 100,
+          status_formatter = nil, -- Use default
+          max_file_length = 40000, -- Disable if file is longer than this (in lines)
+          preview_config = {
+            -- Options passed to nvim_open_win
+            border = 'single',
+            style = 'minimal',
+            relative = 'cursor',
+            row = 0,
+            col = 1,
+          },
+        }
+      end,
+    },
     -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
     --
     -- This is often very useful to both group configuration, as well as handle
@@ -445,6 +827,25 @@ require('lazy').setup({
     -- Then, because we use the `config` key, the configuration only runs
     -- after the plugin has been loaded:
     --  config = function() ... end
+
+    -- VENV SWITCHER
+
+    {
+      'linux-cultist/venv-selector.nvim',
+      dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
+      opts = {
+        -- Your options go here
+        venvwrapper_path = '~/Documents/venv/',
+        auto_refresh = true,
+      },
+      event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+      keys = {
+        -- Keymap to open VenvSelector to pick a venv.
+        { '<leader>vs', '<cmd>VenvSelect<cr>' },
+        -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+        { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
+      },
+    },
 
     -- GO
 
@@ -467,8 +868,17 @@ require('lazy').setup({
       config = function()
         local lint = require 'lint'
         lint.linters_by_ft = {
-          markdown = { 'markdownlint' },
-          python = { 'ruff' },
+          python = { 'pylint', 'ruff', 'mypy' },
+          clojure = { 'clj-kondo' },
+          dockerfile = { 'hadolint' },
+          inko = { 'inko' },
+          janet = { 'janet' },
+          json = { 'jsonlint' },
+          markdown = { 'vale' },
+          rst = { 'vale' },
+          ruby = { 'ruby' },
+          terraform = { 'tflint' },
+          text = { 'vale' },
         }
 
         -- To allow other plugins to add linters to require('lint').linters_by_ft,
@@ -478,18 +888,6 @@ require('lazy').setup({
         --
         -- However, note that this will enable a set of default linters,
         -- which will cause errors unless these tools are available:
-        -- {
-        --   clojure = { "clj-kondo" },
-        --   dockerfile = { "hadolint" },
-        --   inko = { "inko" },
-        --   janet = { "janet" },
-        --   json = { "jsonlint" },
-        --   markdown = { "vale" },
-        --   rst = { "vale" },
-        --   ruby = { "ruby" },
-        --   terraform = { "tflint" },
-        --   text = { "vale" }
-        -- }
         --
         -- You can disable the default linters by setting their filetypes to nil:
         -- lint.linters_by_ft['clojure'] = nil
@@ -512,6 +910,9 @@ require('lazy').setup({
             require('lint').try_lint()
           end,
         })
+        -- Set pylint to work in virtualenv
+        require('lint').linters.pylint.cmd = 'python'
+        require('lint').linters.pylint.args = { '-m', 'pylint', '-f', 'json' }
       end,
     },
 
@@ -648,6 +1049,47 @@ require('lazy').setup({
       end,
     },
     {
+      'fedepujol/move.nvim',
+      config = function()
+        require('move').setup {
+          line = {
+            enable = true, -- Enables line movement
+            indent = true, -- Toggles indentation
+          },
+          block = {
+            enable = true, -- Enables block movement
+            indent = true, -- Toggles indentation
+          },
+          word = {
+            enable = true, -- Enables word movement
+          },
+          char = {
+            enable = true, -- Enables char movement
+          },
+        }
+        local opts = { noremap = true, silent = true }
+        -- Normal-mode commands
+        vim.keymap.set('n', '<A-j>', ':MoveLine(1)<CR>', opts)
+        vim.keymap.set('n', '<A-k>', ':MoveLine(-1)<CR>', opts)
+        vim.keymap.set('n', '<A-h>', ':MoveHChar(-1)<CR>', opts)
+        vim.keymap.set('n', '<A-l>', ':MoveHChar(1)<CR>', opts)
+        vim.keymap.set('n', '<leader>wf', ':MoveWord(1)<CR>', opts)
+        vim.keymap.set('n', '<leader>wb', ':MoveWord(-1)<CR>', opts)
+
+        -- Visual-mode commands
+        vim.keymap.set('v', '<A-j>', ':MoveBlock(1)<CR>', opts)
+        vim.keymap.set('v', '<A-k>', ':MoveBlock(-1)<CR>', opts)
+
+        vim.keymap.set('n', '<lt>', '<lt><lt>', { silent = true, desc = 'Outdent' })
+
+        vim.keymap.set('n', '>', '>>', { silent = true, desc = 'Indent' })
+
+        vim.keymap.set('v', '<lt>', '<lt>gv', { silent = true, desc = 'Indent' })
+
+        vim.keymap.set('v', '>', '>gv', { silent = true, desc = 'Indent' })
+      end,
+    },
+    {
       'linrongbin16/lsp-progress.nvim',
       config = function()
         require('lsp-progress').setup {
@@ -708,7 +1150,148 @@ require('lazy').setup({
         }
       end,
     },
+    {
+      'folke/noice.nvim',
+      dependencies = {
+        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        'MunifTanjim/nui.nvim',
+        'rcarriga/nvim-notify',
+      },
+      init = function()
+        require('notify').setup {
+          -- other stuff
+          background_colour = '#000000',
+        }
+      end,
 
+      config = function()
+        require('noice').setup {
+          cmdline = {
+            enabled = true, -- enables the Noice cmdline UI
+            view = 'cmdline_popup', -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+            opts = {}, -- global options for the cmdline. See section on views
+            ---@type table<string, CmdlineFormat>
+            format = {
+              -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
+              -- view: (default is cmdline view)
+              -- opts: any options passed to the view
+              -- icon_hl_group: optional hl_group for the icon
+              -- title: set to anything or empty string to hide
+              cmdline = { pattern = '^:', icon = '', lang = 'vim' },
+              search_down = { kind = 'search', pattern = '^/', icon = ' ', lang = 'regex' },
+              search_up = { kind = 'search', pattern = '^%?', icon = ' ', lang = 'regex' },
+              filter = { pattern = '^:%s*!', icon = '$', lang = 'bash' },
+              lua = { pattern = { '^:%s*lua%s+', '^:%s*lua%s*=%s*', '^:%s*=%s*' }, icon = '', lang = 'lua' },
+              help = { pattern = '^:%s*he?l?p?%s+', icon = '' },
+              input = {}, -- Used by input()
+              -- lua = false, -- to disable a format, set to `false`
+            },
+          },
+          messages = {
+            -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+            -- This is a current Neovim limitation.
+            enabled = true, -- enables the Noice messages UI
+            view = 'notify', -- default view for messages
+            view_error = 'notify', -- view for errors
+            view_warn = 'notify', -- view for warnings
+            view_history = 'messages', -- view for :messages
+            view_search = 'virtualtext', -- view for search count messages. Set to `false` to disable
+          },
+          popupmenu = {
+            enabled = true, -- enables the Noice popupmenu UI
+            ---@type 'nui'|'cmp'
+            backend = 'nui', -- backend to use to show regular cmdline completions
+            ---@type NoicePopupmenuItemKind|false
+            -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
+            kind_icons = {}, -- set to `false` to disable icons
+          },
+          -- default options for require('noice').redirect
+          -- see the section on Command Redirection
+          ---@type NoiceRouteConfig
+          redirect = {
+            view = 'popup',
+            filter = { event = 'msg_show' },
+          },
+          notify = {
+            -- Noice can be used as `vim.notify` so you can route any notification like other messages
+            -- Notification messages have their level and other properties set.
+            -- event is always "notify" and kind can be any log level as a string
+            -- The default routes will forward notifications to nvim-notify
+            -- Benefit of using Noice for this is the routing and consistent history view
+            enabled = true,
+            view = 'notify',
+          },
+          lsp = {
+            progress = {
+              enabled = false,
+            },
+            -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+            override = {
+              ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+              ['vim.lsp.util.stylize_markdown'] = true,
+              ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+            },
+          },
+          -- you can enable a preset for easier configuration
+          presets = {
+            bottom_search = true, -- use a classic bottom cmdline for search
+            command_palette = true, -- position the cmdline and popupmenu together
+            long_message_to_split = true, -- long messages will be sent to a split
+            inc_rename = true, -- enables an input dialog for inc-rename.nvim
+            lsp_doc_border = false, -- add a border to hover docs and signature help
+          },
+        }
+      end,
+    },
+    {
+      'ThePrimeagen/harpoon',
+      branch = 'harpoon2',
+      dependencies = {
+        'nvim-lua/plenary.nvim',
+        'letieu/harpoon-lualine',
+      },
+      init = function()
+        -- Harpoon telescope extension
+        require('telescope').load_extension 'harpoon'
+      end,
+      config = function()
+        local harpoon = require 'harpoon'
+
+        harpoon:setup()
+        vim.keymap.set('n', '<leader>h', '<cmd>Telescope harpoon marks<cr>')
+        vim.keymap.set('n', '<A-a>', function()
+          harpoon:list():add()
+        end, { silent = true, desc = 'Append current file to harpoon' })
+        vim.keymap.set('n', '<C-h>', function()
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end, { silent = true, desc = 'Toggle harpoon quick menu' })
+
+        vim.keymap.set('n', '<leader>d', function()
+          harpoon:list():remove()
+        end, { silent = true, desc = 'Toggle to delete files from harpoon' })
+
+        vim.keymap.set('n', '<leader>hn', function()
+          harpoon:list():next { ui_nav_wrap = true }
+        end, { silent = true, desc = 'Next Section' })
+
+        vim.keymap.set('n', '<leader>hp', function()
+          harpoon:list():prev { ui_nav_wrap = true }
+        end, { silent = true, desc = 'Previous Section' })
+
+        vim.keymap.set('n', '<A-1>', function()
+          harpoon:list():select(1)
+        end, { silent = true, desc = 'Jumps to item 1 in the list' })
+        vim.keymap.set('n', '<A-2>', function()
+          harpoon:list():select(2)
+        end, { silent = true, desc = 'Jumps to item 2 in the list' })
+        vim.keymap.set('n', '<A-3>', function()
+          harpoon:list():select(3)
+        end, { silent = true, desc = 'Jumps to item 3 in the list' })
+        vim.keymap.set('n', '<A-4>', function()
+          harpoon:list():select(4)
+        end, { silent = true, desc = 'Jumps to item 4 in the list' })
+      end,
+    },
     {
 
       'nvim-lualine/lualine.nvim',
@@ -778,7 +1361,7 @@ require('lazy').setup({
         }
         local branch = {
           'branch',
-          icon = '',
+          icon = '',
           color = { fg = colors.violet, bg = 'None', gui = 'bold' },
           on_click = function()
             vim.cmd 'Neogit'
@@ -794,6 +1377,9 @@ require('lazy').setup({
             color_info = { fg = colors.cyan, bg = 'None', gui = 'bold' },
           },
           color = { bg = mode, gui = 'bold' },
+        }
+        local reloader = {
+          'Reloader',
         }
         local harpoon = {
           'harpoon2',
@@ -961,13 +1547,23 @@ require('lazy').setup({
           sections = {
             lualine_a = { mode },
             lualine_b = {
-              filetype,
               filename,
+              reloader,
               branch,
+              diff,
+              {
+                require('noice').api.status.command.get,
+                cond = require('noice').api.status.command.has,
+                color = { fg = '#ff9e64' },
+              },
             },
-            lualine_c = { diagnostics, sep, harpoon },
-            lualine_x = { diff, fileformat, lazy, lsp },
-            lualine_y = { buffers, filetype, progress },
+            lualine_c = {
+              diagnostics,
+              sep,
+              harpoon,
+            },
+            lualine_x = { fileformat, lazy, lsp },
+            lualine_y = { buffers, { 'filetype', cond = nil, padding = { left = 1, right = 1 }, color = { fg = colors.darkblue, bg = 'None' } }, progress },
             lualine_z = { location },
           },
           inactive_sections = {
@@ -1217,8 +1813,17 @@ require('lazy').setup({
         'nvim-lua/plenary.nvim',
         'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
         'MunifTanjim/nui.nvim',
-        -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        '3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
       },
+      config = function()
+        require('neo-tree').setup {
+          window = {
+            mappings = {
+              ['P'] = { 'toggle_preview', config = { use_float = false, use_image_nvim = true } },
+            },
+          },
+        }
+      end,
     },
 
     { -- LSP Configuration & Plugins
@@ -1371,7 +1976,6 @@ require('lazy').setup({
           -- tsserver = {},
 
           -- clangd = {},
-
           gopls = {},
 
           pyright = {},
@@ -1433,7 +2037,12 @@ require('lazy').setup({
         -- for you, so that they are available from within Neovim.
         local ensure_installed = vim.tbl_keys(servers or {})
         vim.list_extend(ensure_installed, {
-          'stylua', -- Used to format Lua code
+          'stylua',
+          'pylint',
+          'mypy',
+          'ruff',
+          'vale',
+          'black',
         })
         require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -1452,56 +2061,45 @@ require('lazy').setup({
         }
       end,
     },
-
-    { -- Autoformat
+    {
       'stevearc/conform.nvim',
-      lazy = false,
-      keys = {
-        {
-          '<leader>f',
-          function()
-            require('conform').format { async = true, lsp_fallback = true }
-          end,
-          mode = '',
-          desc = '[F]ormat buffer',
-        },
-      },
-      opts = {
-        notify_on_error = false,
-        format_on_save = function(bufnr)
-          -- Disable "format_on_save lsp_fallback" for languages that don't
-          -- have a well standardized coding style. You can add additional
-          -- languages here or re-enable it for the disabled ones.
-          local disable_filetypes = { c = false, cpp = false }
-          return {
-            timeout_ms = 500,
-            lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+      enabled = true,
+      event = { 'BufReadPre', 'BufNewFile' }, -- to disable, comment this out
+      config = function()
+        local conform = require 'conform'
+
+        conform.setup {
+          formatters_by_ft = {
+            javascript = { 'prettier' },
+            typescript = { 'prettier' },
+            javascriptreact = { 'prettier' },
+            typescriptreact = { 'prettier' },
+            svelte = { 'prettier' },
+            css = { 'prettier' },
+            html = { 'prettier' },
+            json = { 'prettier' },
+            yaml = { 'prettier' },
+            markdown = { 'prettier' },
+            graphql = { 'prettier' },
+            lua = { 'stylua' },
+            python = { 'isort', 'ruff_format', 'black' },
+          },
+          format_on_save = {
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 1000,
+          },
+        }
+
+        vim.keymap.set({ 'n', 'v' }, '<leader>mf', function()
+          conform.format {
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 1000,
           }
-        end,
-        formatters_by_ft = {
-          lua = { 'stylua' },
-          javascript = { 'prettier' },
-          css = { 'prettier' },
-          html = { 'prettier' },
-          json = { 'prettier' },
-          yaml = { 'prettier' },
-          markdown = { 'prettier' },
-          graphql = { 'prettier' },
-          python = { 'ruff_format', 'black', 'isort' },
-
-          -- You can use a sub-list to tell conform to run *until* a formatter
-          -- is found.
-          -- javascript = { { "prettierd", "prettier" } },
-        },
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          pattern = '*',
-          callback = function(args)
-            require('conform').format { bufnr = args.buf }
-          end,
-        }),
-      },
+        end, { desc = 'Format file or range (in visual mode)' })
+      end,
     },
-
     { -- Autocompletion
       'hrsh7th/nvim-cmp',
       event = 'InsertEnter',
@@ -1658,7 +2256,7 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
       opts = {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown_inline', 'markdown', 'vim', 'vimdoc' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = {

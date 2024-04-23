@@ -7,13 +7,14 @@ sort_dir_first = true
 show_hidden    = true
 show_symlink   = true
 
-
 [preview]
 tab_size   = 2
 max_width  = 1000
 max_height = 1000
 
 [opener]
+
+
 folder = [
 	{ run = 'open -R "$@"', desc = "Reveal in Finder" },
 	{ run = '$EDITOR "$@"' },
@@ -92,17 +93,6 @@ preload = ["~/dotfiles/yazi/ui.lua",
           "~/dotfiles/yazi/status.lua"]
 
 
-prepend_previewers = [
- 
-
- { mime = "application/*zip",            run = "ouch" },
- { mime = "application/x-tar",           run = "ouch" },
- { mime = "application/x-bzip2",         run = "ouch" },
- { mime = "application/x-7z-compressed", run = "ouch" },
- { mime = "application/x-rar",           run = "ouch" },
- { mime = "application/x-xz",            run = "ouch" },
-
-]
 
 
 [[plugin.prepend_previewers]]
@@ -115,6 +105,16 @@ on   = [ "<Enter>" ]
 run  = "plugin --sync smart-enter"
 desc = "Enter the child directory, or open the file"
 
+[[manager.prepend_keymap]]
+on   = [ "f","g" ]
+run  = "plugin fg"
+desc = "find file by content"
+
+
+[[manager.prepend_keymap]]
+on   = [ "f","f" ]
+run  = "plugin fg --args='fzf'"
+desc = "find file by file name"
 
 [log]
-enabled = false
+enabled = true

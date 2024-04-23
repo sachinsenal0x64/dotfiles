@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# CD Alternative tool
+
+eval "$(zoxide init bash)"
 
 # Flyctl 
 
@@ -163,19 +166,16 @@ alias logout="~/dotfiles/scripts/logout.sh"
 
 # Yazi 
 
-function ya() {
-	tmp="$(mktemp -t "yazi-cwd.XXXXX")"
-	yazi --cwd-file="$tmp"
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
 }
 
-
-
 # Reverse History Search 
-
 
 fzf_history_search() {
   local selected_command

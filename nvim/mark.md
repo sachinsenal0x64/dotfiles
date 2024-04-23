@@ -1,3 +1,6 @@
 ![This is a remote image](https://gist.ro/s/remote.png)
 
-![](~/dotfiles/lvim/pic.jpg)
+![](~/dotfiles/nvim/pic.jpg)
+
+
+i wil 
