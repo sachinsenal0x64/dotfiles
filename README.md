@@ -2,7 +2,7 @@
 
 <br>
 
-![image](https://sachinsenal0x64.github.io/picx-images-hosting/304028946-7803ee3c-675e-43c1-b521-e0101e6430db.177juam2y1kw.webp)
+![image](https://github.com/sachinsenal0x64/picx-images-hosting/raw/master/2024-04-25-04:25:07-screenshot.7zq89owa65.webp)
 
 
 | Category                    | Software                                      | Themes / Configuration         |
