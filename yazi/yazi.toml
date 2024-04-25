@@ -1,52 +1,51 @@
 [manager]
-layout         = [ 1, 4, 3 ]
-sort_by        = "modified"
+layout = [1, 4, 3]
+sort_by = "modified"
 sort_sensitive = true
-sort_reverse   = true
+sort_reverse = true
 sort_dir_first = true
-show_hidden    = true
-show_symlink   = true
+show_hidden = true
+show_symlink = true
 
 [preview]
-tab_size   = 2
-max_width  = 1000
-max_height = 1000
+tab_size = 2
+max_width = 600
+max_height = 900
+cache_dir = ""
+image_filter = "triangle"
+image_quality = 75
+sixel_fraction = 15
+ueberzug_scale = 1
+ueberzug_offset = [0, 0, 0, 0]
 
 [opener]
-
-
-folder = [
-	{ run = 'open -R "$@"', desc = "Reveal in Finder" },
-	{ run = '$EDITOR "$@"' },
+edit = [
+	{ run = '${EDITOR:=vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
 ]
 
-archive = [
-	{ run = 'unar "$1"', desc = "Extract here" },
-]
+extract = [{ run = 'unar "$1"', desc = "Extract here", for = "unix" }]
 
-text = [
-	{ run = '$EDITOR "$@"', block= true },
-]
+text = [{ run = '$EDITOR "$@"', block = true }]
 
 image = [
-	{ run = 'imv-dir  "$@"',block = true},
-  { run = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF" },
+	{ run = 'imv-dir  "$@"', block = true },
+	{ run = '''exiftool "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show EXIF" },
 ]
 
-
-pdf = [
-
-	{run = 'zathura "$@"',block = true}
-
+reveal = [
+	{ run = 'xdg-open "$(dirname "$0")"', desc = "Reveal", for = "linux" },
+	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
+
+pdf = [{ run = 'zathura "$@"', block = true }]
 
 video = [
-	{ run = 'mpv "$@"',block= true },
-	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
+	{ run = 'mpv "$@"', block = true },
+	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show media info", for = "unix" },
 ]
 
 audio = [
-	{ run = 'mpv --no-video "$@"',block=true },
+	{ run = 'mpv --no-video "$@"', block = true },
 	{ run = '''mediainfo "$1"; echo "Press enter to exit"; read''', block = true, desc = "Show media info" },
 ]
 
@@ -58,42 +57,163 @@ fallback = [
 
 [open]
 rules = [
-	{ name = "*/", use = "folder" },
-	{ mime = "text/*", use = "text" },
-	{ mime = "image/*", use = "image" },
-	{ mime = "video/*", use = "video" },
-	{ mime = "audio/*", use = "audio" },
-	{ mime = "inode/x-empty", use = "text" },
+	{ name = "*/", use = [
+		"edit",
+		"open",
+		"reveal",
+	] },
 
-	{ mime = "application/json", use = "text" },
-	{ mime = "*/javascript", use = "text" },
+	{ mime = "text/*", use = [
+		"edit",
+		"reveal",
+	] },
+	{ mime = "image/*", use = [
+		"open",
+		"reveal",
+	] },
+	{ mime = "{audio,video}/*", use = [
+		"play",
+		"reveal",
+	] },
+	{ mime = "inode/x-empty", use = [
+		"edit",
+		"reveal",
+	] },
 
-	{ mime = "application/zip", use = "archive" },
-	{ mime = "application/gzip", use = "archive" },
-	{ mime = "application/x-tar", use = "archive" },
-	{ mime = "application/x-bzip", use = "archive" },
-	{ mime = "application/x-bzip2", use = "archive" },
-	{ mime = "application/x-7z-compressed", use = "archive" },
-	{ mime = "application/x-rar", use = "archive" },
+	{ mime = "application/*zip", use = [
+		"extract",
+		"reveal",
+	] },
+	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [
+		"extract",
+		"reveal",
+	] },
+
+	{ mime = "application/json", use = [
+		"edit",
+		"reveal",
+	] },
+	{ mime = "*/javascript", use = [
+		"edit",
+		"reveal",
+	] },
+	{ mime = "*", use = [
+		"open",
+		"reveal",
+	] },
 	{ mime = "application/pdf", use = "pdf" },
- 	{ mime = "*", use = "fallback" },
-  
+	{ mime = "*", use = "fallback" },
+
 ]
 
 
 [tasks]
-micro_workers = 5
-macro_workers = 10
+micro_workers = 10
+macro_workers = 25
 bizarre_retry = 5
+image_alloc = 536870912  # 512MB
+image_bound = [0, 0]
+suppress_preload = false
+
+[input]
+# cd
+cd_title = "Change directory:"
+cd_origin = "top-center"
+cd_offset = [0, 2, 50, 3]
+
+# create
+create_title = "Create:"
+create_origin = "top-center"
+create_offset = [0, 2, 50, 3]
+
+# rename
+rename_title = "Rename:"
+rename_origin = "hovered"
+rename_offset = [0, 1, 50, 3]
+
+# trash
+trash_title = "Move {n} selected file{s} to trash? (y/N)"
+trash_origin = "top-center"
+trash_offset = [0, 2, 50, 3]
+
+# delete
+delete_title = "Delete {n} selected file{s} permanently? (y/N)"
+delete_origin = "top-center"
+delete_offset = [0, 2, 50, 3]
+
+# filter
+filter_title = "Filter:"
+filter_origin = "top-center"
+filter_offset = [0, 2, 50, 3]
+
+# find
+find_title = ["Find next:", "Find previous:"]
+find_origin = "top-center"
+find_offset = [0, 2, 50, 3]
+
+# search
+search_title = "Search via {n}:"
+search_origin = "top-center"
+search_offset = [0, 2, 50, 3]
+
+# shell
+shell_title = ["Shell:", "Shell (block):"]
+shell_origin = "top-center"
+shell_offset = [0, 2, 50, 3]
+
+# overwrite
+overwrite_title = "Overwrite an existing file? (y/N)"
+overwrite_origin = "top-center"
+overwrite_offset = [0, 2, 50, 3]
+
+# quit
+quit_title = "{n} task{s} running, sure to quit? (y/N)"
+quit_origin = "top-center"
+quit_offset = [0, 2, 50, 3]
 
 
+[select]
+open_title = "Open with:"
+open_origin = "hovered"
+open_offset = [0, 1, 50, 7]
+
+[which]
+sort_by = "none"
+sort_sensitive = false
+sort_reverse = false
 
 [plugins]
-preload = ["~/dotfiles/yazi/ui.lua",
-          "~/dotfiles/yazi/status.lua"]
+preload = ["~/dotfiles/yazi/ui.lua", "~/dotfiles/yazi/status.lua"]
 
-
-
+preloaders = [
+	{ name = "*", cond = "!mime", run = "mime", multi = true, prio = "high" },
+	# Image
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# PDF
+	{ mime = "application/pdf", run = "pdf" },
+]
+previewers = [
+	{ name = "*/", run = "folder", sync = true },
+	# Code
+	{ mime = "text/*", run = "code" },
+	{ mime = "*/{xml,javascript,x-wine-extension-ini}", run = "code" },
+	# JSON
+	{ mime = "application/json", run = "json" },
+	# Image
+	{ mime = "image/vnd.djvu", run = "noop" },
+	{ mime = "image/*", run = "image" },
+	# Video
+	{ mime = "video/*", run = "video" },
+	# PDF
+	{ mime = "application/pdf", run = "pdf" },
+	# Archive
+	{ mime = "application/*zip", run = "archive" },
+	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", run = "archive" },
+	# Fallback
+	{ name = "*", run = "file" },
+]
 
 [[plugin.prepend_previewers]]
 mime = "audio/*"
@@ -101,19 +221,19 @@ run = "exifaudio"
 
 
 [[manager.prepend_keymap]]
-on   = [ "<Enter>" ]
-run  = "plugin --sync smart-enter"
+on = ["<Enter>"]
+run = "plugin --sync smart-enter"
 desc = "Enter the child directory, or open the file"
 
 [[manager.prepend_keymap]]
-on   = [ "f","g" ]
-run  = "plugin fg"
+on = ["f", "g"]
+run = "plugin fg"
 desc = "find file by content"
 
 
 [[manager.prepend_keymap]]
-on   = [ "f","f" ]
-run  = "plugin fg --args='fzf'"
+on = ["f", "f"]
+run = "plugin fg --args='fzf'"
 desc = "find file by file name"
 
 [log]

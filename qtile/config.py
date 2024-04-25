@@ -12,16 +12,7 @@ import subprocess
 from pathlib import Path
 
 from libqtile import bar, hook, layout, qtile, widget
-from libqtile.config import (
-    Click,
-    Drag,
-    DropDown,
-    Group,
-    Key,
-    Match,
-    ScratchPad,
-    Screen,
-)
+from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
 from libqtile.dgroups import simple_key_binder
 from libqtile.lazy import lazy
 

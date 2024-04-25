@@ -1,7 +1,7 @@
 -- Disable The StatusLine
 
 vim.api.nvim_create_autocmd('User', {
-  pattern = 'AlphaReady',
+  pattern = { 'AlphaReady', 'Noice' },
   command = 'set laststatus=0',
 })
 
@@ -13,7 +13,6 @@ vim.api.nvim_create_autocmd('BufUnload', {
 })
 
 vim.opt.termguicolors = true
-
 vim.opt.autochdir = true
 vim.opt.swapfile = false
 
@@ -24,345 +23,6 @@ end
 
 -- Run the function when Neovim starts
 vim.api.nvim_create_autocmd({ 'VimEnter' }, { callback = set_statusline_transparency })
-
--- Execute Code with F4 / Test File F3 and stop it with F5 also hide buffer using F6 / re open buffer F8 need silent mode ? then press F7
-
--- Config
-
-Reloader = '💤'
-
-Sleep = '💤'
-
-Start = '🚀'
-
-Test = '🧪'
-
-Test_Done = '🧪.✅'
-
-Test_Fail = '🧪.❌'
-
-Langs = { 'python', 'go' }
-
--- Use This If you dont have main.* file in your working directory
-
-Custom_File = 'index.py'
-
-local languages = {
-  python = {
-    cmd = 'python3',
-    desc = 'Run Python file asynchronously',
-    kill_desc = 'Kill the running Python file',
-    emoji = '🐍',
-    test = 'python -m unittest',
-    ext = { '.py' },
-    pattern = { '*.py' },
-  },
-
-  go = {
-    cmd = 'go run',
-    desc = 'Run Go file asynchronously',
-    kill_desc = 'Kill the running Go file',
-    emoji = '🐹',
-    test = 'go test',
-    ext = { '.go' },
-    pattern = { '*.go' },
-  },
-}
-
---End
-
-local job_id = nil
-local output_buf = nil
-local output_win = nil
-
--- Create an autocmd group for development mappings
-local dev_group = vim.api.nvim_create_augroup('dev_mapping', { clear = true })
-
--- Set up autocmds based on file type (python or go)
-vim.api.nvim_create_autocmd('FileType', {
-  desc = 'Dynamic filetype mappings for running code',
-  group = dev_group,
-  pattern = Langs,
-  callback = function(args)
-    local lang = languages[args.match]
-    if not lang then
-      return
-    end
-
-    -- Function to open the output buffer in a floating window
-    local function open_output_buffer()
-      -- Check if the buffer is still valid or if it needs to be created
-      if not output_buf or not vim.api.nvim_buf_is_valid(output_buf) then
-        -- Create a new buffer that is not listed and not loaded into memory when deleted
-        output_buf = vim.api.nvim_create_buf(false, true)
-        -- Calculate window dimensions as a percentage of the total screen size
-        local win_height = math.floor(vim.api.nvim_get_option 'lines' * 0.3) -- 30% of available height
-        local win_width = math.floor(vim.api.nvim_get_option 'columns' * 0.8) -- 80% of available width
-
-        -- Calculate and set window position and create the window
-        output_win = vim.api.nvim_open_win(output_buf, true, {
-          relative = 'editor',
-          width = win_width,
-          height = win_height,
-          row = vim.api.nvim_get_option 'lines' - win_height - 1,
-          col = 10,
-          style = 'minimal',
-          border = 'rounded',
-        })
-        -- Set specific window options
-        vim.api.nvim_win_set_option(output_win, 'wrap', false)
-        vim.api.nvim_buf_set_option(output_buf, 'bufhidden', 'wipe')
-      end
-    end
-
-    local function output_to_buffer(data, is_error)
-      if not data or #data == 0 then
-        return
-      end
-
-      local lines = {}
-      if is_error then
-        lines = { table.concat(data, ' ') }
-      else
-        lines = data
-      end
-
-      -- Attempt to set lines in buffer
-      local success, err = pcall(function()
-        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, lines)
-      end)
-
-      -- Check if there was an error
-      if not success then
-        print ''
-      end
-    end -- Ensure the functions are accessible by making them global
-
-    -- Function to close the output buffer
-    local function close_output_buffer()
-      if output_win and vim.api.nvim_win_is_valid(output_win) then
-        vim.api.nvim_win_close(output_win, true)
-        output_win = nil
-      end
-      if output_buf and vim.api.nvim_buf_is_valid(output_buf) then
-        vim.api.nvim_buf_delete(output_buf, { force = true })
-        output_buf = nil
-      end
-      vim.notify('🤏 Buffer Closed', vim.log.levels.INFO)
-    end
-
-    -- Define a function to find the main_test file
-    local function find_test_file(directory, extensions)
-      for _, file in ipairs(vim.fn.readdir(directory)) do
-        local path = directory .. '/' .. file
-        if vim.fn.isdirectory(path) == 1 then
-          -- If it's a directory, recursively search inside it
-          local test_file = find_test_file(path, extensions)
-          if test_file then
-            return test_file
-          end
-        else
-          -- Check if the file name matches any of the extensions
-          for _, ext in ipairs(extensions) do
-            if file:match('_test' .. ext .. '$') then
-              return path
-            end
-          end
-        end
-      end
-      return nil
-    end
-
-    local function test_restart_script()
-      if job_id then
-        vim.fn.jobstop(job_id)
-        job_id = nil
-      end
-
-      -- Get the root directory of the project
-      local root_dir = vim.fn.getcwd()
-      -- Find the main file in the root directory and its subdirectories
-      local main_file = find_test_file(root_dir, lang.ext)
-
-      if not main_file then
-        vim.notify('Test file not found in project directory or its subdirectories', vim.log.levels.ERROR)
-        return
-      end
-      vim.cmd 'write'
-      local file = vim.fn.shellescape(main_file) -- Get the current file path
-
-      -- vim.notify(lang.emoji .. ' Starting script...', vim.log.levels.INFO)
-      Reloader = Test
-      open_output_buffer()
-
-      vim.defer_fn(function()
-        job_id = vim.fn.jobstart(lang.test .. ' ', {
-          on_stdout = function(_, data)
-            output_to_buffer(data, false)
-          end,
-          on_stderr = function(_, data)
-            output_to_buffer(data, true)
-          end,
-          on_exit = function(_, code)
-            job_id = nil
-            if code > 0 then
-              vim.notify(lang.emoji .. ' Script exited with code ' .. code, vim.log.levels.WARN)
-              Reloader = Test_Fail
-            else
-              vim.notify(lang.emoji .. ' Script executed successfully', vim.log.levels.INFO)
-              Reloader = Test_Done
-            end
-          end,
-        })
-      end, 500)
-    end
-
-    -- Recursive function to search for the main file in the directory and its subdirectories
-    local function find_main_file(directory, extensions)
-      for _, file in ipairs(vim.fn.readdir(directory)) do
-        local path = directory .. '/' .. file
-        if vim.fn.isdirectory(path) == 1 then
-          -- If it's a directory, recursively search inside it
-          local main_file = find_main_file(path, extensions)
-          if main_file then
-            return main_file
-          end
-        else
-          -- Check if the file name matches any of the extensions
-          for _, ext in ipairs(extensions) do
-            if file == 'main' .. ext then
-              return path
-            elseif file == Custom_File .. ext then
-              return path
-            end
-          end
-        end
-      end
-      return nil
-    end
-
-    -- Function to restart the script
-    local function restart_script()
-      if job_id then
-        vim.fn.jobstop(job_id)
-        job_id = nil
-      end
-
-      -- Get the root directory of the project
-      local root_dir = vim.fn.getcwd()
-      -- Find the main file in the root directory and its subdirectories
-      local main_file = find_main_file(root_dir, lang.ext)
-
-      if not main_file then
-        vim.notify('Main file not found in project directory or its subdirectories', vim.log.levels.ERROR)
-        return
-      end
-      vim.cmd 'write'
-      local file = vim.fn.shellescape(main_file) -- Get the current file path
-
-      -- vim.notify(lang.emoji .. ' Starting script...', vim.log.levels.INFO)
-      Reloader = Start
-      open_output_buffer()
-
-      vim.defer_fn(function()
-        job_id = vim.fn.jobstart(lang.cmd .. ' ' .. file, {
-          on_stdout = function(_, data)
-            output_to_buffer(data, false)
-          end,
-          on_stderr = function(_, data)
-            output_to_buffer(data, true)
-          end,
-          on_exit = function(_, code)
-            job_id = nil
-            --   if code > 0 then
-            --     vim.notify(lang.emoji .. ' Script exited with code ' .. code, vim.log.levels.WARN)
-            --   else
-            -- vim.notify(lang.emoji .. ' Script executed successfully', vim.log.levels.INFO)
-            --   end
-          end,
-        })
-      end, 500)
-    end
-
-    -- Function to silently restart the script (without output)
-
-    local function silent_restart_script()
-      if job_id then
-        vim.fn.jobstop(job_id)
-        job_id = nil
-      end
-
-      vim.defer_fn(function()
-        -- Get the root directory of the project
-        local root_dir = vim.fn.getcwd()
-        -- Find the main file in the root directory and its subdirectories
-        local main_file = find_main_file(root_dir, lang.ext)
-
-        if not main_file then
-          vim.notify('Main file not found in project directory or its subdirectories', vim.log.levels.ERROR)
-          return
-        end
-        vim.cmd 'write'
-        local file = vim.fn.shellescape(main_file) -- Get the current file path
-
-        -- vim.notify(lang.emoji .. ' Silently starting script...', vim.log.levels.INFO)
-        Reloader = Start
-        job_id = vim.fn.jobstart(lang.cmd .. ' ' .. file, {
-          on_stdout = function(_, data) end, -- No output handling
-          on_stderr = function(_, data) end, -- No output handling
-          on_exit = function(_, code)
-            job_id = nil
-            -- Uncomment the following lines to display exit status notifications
-            -- if code > 0 then
-            --   vim.notify(lang.emoji .. ' Silent script exited with code ' .. code, vim.log.levels.WARN)
-            -- else
-            -- vim.notify(lang.emoji .. ' Silent script executed successfully', vim.log.levels.INFO)
-            -- end
-          end,
-        })
-      end, 500) -- Defer the function call by 500ms to allow for any pending operations
-    end
-
-    -- Define the function to handle the F5 key press for stopping a running job
-    local function stop_running_job()
-      if not job_id then
-        vim.notify(lang.emoji .. ' No script is running.', vim.log.levels.INFO)
-        return
-      end
-
-      -- Stop the job if it's running
-      vim.fn.jobstop(job_id)
-      vim.notify(lang.emoji .. ' Stopping script...', vim.log.levels.INFO)
-      Reloader = Sleep
-      job_id = nil
-
-      -- Close the output window if it's still valid and open
-      if output_win and vim.api.nvim_win_is_valid(output_win) then
-        vim.api.nvim_win_close(output_win, true)
-      end
-    end
-
-    -- Set up keymappings
-    vim.keymap.set('n', '<F3>', test_restart_script, { desc = lang.desc, buffer = true })
-    vim.keymap.set('n', '<F4>', restart_script, { desc = lang.desc, buffer = true })
-    vim.keymap.set('n', '<F8>', open_output_buffer, { desc = lang.desc, buffer = true })
-    vim.keymap.set('n', '<F5>', stop_running_job, { desc = lang.kill_desc })
-    vim.keymap.set('n', '<F6>', close_output_buffer, { desc = 'Close the output buffer' })
-    vim.keymap.set('n', '<F7>', silent_restart_script, { desc = 'Silently restart the script', buffer = true })
-
-    -- Set up autocmd to restart the script silently on file write
-    vim.api.nvim_create_autocmd('BufWritePost', {
-      group = dev_group,
-      pattern = lang.pattern,
-      callback = function()
-        if job_id and vim.fn.jobwait({ job_id }, 0)[1] == -1 then
-          close_output_buffer()
-          silent_restart_script()
-        end
-      end,
-    })
-  end,
-})
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -448,7 +108,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-vim.keymap.set('n', '<leader>e', '<Cmd>Neotree<CR>')
 vim.keymap.set('v', 'ss', '<Cmd>SessionsSave<CR>')
 vim.keymap.set('v', 'sr', '<Cmd>SessionsLoad<CR>')
 
@@ -629,6 +288,77 @@ require('lazy').setup({
     },
 
     {
+      'sachinsenal0x64/hot.nvim',
+      config = function()
+        local opts = require('hot.params').opts
+
+        -- Update the Lualine Status
+        Reloader = opts.tweaks.default
+        Reloader = '💤'
+
+        Pattern = opts.tweaks.patterns
+        Pattern = { 'main.py', 'main.go' }
+
+        opts.tweaks.start = '🚀'
+        opts.tweaks.stop = '💤'
+        opts.tweaks.test = '🧪'
+        opts.tweaks.test_done = '🧪.✅'
+        opts.tweaks.test_fail = '🧪.❌'
+
+        -- If the 'main.*' file doesn't exist, it will fall back to 'index.*'
+        opts.tweaks.custom_file = 'index'
+
+        -- Add Languages
+        opts.set.languages.python = {
+          cmd = 'python3',
+          desc = 'Run Python file asynchronously',
+          kill_desc = 'Kill the running Python file',
+          emoji = '🐍',
+          test = 'python -m unittest -v',
+          ext = { '.py' },
+        }
+
+        opts.set.languages.go = {
+          cmd = 'go run',
+          desc = 'Run Go file asynchronously',
+          kill_desc = 'Kill the running Go file',
+          emoji = '🐹',
+          test = 'go test',
+          ext = { '.go' },
+        }
+
+        -- Thot Health Check
+        vim.api.nvim_set_keymap('n', 'ho', '<Cmd>lua require("thot").check()<CR>', { noremap = true, silent = true })
+
+        -- Keybinds
+
+        -- Start
+        vim.api.nvim_set_keymap('n', '<F3>', '<Cmd>lua require("hot").restart()<CR>', { noremap = true, silent = true })
+        -- Silent
+        vim.api.nvim_set_keymap('n', '<F4>', '<Cmd>lua require("hot").silent()<CR>', { noremap = true, silent = true })
+        -- Stop
+        vim.api.nvim_set_keymap('n', '<F5>', '<Cmd>lua require("hot").stop()<CR>', { noremap = true, silent = true })
+        -- Test
+        vim.api.nvim_set_keymap('n', '<F6>', '<Cmd>lua require("hot").test_restart()<CR>', { noremap = true, silent = true })
+        -- Close Buffer
+        vim.api.nvim_set_keymap('n', '<F8>', '<Cmd>lua require("hot").close_output_buffer()<CR>', { noremap = true, silent = true })
+        -- Open Buffer
+        vim.api.nvim_set_keymap('n', '<F7>', '<Cmd>lua require("hot").open_output_buffer()<CR>', { noremap = true, silent = true })
+
+        -- Auto Reload on Save
+
+        local save_group = vim.api.nvim_create_augroup('save_mapping', { clear = true })
+        vim.api.nvim_create_autocmd('BufWritePost', {
+          desc = 'Reloader',
+          group = save_group,
+          pattern = Pattern,
+          callback = function()
+            require('hot').silent()
+          end,
+        })
+      end,
+    },
+    {
       'yanskun/gotests.nvim',
       ft = 'go',
       config = function()
@@ -676,7 +406,7 @@ require('lazy').setup({
         -- Make sure to change these keybindings to your preference,
         -- and remove the ones you won't use
         {
-          '<leader>yz',
+          '<leader>e',
           ':Tfm<CR>',
           desc = 'TFM',
         },
@@ -1378,7 +1108,7 @@ require('lazy').setup({
           },
           color = { bg = mode, gui = 'bold' },
         }
-        local reloader = {
+        local hot = {
           'Reloader',
         }
         local harpoon = {
@@ -1406,27 +1136,6 @@ require('lazy').setup({
           'fileformat',
           fmt = string.upper,
           color = { fg = colors.green, bg = 'None', gui = 'bold' },
-        }
-        local lazy = {
-          require('lazy.status').updates,
-          cond = require('lazy.status').has_updates,
-          color = { fg = colors.violet, bg = 'None' },
-          on_click = function()
-            vim.ui.select({ 'Yes', 'No' }, { prompt = 'Update plugins?' }, function(choice)
-              if choice == 'Yes' then
-                vim.cmd 'Lazy sync'
-              else
-                vim.notify('Update cancelled', 'info', { title = 'Lazy' })
-              end
-            end)
-          end,
-        }
-
-        local lsp = {
-          function()
-            return require('lsp-progress').progress()
-          end,
-          color = { fg = colors.lightgreen, bg = 'None', gui = 'bold' },
         }
 
         local buffers = {
@@ -1477,6 +1186,12 @@ require('lazy').setup({
         local sep = {
           '%=',
           color = { fg = colors.bg, bg = 'None' },
+        }
+        local lsp = {
+          function()
+            return require('lsp-progress').progress()
+          end,
+          color = { fg = colors.lightgreen, bg = 'None', gui = 'bold' },
         }
 
         lualine.setup {
@@ -1548,7 +1263,7 @@ require('lazy').setup({
             lualine_a = { mode },
             lualine_b = {
               filename,
-              reloader,
+              hot,
               branch,
               diff,
               {
@@ -1562,7 +1277,7 @@ require('lazy').setup({
               sep,
               harpoon,
             },
-            lualine_x = { fileformat, lazy, lsp },
+            lualine_x = { fileformat, lsp },
             lualine_y = { buffers, { 'filetype', cond = nil, padding = { left = 1, right = 1 }, color = { fg = colors.darkblue, bg = 'None' } }, progress },
             lualine_z = { location },
           },
@@ -1806,26 +1521,6 @@ require('lazy').setup({
       end,
     },
 
-    {
-      'nvim-neo-tree/neo-tree.nvim',
-      branch = 'v3.x',
-      dependencies = {
-        'nvim-lua/plenary.nvim',
-        'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-        'MunifTanjim/nui.nvim',
-        '3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
-      },
-      config = function()
-        require('neo-tree').setup {
-          window = {
-            mappings = {
-              ['P'] = { 'toggle_preview', config = { use_float = false, use_image_nvim = true } },
-            },
-          },
-        }
-      end,
-    },
-
     { -- LSP Configuration & Plugins
       'neovim/nvim-lspconfig',
       dependencies = {
@@ -1976,6 +1671,9 @@ require('lazy').setup({
           -- tsserver = {},
 
           -- clangd = {},
+
+          taplo = {},
+
           gopls = {},
 
           pyright = {},
@@ -2039,7 +1737,9 @@ require('lazy').setup({
         vim.list_extend(ensure_installed, {
           'stylua',
           'pylint',
+          'prettier',
           'mypy',
+          'isort',
           'ruff',
           'vale',
           'black',

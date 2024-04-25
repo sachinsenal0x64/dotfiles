@@ -3,6 +3,9 @@
 # CD Alternative tool
 
 eval "$(zoxide init bash)"
+export TERM=xterm-256color
+
+
 
 # Flyctl 
 
@@ -117,6 +120,7 @@ pfetch
 alias clean="sudo pacman -Scc  && paru -Scc "
 alias icat="kitten icat"
 alias ls='eza -al --icons'
+alias tree='eza -T'
 alias vi='nvim'
 alias irec='~/dotfiles/scripts/intel_screen.sh'
 alias rec='~/dotfiles/scripts/screen_record.sh'
