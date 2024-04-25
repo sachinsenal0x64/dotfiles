@@ -13,7 +13,7 @@
 | 🏖️ Terminal                 | Kitty                                         |                                |
 | 🏖️ Color Schemes            | Pywal for OS                                  |                                |
 |                             | Rose Pine for GTK and QT                      |                                |
-|                             | Tokyonight for VIM                            |                                |
+|                             | Gruvbox for VIM                               |                                |
 | 🏖️ Text Editors             | Neovim                                        |                                |
 |                             | Lunarvim                                      |                                |
 | 🏖️ Bar                      | Polybar                                       |                                |
