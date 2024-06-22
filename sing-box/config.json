@@ -1,0 +1,71 @@
+{
+  "log": {
+    "level": "warn",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns_resolver",
+        "address": "223.5.5.5"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "stack": "gvisor",
+      "interface_name": "ipv4-tun",
+      "mtu": 1500,
+      "inet4_address": "172.19.0.1/28",
+      "auto_route": true,
+
+      "strict_route": true,
+      "sniff": true
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "type": "vless",
+      "server": "",
+      "server_port": 443,
+      "uuid": "",
+      "flow": "",
+      "tls": {
+        "enabled": true,
+        "server_name": "api.instagram.com",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": false,
+        "protocol": "smux",
+        "max_streams": 32
+      },
+      "packet_encoding": "xudp",
+      "transport": {
+        "type": "ws",
+        "path": "/",
+        "headers": {
+          "Host": "api.instagram.com"
+        }
+      }
+    }
+  ],
+
+  "route": {
+    "auto_detect_interface": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "store_fakeip": true
+    }
+  }
+}

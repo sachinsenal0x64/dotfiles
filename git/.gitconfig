@@ -13,5 +13,7 @@
 	autoSetupRemote = true
 [init]
 	defaultBranch = main
-[http]
-	version = HTTP/2
+[rebase]
+	autoStash = true
+[color]
+	ui = auto

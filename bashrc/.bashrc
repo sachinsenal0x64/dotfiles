@@ -1,10 +1,15 @@
 #! /bin/bash
 
-# CD Alternative tool
+eval "$(starship init bash)"
+starship preset nerd-font-symbols -o ~/dotfiles/starship/starship.toml
+export STARSHIP_CACHE=~/.starship/cache
+
+unset PS1
+
+# CD but Alternative tool
 
 eval "$(zoxide init bash)"
 export TERM=xterm-256color
-
 
 
 # Flyctl 
@@ -100,9 +105,6 @@ export PYTHONSTARTUP="/etc/python/pythonrc"
 
 
 # Eval Launch
-
-eval "$(starship init bash)"
-starship preset nerd-font-symbols -o ~/dotfiles/starship/starship.toml
 
 
 eval "$(thefuck --alias)"

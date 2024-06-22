@@ -6,10 +6,13 @@ picom &
 
 ~/dotfiles/scripts/wallpaper.sh
 
+~/dotfiles/scripts/sxhkd.sh
+
 killall polybar
 
 polybar -r mybar
 
+playerctld daemon &
+
 setxkbmap us
 
-playerctld daemon &

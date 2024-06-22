@@ -31,7 +31,7 @@ wm_bar = "polybar"
 # Check for VirtualBox
 # --------------------------------------------------------
 
-terminal = "kitty"
+terminal = "wezterm"
 
 # --------------------------------------------------------
 # Check for Desktop/Laptop
@@ -49,6 +49,8 @@ browser = "thorium-browser-sse3"
 powe = "pow"
 
 spwn_s = "gyr"
+
+note = "logseq"
 
 # --------------------------------------------------------
 # Keybindings
@@ -91,7 +93,7 @@ keys = [
     Key(
         [mod],
         "r",
-        lazy.spawn('kitty -e sh -c "gyr --replace; sleep 1 && pkill -n kitty"'),
+        lazy.spawn('wezterm -e sh -c "gyr --replace; sleep 1 && pkill -n wezterm"'),
     ),
     # Size
     # Key([mod], "h", lazy.layout.shrink(), lazy.layout.decrease_nmaster(), desc='Shrink window (MonadTall)'),
@@ -124,8 +126,9 @@ keys = [
         desc="Open Powermenu",
     ),
     # Apps
-    Key([mod], "e", lazy.spawn("kitty -e sh -c yazi ")),
+    Key([mod], "e", lazy.spawn("wezterm -e sh -c yazi")),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "n", lazy.spawn(note), desc="Launch note"),
     Key([mod], "b", lazy.spawn(browser), desc="Launch Browser"),
     Key(
         [mod],

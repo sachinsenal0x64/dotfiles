@@ -1,0 +1,11 @@
+mod4 + m
+   wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+KP_Add
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
+
+KP_Subtract
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+
+mod4 + i
+  wpctl set-mute @DEFAULT_SOURCE@ toggle

@@ -1,6 +1,5 @@
 require("relative-motions"):setup({ show_numbers = "absolute", show_motion = true })
 require("starship"):setup()
-
 -- Full Border
 
 function Manager:render(area)
@@ -30,4 +29,18 @@ function Manager:render(area)
 		-- Preview
 		Preview:render(chunks[3]:padding(ui.Padding.xy(1))),
 	})
+end
+
+function Status:name()
+	local h = cx.active.current.hovered
+	if h == nil then
+		return ui.Span("")
+	end
+
+	local linked = ""
+	if h.link_to ~= nil then
+		linked = " -> " .. tostring(h.link_to)
+	end
+
+	return ui.Span(" " .. h.name .. linked)
 end

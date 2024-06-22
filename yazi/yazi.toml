@@ -11,8 +11,8 @@ show_symlink = true
 tab_size = 2
 max_width = 600
 max_height = 900
-cache_dir = ""
 image_filter = "triangle"
+cache_dir = ""
 image_quality = 75
 sixel_fraction = 15
 ueberzug_scale = 1
@@ -33,6 +33,7 @@ image = [
 ]
 
 reveal = [
+	{ run = 'imv-dir  "$@"', block = true },
 	{ run = 'xdg-open "$(dirname "$0")"', desc = "Reveal", for = "linux" },
 	{ run = '''exiftool "$1"; echo "Press enter to exit"; read _''', block = true, desc = "Show EXIF", for = "unix" },
 ]
@@ -57,6 +58,10 @@ fallback = [
 
 [open]
 rules = [
+	{ mime = "application/pdf", use = [
+		"pdf",
+	] },
+
 	{ name = "*/", use = [
 		"edit",
 		"open",
@@ -68,8 +73,9 @@ rules = [
 		"reveal",
 	] },
 	{ mime = "image/*", use = [
-		"open",
 		"reveal",
+
+		"open",
 	] },
 	{ mime = "{audio,video}/*", use = [
 		"play",
@@ -97,12 +103,12 @@ rules = [
 		"edit",
 		"reveal",
 	] },
+	{ mime = "*", use = "fallback" },
+
 	{ mime = "*", use = [
 		"open",
 		"reveal",
 	] },
-	{ mime = "application/pdf", use = "pdf" },
-	{ mime = "*", use = "fallback" },
 
 ]
 
@@ -182,8 +188,6 @@ sort_by = "none"
 sort_sensitive = false
 sort_reverse = false
 
-[plugins]
-preload = ["~/dotfiles/yazi/ui.lua", "~/dotfiles/yazi/status.lua"]
 
 preloaders = [
 	{ name = "*", cond = "!mime", run = "mime", multi = true, prio = "high" },
@@ -215,6 +219,7 @@ previewers = [
 	{ name = "*", run = "file" },
 ]
 
+
 [[plugin.prepend_previewers]]
 mime = "audio/*"
 run = "exifaudio"
@@ -236,5 +241,6 @@ on = ["f", "f"]
 run = "plugin fg --args='fzf'"
 desc = "find file by file name"
 
+
 [log]
-enabled = true
+enabled = false

@@ -96,7 +96,7 @@
     frame_width = 2
 
     # Defines color of the frame around the notification window.
-    frame_color = "#736D6A"
+    frame_color = "#6D6D8E"
 
     # Defines color of the progress bar
     highlight= "#bf4e6d"
@@ -318,23 +318,23 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#0d0c0c"
-    foreground = "#736D6A"
+    background = "#09090e"
+    foreground = "#6D6D8E"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#0d0c0c"
-    foreground = "#736D6A"
+    background = "#09090e"
+    foreground = "#6D6D8E"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_critical]
-    background = "#0d0c0c"
-    foreground = "#736D6A"
-    frame_color = "#736D6A"
+    background = "#09090e"
+    foreground = "#6D6D8E"
+    frame_color = "#6D6D8E"
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
     #default_icon = /path/to/icon

@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Check the operating system
 os=$(uname -s)
 case "$os" in
@@ -45,6 +44,17 @@ case "$architecture" in
         ;;
 esac
 
+
+
+pkgs=()
+
+# Check if the package list is not empty
+if [ ${#pkgs[@]} -gt 0 ]; then
+    # Update packages only if the package list is not empty
+    sudo pacman -Syyu "${pkgs[@]}"
+fi
+
+
 # Path to the dotfiles directory
 dotfiles_dir="$HOME/dotfiles"
 
@@ -74,8 +84,11 @@ if [ ! -f "/etc/environment" ]; then
 fi
 
 
+
+# .config
+
 # List of directories to link
-directories=(".wind" "dunst"  "git" "gtk-2.0" "gtk-3.0" "kitty" "lobster" "mpv" "nvim" "picom" "polybar" "presenterm" "qtile" "scripts" "starship" "yazi")
+directories=("vale" "sxhkd" "wal" "fish" "wezterm" ".wind" "dunst"  "git" "gtk-2.0" "gtk-3.0" "kitty" "lobster" "mpv" "nvim" "picom" "polybar" "presenterm" "qtile" "scripts" "starship" "yazi")
 
 # Loop through the list
 for dir in "${directories[@]}"; do
@@ -88,5 +101,5 @@ for dir in "${directories[@]}"; do
     
     # Create symbolic link
     ln -sf "$dotfiles_dir/$dir" "/home/pc/.config/$dir"
+    echo "Restore Done!"
 done
-
