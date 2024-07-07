@@ -11,7 +11,7 @@ starship init fish | source
 
 # Aliases
 alias clean="sudo pacman -Scc  && paru -Scc "
-alias icat="kitten icat"
+alias icat="wezterm imgcat"
 alias ls='eza -al --icons'
 alias task='go-task'
 alias tree='eza -T'

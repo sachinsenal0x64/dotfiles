@@ -1,11 +1,5 @@
 [aws]
-symbol = "  "
-
-[azure]
-disabled = false
-format = 'on [$symbol($subscription)]($style) '
-symbol = ' '
-style = 'blue bold'
+symbol = "  "
 
 [buf]
 symbol = " "
@@ -23,7 +17,7 @@ symbol = " "
 symbol = " "
 
 [directory]
-read_only = "󰌾 "
+read_only = " 󰌾"
 
 [docker_context]
 symbol = " "
@@ -42,9 +36,6 @@ symbol = " "
 
 [git_branch]
 symbol = " "
-
-[gcloud]
-symbol = '️󱇶 '
 
 [golang]
 symbol = " "
@@ -165,11 +156,6 @@ symbol = " "
 
 [scala]
 symbol = " "
-
-[sudo]
-disabled = false
-symbol = '󱅞 '
-style = 'bold green'
 
 [swift]
 symbol = " "

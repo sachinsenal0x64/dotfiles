@@ -384,10 +384,59 @@ require('lazy').setup({
         local opts = { noremap = true, silent = true }
 
         vim.keymap.set('n', '<Leader>i', '<cmd>IconPickerNormal<cr>', opts)
-        vim.keymap.set('n', '<Leader>p', '<cmd>IconPickerYank<cr>', opts) --> Yank the selected icon into register
+        vim.keymap.set('n', '<Leader>g', '<cmd>IconPickerYank<cr>', opts) --> Yank the selected icon into register
       end,
     },
+    {
+      'vhyrro/luarocks.nvim',
+      priority = 1000,
+      config = true,
+    },
+    {
+      'nvim-neorg/neorg',
+      dependencies = { 'nvim-lua/plenary.nvim', 'luarocks.nvim', 'lua-utils.nvim', 'nvim-nio', 'nui.nvim', 'pathlib.nvim' },
+      config = function()
+        require('neorg').setup {
+          load = {
+            ['core.defaults'] = {}, -- Loads default behaviour
+            ['core.concealer'] = {
+              config = {
+                icon_preset = 'diamond',
+              },
+            }, -- Adds pretty icons to your documents
+            ['core.dirman'] = { -- Manages Neorg workspaces
+              config = {
+                workspaces = {
+                  work = '~/Documents',
+                  personal = '~/Documents/2factor',
+                },
+              },
+            },
+            ['core.keybinds'] = {
+              config = {
+                hook = function(keybinds)
+                  -- I want my regualar <CR> saves mapping, use K instead
+                  keybinds.remap_key('norg', 'n', '<CR>', 'K')
 
+                  -- Can't use <C-Space> on my mac as I use it for language switch, CTRL-T is fine
+                  keybinds.remap_key('norg', 'n', '<C-Space>', '<C-t>')
+                end,
+              },
+            },
+            -- Convert unordered lists to ordered lists or vice versa with <LL>LT
+            ['core.pivot'] = {},
+            -- Continue current type of item (heading, list, todo) with Alt-Enter
+            ['core.itero'] = {},
+            -- Support completion in norg files
+            ['core.completion'] = {
+              config = {
+                engine = 'nvim-cmp',
+              },
+            },
+          },
+        }
+      end,
+    },
     { -- UFO
       'kevinhwang91/nvim-ufo',
       dependencies = 'kevinhwang91/promise-async',
@@ -472,34 +521,23 @@ require('lazy').setup({
       end,
     },
     {
-      'ellisonleao/gruvbox.nvim',
+      'sainnhe/gruvbox-material',
+      enabled = true,
+      priority = 1000,
       config = function()
-        require('gruvbox').setup {
-          terminal_colors = true, -- add neovim terminal colors
-          undercurl = true,
-          underline = true,
-          bold = true,
-          italic = {
-            strings = true,
-            emphasis = true,
-            comments = true,
-            operators = false,
-            folds = true,
-          },
-          strikethrough = true,
-          invert_selection = false,
-          invert_signs = false,
-          invert_tabline = false,
-          invert_intend_guides = false,
-          inverse = true, -- invert background for search, diffs, statuslines and errors
-          contrast = 'hard', -- can be "hard", "soft" or empty string
-          palette_overrides = {},
-          overrides = {},
-          dim_inactive = true,
-          transparent_mode = true,
-        }
-        vim.o.background = 'dark'
-        vim.cmd 'colorscheme gruvbox'
+        vim.g.gruvbox_material_transparent_background = 0
+        vim.g.gruvbox_material_foreground = 'mix'
+        vim.g.gruvbox_material_background = 'hard' -- soft, medium, hard
+        vim.g.gruvbox_material_ui_contrast = 'high' -- The contrast of line numbers, indent lines, etc.
+        vim.g.gruvbox_material_float_style = 'bright' -- Background of floating windows
+        vim.g.gruvbox_material_statusline_style = 'material'
+        vim.g.gruvbox_material_cursor = 'auto'
+
+        -- vim.g.gruvbox_material_colors_override = { bg0 = '#000000' } -- #0e1010
+        -- vim.g.gruvbox_material_colors_override = { bg0 = "#121212" }
+        -- vim.g.gruvbox_material_better_performance = 1
+
+        vim.cmd.colorscheme 'gruvbox-material'
       end,
     },
     {
@@ -574,16 +612,16 @@ require('lazy').setup({
 
         -- Update the Lualine Status
         Reloader = opts.tweaks.default
-        Reloader = '💤'
+        Reloader = '󰒲 '
 
         Pattern = opts.tweaks.patterns
         Pattern = { 'main.py', 'main.go' }
 
-        opts.tweaks.start = '🚀'
-        opts.tweaks.stop = '💤'
-        opts.tweaks.test = '🧪'
-        opts.tweaks.test_done = '🧪.✅'
-        opts.tweaks.test_fail = '🧪.❌'
+        opts.tweaks.start = '󱓞 '
+        opts.tweaks.stop = ' 󰒲 '
+        opts.tweaks.test = '󰤑'
+        opts.tweaks.test_done = '󰙨'
+        opts.tweaks.test_fail = '󰤒'
 
         -- If the 'main.*' file doesn't exist, it will fall back to 'index.*'
         opts.tweaks.custom_file = 'index'
@@ -593,7 +631,7 @@ require('lazy').setup({
           cmd = 'python3',
           desc = 'Run Python file asynchronously',
           kill_desc = 'Kill the running Python file',
-          emoji = '🐍',
+          emoji = '',
           test = 'python -m unittest -v',
           ext = { '.py' },
         }
@@ -602,7 +640,7 @@ require('lazy').setup({
           cmd = 'go run',
           desc = 'Run Go file asynchronously',
           kill_desc = 'Kill the running Go file',
-          emoji = '🐹',
+          emoji = '',
           test = 'go test',
           ext = { '.go' },
         }
@@ -626,40 +664,90 @@ require('lazy').setup({
         vim.api.nvim_set_keymap('n', '<F7>', '<Cmd>lua require("hot").open_output_buffer()<CR>', { noremap = true, silent = true })
       end,
     },
-
     {
+      'michaelrommel/nvim-silicon',
+      lazy = true,
+      cmd = 'Silicon',
+      init = function()
+        local wk = require 'which-key'
+        wk.register({
+          ['s'] = {
+            name = 'Silicon',
+            ['s'] = {
+              function()
+                require('nvim-silicon').shoot()
+              end,
+              'Create code screenshot',
+            },
+            ['f'] = {
+              function()
+                require('nvim-silicon').file()
+              end,
+              'Save code screenshot as file',
+            },
+            ['c'] = {
+              function()
+                require('nvim-silicon').clip()
+              end,
+              'Copy code screenshot to clipboard',
+            },
+          },
+        }, { prefix = '<leader>', mode = 'v' })
+      end,
+      config = function()
+        require('silicon').setup {
+          font = 'JetBrainsMono NF=34;Noto Color Emoji=34',
+          theme = 'Dracula',
+          background = '#ABB8C3',
+          output = function()
+            return home .. os.date '/Pictures/screenshots/%Y-%m-%dT%H-%M-%SZ' .. '_code.png'
+          end,
+        }
+      end,
+    },
+    {
+      -- A Neovim Plugin for the yazi terminal file browser.
+      -- SEE: https://github.com/mikavilpas/yazi.nvim
       'mikavilpas/yazi.nvim',
+
+      event = 'VeryLazy',
       dependencies = {
         'nvim-lua/plenary.nvim',
       },
-      config = function(_, opts)
-        require('yazi').setup(opts)
-      end,
 
-      keys = {
-        -- 👇 in this section, choose your own keymappings!
-        {
-          '<leader>ya',
-          function()
-            vim.opt.autochdir = false
-            require('yazi').yazi()
-          end,
-          desc = 'Open the file manager',
-        },
-        {
-          -- Open in the current working directory
-          '<leader>e',
-          function()
-            require('yazi').yazi(nil, vim.fn.getcwd())
-          end,
-          desc = "Open the file manager in nvim's working directory",
-        },
-      },
-      opts = {
-        open_for_directories = true,
-      },
-    },
-    -- add this to the file where you setup your other plugins:
+      config = function()
+        local plugin = require 'yazi'
+
+        local keymap = vim.keymap.set
+
+        local search_cwd = function()
+          plugin.yazi(nil, vim.fn.getcwd())
+        end
+
+        local search_parent = function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          local bufdir = vim.fn.fnamemodify(bufname, ':p:h')
+
+          if bufdir == '' then
+            bufdir = vim.fn.getcwd()
+          end
+
+          plugin.yazi(nil, bufname)
+        end
+
+        keymap('n', '<leader>p', search_parent, { desc = 'Open the file [p]xplorer in parent directory.' })
+
+        keymap('n', '<leader>e', search_cwd, { desc = 'Open the file [e]xplorer in cwd.' })
+
+        plugin.setup {
+          open_for_directories = false,
+          floating_window_scaling_factor = 0.9,
+          yazi_floating_window_winblend = 0,
+          yazi_floating_window_border = 'rounded',
+        }
+      end,
+    }, -- add this to the file where you setup your other plugins:
     -- {
     --   'monkoose/neocodeium',
     --   config = function()
@@ -818,10 +906,10 @@ require('lazy').setup({
         }
       end,
     },
-
     -- IMAGE PREVIEW
     {
       '3rd/image.nvim',
+      commit = '52cf96d',
       config = function()
         require('image').setup {
           backend = 'kitty',
@@ -1266,11 +1354,14 @@ require('lazy').setup({
         'nvim-treesitter/nvim-treesitter',
       },
       config = function()
-        require('go').setup()
+        require('go').setup {
+          verbose = false,
+          lsp_cfg = false,
+        }
       end,
       event = { 'CmdlineEnter' },
       ft = { 'go', 'gomod' },
-      build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+      build = ':lua require("go.install").update_all_sync()',
     },
 
     { -- Linting
@@ -1384,7 +1475,15 @@ require('lazy').setup({
         }
       end,
     },
-    { 'tris203/precognition.nvim', config = true },
+    {
+      'tris203/precognition.nvim',
+      event = 'VeryLazy',
+      config = function()
+        require('precognition').setup {
+          highlightColor = { link = 'Comment' },
+        }
+      end,
+    },
     {
       'theHamsta/nvim-dap-virtual-text',
       dependencies = {
@@ -1793,7 +1892,7 @@ require('lazy').setup({
           violet = '#f5c2e7',
           magenta = '#cba6f7',
           blue = '#74c7ec',
-          red = '#f38ba8',
+          red = '#ba778a',
           lightgreen = '#4f9e6f',
         }
 
@@ -2029,7 +2128,7 @@ require('lazy').setup({
               {
                 require('noice').api.status.command.get,
                 cond = require('noice').api.status.command.has,
-                color = { fg = '#ff9e64' },
+                color = { fg = '#ba778a' },
               },
             },
             lualine_c = {
@@ -2055,17 +2154,16 @@ require('lazy').setup({
     },
 
     -- DASHBOARD
-
     {
 
       'goolord/alpha-nvim',
       dependencies = {
         'nvim-tree/nvim-web-devicons',
+        'nvim-lua/plenary.nvim',
       },
       config = function()
         local alpha = require 'alpha'
         local dashboard = require 'alpha.themes.dashboard'
-
         _Gopts = {
           position = 'center',
           hl = 'Type',
@@ -2118,7 +2216,6 @@ require('lazy').setup({
         local greeting = getGreeting(userName)
         local marginBottom = 0
         dashboard.section.header.val = vim.split(logo, '\n')
-
         -- Split logo into lines
         local logoLines = {}
         for line in logo:gmatch '[^\r\n]+' do
@@ -2164,8 +2261,12 @@ require('lazy').setup({
           callback = function()
             local stats = require('lazy').stats()
             local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
-            dashboard.section.footer.val = { ' ', ' ', ' ', ' Loaded ' .. stats.count .. ' plugins  in ' .. ms .. ' ms ' }
+            dashboard.section.footer.val = { ' ', ' ', ' ', '  When it does not exist, design it. ' }
+            vim.cmd 'highlight DashboardFooter guifg=#ba778a'
             dashboard.section.header.opts.hl = 'DashboardFooter'
+            vim.cmd 'highlight Keyword guifg=#ba778a'
+            dashboard.section.buttons.opts.hl = 'Keyword'
+
             pcall(vim.cmd.AlphaRedraw)
           end,
         })
@@ -2413,8 +2514,6 @@ require('lazy').setup({
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-        local config = require 'lspconfig'
-
         -- Enable the following language servers
         --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
         --
@@ -2480,7 +2579,6 @@ require('lazy').setup({
                   'quarto',
                   'rmd',
                   'context',
-                  'html',
                   'xhtml',
                   'mail',
                   'plaintext',
@@ -2488,7 +2586,6 @@ require('lazy').setup({
               },
             },
           },
-          gopls = {},
           volar = {
             filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
             root_dir = require('lspconfig').util.root_pattern('package.json', 'vue.config.js', 'vue.config.ts', 'nuxt.config.js', 'nuxt.config.ts'),
@@ -2582,6 +2679,7 @@ require('lazy').setup({
         }
       end,
     },
+
     {
       'stevearc/conform.nvim',
       enabled = true,
@@ -2952,7 +3050,7 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
       opts = {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown_inline', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = { 'go', 'gotmpl', 'gomod', 'gosum', 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown_inline', 'markdown', 'vim', 'vimdoc' },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = {

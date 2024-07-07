@@ -155,7 +155,7 @@ keys = [
     ),
     Key(
         [mod],
-        "d",
+        "Print",
         lazy.spawn(home + "/dotfiles/scripts/winshot.sh"),
     ),
     Key(["mod1"], "z", lazy.spawn("flameshot gui --accept-on-select --clipboard")),
