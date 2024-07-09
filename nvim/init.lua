@@ -407,8 +407,8 @@ require('lazy').setup({
             ['core.dirman'] = { -- Manages Neorg workspaces
               config = {
                 workspaces = {
-                  work = '~/Documents',
-                  personal = '~/Documents/2factor',
+                  work = '~/notes/work',
+                  personal = '~/notes/private',
                 },
               },
             },
@@ -435,6 +435,14 @@ require('lazy').setup({
             },
           },
         }
+      end,
+    },
+    {
+      'MeanderingProgrammer/markdown.nvim',
+      name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
+      dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+      config = function()
+        require('render-markdown').setup {}
       end,
     },
     { -- UFO
@@ -2199,6 +2207,7 @@ require('lazy').setup({
         end
 
         local logo = [[
+        
 
 
                                               

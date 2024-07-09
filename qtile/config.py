@@ -44,7 +44,7 @@ platform = int(os.popen("cat /sys/class/dmi/id/chassis_type").read())
 # --------------------------------------------------------
 
 # terminal = guess_terminal(terminal)
-browser = "thorium-browser-sse3"
+browser = "thorium-browser"
 
 powe = "pow"
 

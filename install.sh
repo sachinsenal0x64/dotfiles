@@ -88,7 +88,7 @@ fi
 # .config
 
 # List of directories to link
-directories=("zathura" "vale" "sxhkd" "wal" "fish" "wezterm"  "dunst"  "git" "gtk-2.0" "gtk-3.0" "kitty" "lobster" "mpv" "nvim" "picom" "polybar" "presenterm" "qtile" "scripts" "starship" "yazi")
+directories=("termusic" "zathura" "vale" "sxhkd" "wal" "fish" "wezterm"  "dunst"  "git" "gtk-2.0" "gtk-3.0" "kitty" "lobster" "mpv" "nvim" "picom" "polybar" "presenterm" "qtile" "scripts" "starship" "yazi")
 
 # Loop through the list
 for dir in "${directories[@]}"; do
