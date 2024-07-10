@@ -64,18 +64,18 @@ if [ ! -d "$dotfiles_dir" ]; then
     exit 1
 fi
 
-# Copy .bashrc if it doesn't exist in the home directory
-if [ ! -f "$HOME/.bashrc" ]; then
-    cp "$dotfiles_dir/bashrc/.bashrc" "$HOME/.bashrc"
-    echo "Copied .bashrc to home directory."
-fi
-
-# Copy .bash_profile if it doesn't exist in the home directory
-if [ ! -f "$HOME/.bash_profile" ]; then
-    cp "$dotfiles_dir/bashrc/.bash_profile" "$HOME/.bash_profile"
-    echo "Copied .bash_profile to home directory."
-fi
-
+# # Copy .bashrc if it doesn't exist in the home directory
+# if [ ! -f "$HOME/.bashrc" ]; then
+#     cp "$dotfiles_dir/bashrc/.bashrc" "$HOME/.bashrc"
+#     echo "Copied .bashrc to home directory."
+# fi
+#
+# # Copy .bash_profile if it doesn't exist in the home directory
+# if [ ! -f "$HOME/.bash_profile" ]; then
+#     cp "$dotfiles_dir/bashrc/.bash_profile" "$HOME/.bash_profile"
+#     echo "Copied .bash_profile to home directory."
+# fi
+#
 
 # Copy .environment if it doesn't exist in the /etc directory
 if [ ! -f "/etc/environment" ]; then
@@ -88,7 +88,7 @@ fi
 # .config
 
 # List of directories to link
-directories=("termusic" "zathura" "vale" "sxhkd" "wal" "fish" "wezterm"  "dunst"  "git" "gtk-2.0" "gtk-3.0" "kitty" "lobster" "mpv" "nvim" "picom" "polybar" "presenterm" "qtile" "scripts" "starship" "yazi")
+directories=("nushell" "termusic" "zathura" "vale" "sxhkd" "wal" "fish" "wezterm"  "dunst"  "git" "gtk-2.0" "gtk-3.0" "kitty" "lobster" "mpv" "nvim" "picom" "polybar" "presenterm" "qtile" "scripts" "starship.toml" "yazi")
 
 # Loop through the list
 for dir in "${directories[@]}"; do

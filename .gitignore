@@ -1,4 +1,5 @@
 .git-credentials
 *.log
 *.db
+history.txt
 

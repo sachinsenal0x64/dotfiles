@@ -1,5 +1,8 @@
 --Disable The StatusLine
 
+package.path = package.path .. ';' .. vim.fn.expand '$HOME' .. '/.luarocks/share/lua/5.1/?/init.lua;'
+package.path = package.path .. ';' .. vim.fn.expand '$HOME' .. '/.luarocks/share/lua/5.1/?.lua;'
+
 vim.opt.guicursor = {
   'n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
   'i-ci:ver25-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100',
@@ -388,13 +391,8 @@ require('lazy').setup({
       end,
     },
     {
-      'vhyrro/luarocks.nvim',
-      priority = 1000,
-      config = true,
-    },
-    {
       'nvim-neorg/neorg',
-      dependencies = { 'nvim-lua/plenary.nvim', 'luarocks.nvim', 'lua-utils.nvim', 'nvim-nio', 'nui.nvim', 'pathlib.nvim' },
+      dependencies = { 'nvim-lua/plenary.nvim', 'lua-utils.nvim', 'nvim-nio', 'nui.nvim', 'pathlib.nvim' },
       config = function()
         require('neorg').setup {
           load = {
@@ -717,7 +715,7 @@ require('lazy').setup({
       -- A Neovim Plugin for the yazi terminal file browser.
       -- SEE: https://github.com/mikavilpas/yazi.nvim
       'mikavilpas/yazi.nvim',
-
+      commit = '3b44bb4',
       event = 'VeryLazy',
       dependencies = {
         'nvim-lua/plenary.nvim',
@@ -749,6 +747,7 @@ require('lazy').setup({
         keymap('n', '<leader>e', search_cwd, { desc = 'Open the file [e]xplorer in cwd.' })
 
         plugin.setup {
+          use_ya_for_events_reading = true,
           open_for_directories = false,
           floating_window_scaling_factor = 0.9,
           yazi_floating_window_winblend = 0,
@@ -917,23 +916,22 @@ require('lazy').setup({
     -- IMAGE PREVIEW
     {
       '3rd/image.nvim',
-      commit = '52cf96d',
       config = function()
         require('image').setup {
-          backend = 'kitty',
+          backend = 'ueberzug',
           integrations = {
             markdown = {
               enabled = true,
               clear_in_insert_mode = true,
               download_remote_images = true,
-              only_render_image_at_cursor = true,
-              filetypes = { 'markdown', 'vimwiki' }, -- markdown extensions (ie. quarto) can go here
+              only_render_image_at_cursor = false,
+              filetypes = { 'markdown', 'vimwiki', 'md' },
             },
             neorg = {
               enabled = true,
               clear_in_insert_mode = true,
               download_remote_images = true,
-              only_render_image_at_cursor = true,
+              only_render_image_at_cursor = false,
               filetypes = { 'norg' },
             },
           },
@@ -1004,6 +1002,7 @@ require('lazy').setup({
         }
       end,
     },
+
     -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
     --
     -- This is often very useful to both group configuration, as well as handle

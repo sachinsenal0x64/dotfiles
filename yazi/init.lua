@@ -1,3 +1,52 @@
+require("yatline"):setup({
+	section_separator = { open = "", close = "" },
+	part_separator = { open = "", close = "" },
+
+	style_a = {
+		fg = "#131313",
+		bg_mode = {
+			normal = "#db97bb",
+			select = "#db97bb",
+			un_set = "#db97bb",
+		},
+	},
+	style_b = { bg = "#db97bb", fg = "#131313" },
+
+	style_c = { bg = "#121111", fg = "#937094" },
+	tab_width = 20,
+
+	selected = { icon = "󰻭", fg = "#db97bb" },
+	copied = { icon = "", fg = "#db97bb" },
+	cut = { icon = "", fg = "#db97bb" },
+
+	total = { icon = "󰮍", fg = "#db97bb" },
+	succ = { icon = "", fg = "#db97bb" },
+	fail = { icon = "", fg = "#db97bb" },
+	found = { icon = "󰮕", fg = "#db97bb" },
+	processed = { icon = "󰐍", fg = "#db97bb" },
+
+	header_line = {
+		left = {
+			section_a = {
+				{ type = "line", custom = false, name = "tabs", params = { "left" } },
+			},
+			section_b = {},
+			section_c = {},
+		},
+		right = {
+			section_a = {},
+			section_b = {
+				{ type = "coloreds", custom = true, name = { { " 󰇥 ", "#131313" } } },
+			},
+			section_c = {
+				{ type = "coloreds", custom = false, name = "count" },
+			},
+		},
+	},
+
+	status_line = {},
+})
+
 require("relative-motions"):setup({ show_numbers = "absolute", show_motion = true })
 require("starship"):setup()
 -- Full Border

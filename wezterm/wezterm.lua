@@ -62,8 +62,8 @@ return {
 	dpi = 96.0,
 
 	-- Cursor style
-	default_cursor_style = "BlinkingBar",
 
+	default_cursor_style = "BlinkingBar",
 	-- X11
 	enable_wayland = true,
 
@@ -86,11 +86,6 @@ return {
 			action = wezterm.action({
 				SplitVertical = { domain = "CurrentPaneDomain" },
 			}),
-		},
-		{
-			key = "q",
-			mods = "CTRL",
-			action = wezterm.action({ CloseCurrentPane = { confirm = false } }),
 		},
 		{
 			key = "h",

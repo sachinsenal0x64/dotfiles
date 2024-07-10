@@ -224,7 +224,6 @@ previewers = [
 mime = "audio/*"
 run = "exifaudio"
 
-
 [[manager.prepend_keymap]]
 on = ["<Enter>"]
 run = "plugin --sync smart-enter"

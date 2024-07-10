@@ -1,5 +1,4 @@
 #!/bin/sh
+loginctl terminate-user $USER
 
-
-systemctl restart ly
 
