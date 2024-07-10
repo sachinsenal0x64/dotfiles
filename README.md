@@ -6,7 +6,7 @@
 | 🏖️ OS                       | Arch Linux                                    |                                |
 | 🏖️ Window Manager           | Qtile                                         |                                |
 | 🏖️ Compositor               | Picom (Arian8j2/picom)                        |                                |
-| 🏖️ Terminal                 | Kitty                                         |                                |
+| 🏖️ Terminal                 | Wezterm                                         |                                |
 | 🏖️ Color Schemes            | Pywal for OS                                  |                                |
 |                             | Rose Pine for GTK and QT                      |                                |
 |                             | Gruvbox for VIM                               |                                |
