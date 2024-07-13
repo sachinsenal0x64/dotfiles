@@ -10,7 +10,7 @@
 | 🏖️ Color Schemes            | OS                                            | Pywal                          |
 |                             | GTK and QT                                    | Rose Pine                      |
 | 🏖️ Text Editors             | Neovim                                        | Gruvbox                        |
-| 🏖️ Bar                      | Polybar                                       |                                |
+| 🏖️ Bar                      | Polybar                                       | Pywal                          |
 | 🏖️ Multiplexer              | Zellij                                        |                                |
 | 🏖️ Terminal File Manager    | Yazi                                          | Crystal                        |
 | 🏖️ Shell                    | Fish                                          |                                |
