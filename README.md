@@ -21,9 +21,9 @@
 | 🏖️ Notification             | Dunst                                         |                                |
 | 🏖️ Fonts                    | JetBrainsMono NF                              |                                |
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
-|                             | Thorium                                       | Rose Pine QT <br> Tabliss      |
-|                             | Qtile                                         | Rose Pine QT <br> Rose Pine GTK|
-| 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI         |                                |
+|                             | Thorium with Vimium                           | Rose Pine QT <br> Tabliss      |
+|                             | Qtile  & X11                                  | Rose Pine QT <br> Rose Pine GTK|
+| 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI         |                       |
 | 🏖️ Custom Scripts           | ADB SMS Recevier                              |                                |
 |                             | NAT Type Opener / Share Your Internet         |                                |
 |                             | Wallapaper Changer                            |                                |
