@@ -24,9 +24,5 @@
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium with Vimium                           | Rose Pine QT <br> Tabliss      |
 | 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI|                                |
-| 🏖️ Custom Scripts           | ADB SMS Recevier                              |                                |
-|                             | NAT Type Opener / Share Your Internet         |                                |
-|                             | Wallapaper Changer                            |                                |
-|                             | Github Notification Receiver                  |                                |
-|                             | Network Status Checker                        |                                |
+| 🏖️ Custom Scripts           | ADB SMS Recevier <br> NAT Type Opener + Share Your Internet <br> Wallapaper Changer <br> Github Notification Receiver <br>  Network Status Checker |                                |
 | 🏖️ SSH Console              | Waveterm                                      |                                |
