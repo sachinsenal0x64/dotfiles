@@ -4,9 +4,8 @@
 | Category                    | Software                                      | Themes / Configuration         |
 |-----------------------------|-----------------------------------------------|--------------------------------|
 | 🏖️ OS                       | Arch Linux                                    |                                |
-| 🏖️ Window Manager           | Qtile                                         |                                |
+| 🏖️ Window Manager           | Qtile  with X11                               |                                |
 | 🏖️ Compositor               | Picom (Arian8j2/picom) <br><br> Note: Currently i don't use                    |                                 |
-|                             |                                               |                                |
 | 🏖️ Terminal                 | Wezterm                                       |                                |
 | 🏖️ Color Schemes            | Pywal for OS                                  |                                |
 |                             | Rose Pine for GTK and QT                      |                                |
@@ -24,5 +23,5 @@
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium with Vimium                           | Rose Pine QT <br> Tabliss      |
 | 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI|                                |
-| 🏖️ Custom Scripts           | ADB SMS Recevier <br> NAT Type Opener + Share Your Internet <br> Wallapaper Changer <br> Github Notification Receiver <br>  Network Status Checker |                                |
+| 🏖️ Custom Scripts           | ADB SMS Recevier <br> NAT Type Opener + Share Your Internet <br> Wallapaper Changer <br> Github Notification Receiver <br>  Network Status Checker |
 | 🏖️ SSH Console              | Waveterm                                      |                                |
