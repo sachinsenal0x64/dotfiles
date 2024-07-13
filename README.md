@@ -29,4 +29,4 @@
 |                             | Wallapaper Changer                            |                                |
 |                             | Github Notification Receiver                  |                                |
 |                             | Network Status Checker                        |                                |
-| 🏖️ SSH Console              | Windterm                                      |                                |
+| 🏖️ SSH Console              | Waveterm                                      |                                |
