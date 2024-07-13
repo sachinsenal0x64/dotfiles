@@ -5,15 +5,14 @@
 |-----------------------------|-----------------------------------------------|--------------------------------|
 | 🏖️ OS                       | Arch Linux                                    |                                |
 | 🏖️ Window Manager           | Qtile  with X11                               |                                |
-| 🏖️ Compositor               | Picom (Arian8j2/picom) <br><br> Note: Currently i don't use                    |                                 |
-| 🏖️ Terminal                 | Wezterm                                       |                                |
-| 🏖️ Color Schemes            | Pywal for OS                                  |                                |
-|                             | Rose Pine for GTK and QT                      |                                |
-|                             | Gruvbox for VIM & Terminal                    |                                |
-| 🏖️ Text Editors             | Neovim                                        |                                |
+| 🏖️ Compositor               | Picom (Arian8j2/picom) <br><br> Note: Currently i don't use                    |                               
+| 🏖️ Terminal                 | Wezterm                                       | Gruvbox                        |
+| 🏖️ Color Schemes            | OS                                            | Pywal                          |
+|                             | GTK and QT                                    | Rose Pine                      |
+| 🏖️ Text Editors             | Neovim                                        | Gruvbox                        |
 | 🏖️ Bar                      | Polybar                                       |                                |
 | 🏖️ Multiplexer              | Zellij                                        |                                |
-| 🏖️ Terminal File Manager    | Yazi                                          | Crystal theme                  |
+| 🏖️ Terminal File Manager    | Yazi                                          | Crystal                        |
 | 🏖️ Shell                    | Fish                                          |                                |
 | 🏖️ Git clis                 | Git                                           |                                |
 |                             | Lazygit                                       |                                |
@@ -22,6 +21,6 @@
 | 🏖️ Fonts                    | JetBrainsMono NF                              |                                |
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium with Vimium                           | Rose Pine QT <br> Tabliss      |
-| 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI|                                |
+| 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI| Gruvbox                        |
 | 🏖️ Custom Scripts           | ADB SMS Recevier <br> NAT Type Opener + Share Your Internet <br> Wallapaper Changer <br> Github Notification Receiver <br>  Network Status Checker |
 | 🏖️ SSH Console              | Waveterm                                      |                                |
