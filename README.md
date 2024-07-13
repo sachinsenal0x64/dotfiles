@@ -3,7 +3,7 @@
 
 | Category                    | Software                                      | Themes / Configuration         |
 |-----------------------------|-----------------------------------------------|--------------------------------|
-| 🏖️ OS                       | Arch Linux                                    |  Pywal                         |
+| 🏖️ OS                       | Arch Linux                                    | Pywal                          |
 | 🏖️ Window Manager           | Qtile  with X11                               |                                |
 | 🏖️ Compositor               | Picom (Arian8j2/picom) <br><br> Note: Currently i don't use                    |                               
 | 🏖️ Terminal                 | Wezterm                                       | Gruvbox                        |
@@ -15,8 +15,8 @@
 | 🏖️ Shell                    | Fish                                          |                                |
 | 🏖️ Git clis                 | Git                                           |                                |
 |                             | Lazygit                                       |                                |
-| 🏖️ Prompt                   | Starship                                      |                                |
-| 🏖️ Notification             | Dunst                                         |                                |
+| 🏖️ Prompt                   | Starship                                      | Nerd Fonts                     |
+| 🏖️ Notification             | Dunst                                         | Rose Pine                      |
 | 🏖️ Fonts                    | JetBrainsMono NF                              |                                |
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium with Vimium                           | Rose Pine GTK <br> Tabliss     |
