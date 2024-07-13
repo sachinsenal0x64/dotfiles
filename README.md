@@ -5,8 +5,9 @@
 |-----------------------------|-----------------------------------------------|--------------------------------|
 | 🏖️ OS                       | Arch Linux                                    |                                |
 | 🏖️ Window Manager           | Qtile                                         |                                |
-| 🏖️ Compositor               | Picom (Arian8j2/picom) / Currently, I don't use                    |                                |
-| 🏖️ Terminal                 | Wezterm                                         |                                |
+| 🏖️ Compositor               | Picom (Arian8j2/picom) <br><br> Note: Currently i don't use                    |                                 |
+|                             |                                               |                                |
+| 🏖️ Terminal                 | Wezterm                                       |                                |
 | 🏖️ Color Schemes            | Pywal for OS                                  |                                |
 |                             | Rose Pine for GTK and QT                      |                                |
 |                             | Gruvbox for VIM & Terminal                    |                                |
@@ -22,8 +23,7 @@
 | 🏖️ Fonts                    | JetBrainsMono NF                              |                                |
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium with Vimium                           | Rose Pine QT <br> Tabliss      |
-|                             | Qtile  & X11                                  | Rose Pine QT <br> Rose Pine GTK|
-| 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI         |                       |
+| 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI|                                |
 | 🏖️ Custom Scripts           | ADB SMS Recevier                              |                                |
 |                             | NAT Type Opener / Share Your Internet         |                                |
 |                             | Wallapaper Changer                            |                                |
