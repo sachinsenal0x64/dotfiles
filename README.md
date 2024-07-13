@@ -1,4 +1,4 @@
-![image](https://github.com/sachinsenal0x64/picx-images-hosting/raw/master/2024-04-25-04:25:07-screenshot.7zq89owa65.webp)
+![image](https://sachinsenal0x64.github.io/picx-images-hosting/2024-07-13-23-04_36.45hjwq4yj6.webp)
 
 
 | Category                    | Software                                      | Themes / Configuration         |
