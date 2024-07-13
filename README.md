@@ -17,7 +17,7 @@
 |                             | Lazygit                                       |                                |
 | 🏖️ Prompt                   | Starship                                      | Nerd Fonts                     |
 | 🏖️ Notification             | Dunst                                         | Rose Pine                      |
-| 🏖️ Fonts                    | JetBrainsMono NF                              |                                |
+| 🏖️ Fonts                    | JetBrainsMono NF & JetBrainsMono NF Medium    |                                |
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium with Vimium                           | Rose Pine GTK <br> Tabliss     |
 | 🏖️ Players                  | MPV <br> TERMUSIC <br> MUSIKCUBE <br> HIFI-TUI| Gruvbox                        |
