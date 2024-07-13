@@ -3,12 +3,11 @@
 
 | Category                    | Software                                      | Themes / Configuration         |
 |-----------------------------|-----------------------------------------------|--------------------------------|
-| 🏖️ OS                       | Arch Linux                                    |                                |
+| 🏖️ OS                       | Arch Linux                                    |  Pywal                         |
 | 🏖️ Window Manager           | Qtile  with X11                               |                                |
 | 🏖️ Compositor               | Picom (Arian8j2/picom) <br><br> Note: Currently i don't use                    |                               
 | 🏖️ Terminal                 | Wezterm                                       | Gruvbox                        |
-| 🏖️ Color Schemes            | OS                                            | Pywal                          |
-|                             | GTK and QT                                    | Rose Pine                      |
+| 🏖️ Color Schemes            | GTK and QT                                    | Rose Pine                      |
 | 🏖️ Text Editors             | Neovim                                        | Gruvbox                        |
 | 🏖️ Bar                      | Polybar                                       | Pywal                          |
 | 🏖️ Multiplexer              | Zellij                                        |                                |
