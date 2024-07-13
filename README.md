@@ -5,11 +5,11 @@
 |-----------------------------|-----------------------------------------------|--------------------------------|
 | 🏖️ OS                       | Arch Linux                                    |                                |
 | 🏖️ Window Manager           | Qtile                                         |                                |
-| 🏖️ Compositor               | Picom (Arian8j2/picom)                        |                                |
+| 🏖️ Compositor               | Picom (Arian8j2/picom) / Currently, I don't use                    |                                |
 | 🏖️ Terminal                 | Wezterm                                         |                                |
 | 🏖️ Color Schemes            | Pywal for OS                                  |                                |
 |                             | Rose Pine for GTK and QT                      |                                |
-|                             | Gruvbox for VIM                               |                                |
+|                             | Gruvbox for VIM & Terminal                    |                                |
 | 🏖️ Text Editors             | Neovim                                        |                                |
 | 🏖️ Bar                      | Polybar                                       |                                |
 | 🏖️ Multiplexer              | Zellij                                        |                                |
@@ -19,7 +19,7 @@
 |                             | Lazygit                                       |                                |
 | 🏖️ Prompt                   | Starship                                      |                                |
 | 🏖️ Notification             | Dunst                                         |                                |
-| 🏖️ Fonts                    | Jetbrain mono nerds medium                    |                                |
+| 🏖️ Fonts                    | JetBrainsMono NF                              |                                |
 | 🏖️ Browsers                 | Firefox                                       | Pywalfox <br> Tabliss          |
 |                             | Thorium                                       | Rose Pine QT <br> Tabliss      |
 |                             | Qtile                                         | Rose Pine QT <br> Rose Pine GTK|
