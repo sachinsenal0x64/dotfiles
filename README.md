@@ -15,7 +15,7 @@
 | 🏖️ Bar                      | Polybar                                       |                                |
 | 🏖️ Multiplexer              | Zellij                                        |                                |
 | 🏖️ Terminal File Manager    | Yazi                                          | Crystal theme                  |
-| 🏖️ Shell                    | Bash                                          |                                |
+| 🏖️ Shell                    | Fish                                          |                                |
 | 🏖️ Git clis                 | Git                                           |                                |
 |                             | Lazygit                                       |                                |
 | 🏖️ Prompt                   | Starship                                      |                                |
