@@ -12,7 +12,7 @@ export TERM=xterm-256color ssh
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
-export FLYCTL_INSTALL="/home/pc/.fly"
+export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 alias ls="eza --icons=auto"
@@ -29,7 +29,7 @@ set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
 # pnpm
-set -gx PNPM_HOME "/home/pc/.local/share/pnpm"
+set -gx PNPM_HOME "$HOME/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
