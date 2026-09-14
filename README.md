@@ -1,5 +1,5 @@
 > [!WARNING]  
-> I don't recommend Qtile dotfiles as they have huge performance issues. Currently, I'm using Hyperland with optimized minimal dotfiles that are 10x times faster than Qtile. I will update as soon as possible.
+> I don't recommend Qtile dotfiles as they have huge performance issues. Currently, I'm using Hyperland that are 10x faster than Qtile. I will update as soon as possible.
 
 <br>
 
